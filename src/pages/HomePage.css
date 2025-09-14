@@ -1,0 +1,36 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}
+
+.home-page img {
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.home-page h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.home-page .cards-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 900px;
+}
+
+.home-page .card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.home-page .card img {
+  height: 100px;
+  margin-bottom: 10px;
+}

@@ -1,6 +1,7 @@
 import './App.css';
 import Menu from './components/Menu';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
 import Tests from './pages/Tests';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
@@ -12,7 +13,7 @@ function App() {
     <BrowserRouter>
       <Menu />
       <Routes>
-        <Route path="/" element={<div className="content"><h1>Welcome to Glass Bird!</h1></div>} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/tests" element={<Tests />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
