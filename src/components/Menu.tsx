@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Menu.module.css';
+import logo from '../assets/logo.png';
 import { Link } from 'react-router-dom';
 
 interface MenuItem {
@@ -38,7 +39,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = () => {
       <nav className={styles['nav-container']}>
         <div className={styles['nav-content']}>
           <Link to="/" className={styles.logo} style={{ display: 'inline-flex', alignItems: 'center' }}>
-            <img src="/src/assets/logo.png" alt="Logo" style={{ height: '75px', marginRight: '2px', verticalAlign: 'middle' }} />
+            <img src={logo} alt="Logo" style={{ height: '75px', marginRight: '2px', verticalAlign: 'middle' }} />
             Glass Bird
           </Link>
 
