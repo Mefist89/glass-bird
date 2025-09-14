@@ -1,0 +1,131 @@
+{
+  "tests": [
+    {
+      "id": 1,
+      "question": "You want to write a code snippet to read the total data from a text file and print it to the monitor. What snippet would you insert in the line indicated below:",
+      "code": "try:\n    file = open('data.txt', 'r')\n     # insert your code here\n    print(data)\nexcept:\n    print('Something went wrong!')",
+      "options": [
+        "data = file.readlines()",
+        "data = file.read()",
+        "data = file.load()",
+        "data = file.readline()"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The correct choice is to use `file.read()` to read the total data from the text file. This method reads the entire file content as a single string and is suitable for printing the total data to the monitor in one go."
+    },
+    {
+      "id": 2,
+      "question": "The Exception class contains a property named args and it is a:?",
+      "options": [
+        "tuple",
+        "dictionary",
+        "list",
+        "string"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The args property in the Exception class is a tuple. It stores the arguments passed to the exception constructor and can be accessed using the args attribute. This allows for detailed information about the exception to be retrieved and displayed."
+    },
+    {
+      "id": 3,
+      "question": "What is the correct command to shuffle the following list?",
+      "code": "import random\npeople = ['Peter', 'Paul', 'Mary', 'Jane']",
+      "options": [
+        "shuffle(people)",
+        "random.shuffleList(people)",
+        "random.shuffle(people)",
+        "people.shuffle()"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The correct command to shuffle a list using the random module is 'random.shuffle(people)'. This function shuffles the elements of the list 'people' in place, meaning it directly modifies the original list."
+    },
+    {
+      "id": 4,
+      "question": "When a module is imported, its contents:",
+      "options": [
+        "are ignored",
+        "are executed once",
+        "are executed as many times as they are imported",
+        "are executed depending on the contents"
+      ],
+      "correctAnswer": 1,
+      "explanation": "When a module is imported in Python, its contents are executed only once, regardless of how many times the module is imported. This ensures that the module's code is not repeatedly executed, improving efficiency and preventing potential issues with reinitialization of variables or functions."
+    },
+    {
+      "id": 5,
+      "question": "What is the expected output of the following code?",
+      "code": "print(list('hello'))",
+      "options": [
+        "['h' 'e' 'l' 'l' 'o']",
+        "['h', 'e', 'l', 'l', 'o']",
+        "None of the above.",
+        "[h, e, l, l, o]"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The list() function converts the string 'hello' into a list of individual characters, resulting in ['h', 'e', 'l', 'l', 'o']. This is the correct syntax for creating a list of characters from a string."
+    },
+    {
+      "id": 6,
+      "question": "What is the expected output of the following code?",
+      "code": "nums = [3, 4, 5, 20, 5, 25, 1, 3]\nnums.pop(1)\nprint(nums)",
+      "options": [
+        "[3, 4, 5, 20, 5, 25, 1, 3]",
+        "[3, 1, 25, 5, 20, 5, 4]",
+        "[1, 3, 4, 5, 20, 5, 25]",
+        "[3, 5, 20, 5, 25, 1, 3]"
+      ],
+      "correctAnswer": 3,
+      "explanation": "The code removes the element at index 1 from the list 'nums' using the pop() method. After removing the element at index 1 (which is 4), the resulting list is [3, 5, 20, 5, 25, 1, 3].\nIf the index is given, pop() removes and returns\nthe element at the given index.\nThe default index is -1\nMeaning that the last index is removed and returned.\nHere the index 1 gets removed: the number 4"
+    },
+    {
+      "id": 7,
+      "question": "What is the expected output of the following code?",
+      "code": "def func(x):\n    try:\n        x = x / x\n    except:\n        print('a', end='')\n    else:\n        print('b', end='')\n    finally:\n        print('c', end='')\nfunc(1)\nfunc(0)",
+      "options": [
+        "bac",
+        "bcbc",
+        "bcac",
+        "bca"
+      ],
+      "correctAnswer": 1,
+      "explanation": "This choice is incorrect because it does not account for the 'b' that should be printed when `func(1)` is called and the division operation is successful.\nfunc(1) will try to execute 1 / 1\nThat will work fine and therefore not the except block,\nbut the else block will be executed -> b\nThe finally block always gets executed -> c\nfunc(0) will try to execute 1 / 0\nThat can not work.\nIn Python (like in any programming language) you can not divide by zero.\nIn Python a ZeroDivisionError is raised\nand the except block is executed -> a\n Therefore the else block is not executed.\nAnd again the finally block always gets executed -> c"
+    },
+        {
+      "id": 8,
+      "question": "What will be the output of the following code snippet?",
+      "code": "a = [1, 2, 3, 4, 5, 6, 7, 8, 9]\nprint(a[::2])",
+      "options": [
+        "[1, 3, 5, 7, 9]",
+        "[1, 2, 3]",
+        "[1, 2]",
+        "[8, 9]"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The code snippet uses slicing with a step of 2 (a[::2]), which means it will start from the beginning of the list and select every second element. Therefore, the output will be [1, 3, 5, 7, 9].\nTopic: list slicing\nTry it yourself:\na = [1, 2, 3, 4, 5, 6, 7, 8, 9]\nprint(a[::2])  # [1, 3, 5, 7, 9]\nExplanation:\nList slicing: [start(inclusive):end(exclusive):step]\nThe start and end values are missing here.\nIf you leave them out, you will slice from the beginning to the end.\nIf you leave the end out it will also be inclusive.\nThe third value (the step) is 2 therefore every second element gets taken."
+    },
+    {
+      "id": 9,
+      "question": "How many stars will the following code print to the monitor?",
+      "code": "i = 0\nwhile i <= 3:\n    i += 2\n    print('*')",
+      "options": [
+        "one",
+        "two",
+        "three",
+        "zero"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The code starts with i=0 and enters the while loop. Inside the loop, i is incremented by 2 in each iteration. Therefore, the loop will run for two iterations, printing '*' twice before the condition i <= 3 becomes false."
+    },
+    {
+      "id": 10,
+      "question": "What is the default return value for a function that does not explicitly return any value?",
+      "options": [
+        "None",
+        "void",
+        "public",
+        "Null"
+      ],
+      "correctAnswer": 0,
+      "explanation": "In Python, if a function does not explicitly return any value, the default return value is 'None'. This means that the function will return None if no return statement is specified."
+    }
+  ]
+}
