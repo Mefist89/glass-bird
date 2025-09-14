@@ -37,8 +37,9 @@ const NavigationMenu: React.FC<NavigationMenuProps> = () => {
     <>
       <nav className={styles['nav-container']}>
         <div className={styles['nav-content']}>
-          <Link to="/" className={styles.logo}>
-            Logo
+          <Link to="/" className={styles.logo} style={{ display: 'inline-flex', alignItems: 'center' }}>
+            <img src="/src/assets/logo.png" alt="Logo" style={{ height: '75px', marginRight: '2px', verticalAlign: 'middle' }} />
+            Glass Bird
           </Link>
 
           {/* Desktop Menu */}
