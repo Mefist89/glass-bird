@@ -1,0 +1,65 @@
+{
+  "tests": [
+    {
+      "id": 1,
+      "question": "A developer wants documentation for a function to display when called upon in a print statement. Use the dropdown menus to fill in the remainder of the code necessary to generate the documentation.",
+      "code": "def calculate_area(radius):\n    \"\"\"Calculate the area of a circle.\n    \n    Args:\n        radius (float): The radius of the circle\n    \n    Returns:\n        float: The area of the circle\n    \"\"\"\n    return 3.14159 * radius ** 2\n\n# To display documentation:\nprint(_____(calculate_area))",
+      "options": [
+        "__doc__",
+        "__help__",
+        "help()",
+        "docs()"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The help() function in Python is used to display the documentation (docstring) of a function. When you call help(function_name), it shows the function's docstring along with other useful information about the function's parameters and usage."
+    },
+    {
+      "id": 2,
+      "question": "Which method is used to add an element to the end of a list in Python?",
+      "options": [
+        "add()",
+        "insert()",
+        "append()",
+        "push()"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The append() method adds a single element to the end of a list. Unlike insert() which requires an index, append() always adds to the end. The add() method is used for sets, and push() is not a Python list method."
+    },
+    {
+      "id": 3,
+      "question": "What is the correct way to create a dictionary in Python?",
+      "options": [
+        "dict = [key: value]",
+        "dict = {key: value}",
+        "dict = (key: value)",
+        "dict = <key: value>"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Dictionaries in Python are created using curly braces {} with key-value pairs separated by colons. Square brackets [] are for lists, parentheses () are for tuples, and angle brackets <> are not valid Python syntax for data structures."
+    },
+    {
+      "id": 4,
+      "question": "Which loop is best suited for iterating over a sequence when you don't need the index?",
+      "options": [
+        "while loop",
+        "for loop with range()",
+        "for loop with direct iteration",
+        "do-while loop"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A for loop with direct iteration (for item in sequence) is the most Pythonic way to iterate over a sequence when you don't need the index. It's cleaner and more readable than using range() and indexing, and Python doesn't have a do-while loop."
+    },
+    {
+      "id": 5,
+      "question": "What does the 'self' parameter represent in a Python class method?",
+      "options": [
+        "The class itself",
+        "The current instance of the class",
+        "A static reference",
+        "The parent class"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The 'self' parameter refers to the current instance of the class. It allows you to access instance variables and methods within the class. It's automatically passed when you call a method on an object, but must be explicitly defined as the first parameter in method definitions."
+    }
+  ]
+}
