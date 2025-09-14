@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Menu.module.css';
+import { Link } from 'react-router-dom';
 
 interface MenuItem {
   id: string;
@@ -15,11 +16,12 @@ const NavigationMenu: React.FC<NavigationMenuProps> = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const menuItems: MenuItem[] = [
-    { id: 'home', label: 'Главная', href: '#home' },
-    { id: 'about', label: 'О нас', href: '#about' },
-    { id: 'services', label: 'Услуги', href: '#services' },
-    { id: 'portfolio', label: 'Портфолио', href: '#portfolio' },
-    { id: 'contact', label: 'Контакты', href: '#contact' },
+    { id: 'home', label: 'Home', href: '/' },
+    { id: 'about', label: 'About Us', href: '/about' },
+    { id: 'services', label: 'Contact', href: '/contact' },
+    { id: 'portfolio', label: 'Login', href: '/login' },
+    { id: 'contact', label: 'Register', href: '/register' },
+    { id: 'tests', label: 'Tests', href: '/tests' },
   ];
 
   const handleItemClick = (itemId: string): void => {
@@ -35,24 +37,21 @@ const NavigationMenu: React.FC<NavigationMenuProps> = () => {
     <>
       <nav className={styles['nav-container']}>
         <div className={styles['nav-content']}>
-          <a href="#" className={styles.logo}>
+          <Link to="/" className={styles.logo}>
             Logo
-          </a>
+          </Link>
 
           {/* Desktop Menu */}
           <div className={styles['desktop-menu']}>
             {menuItems.map((item) => (
-              <a
+              <Link
                 key={item.id}
-                href={item.href}
+                to={item.href}
                 className={`${styles['menu-item']} ${activeItem === item.id ? styles.active : ''}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleItemClick(item.id);
-                }}
+                onClick={() => handleItemClick(item.id)}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -71,32 +70,17 @@ const NavigationMenu: React.FC<NavigationMenuProps> = () => {
         {/* Mobile Menu */}
         <div className={`${styles['mobile-menu']} ${isMobileMenuOpen ? styles.open : ''}`}>
           {menuItems.map((item) => (
-            <a
+            <Link
               key={item.id}
-              href={item.href}
+              to={item.href}
               className={`${styles['mobile-menu-item']} ${activeItem === item.id ? styles.active : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                handleItemClick(item.id);
-              }}
+              onClick={() => handleItemClick(item.id)}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </div>
       </nav>
-
-      {/* Demo Content */}
-      <div className={styles['demo-content']}>
-        <div className={styles['demo-card']}>
-          <h2 className={styles['demo-title']}>
-            Активная страница: {menuItems.find(item => item.id === activeItem)?.label}
-          </h2>
-          <p className={styles['demo-text']}>
-            Нажмите на любой пункт меню, чтобы увидеть изменения. Меню адаптивное и работает на мобильных устройствах.
-          </p>
-        </div>
-      </div>
     </>
   );
 };
