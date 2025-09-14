@@ -4,6 +4,9 @@
   align-items: center;
   justify-content: center;
   min-height: 80vh;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .home-page img {
