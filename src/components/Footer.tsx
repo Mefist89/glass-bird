@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Footer.module.css';
-import logo from '../assets/logo.png';
 import { Link } from 'react-router-dom';
+import { Facebook, MessageCircle, Globe } from 'lucide-react';
 
 interface MenuItem {
   id: string;
@@ -22,10 +22,18 @@ const Footer: React.FC = () => {
   return (
     <footer className={styles['nav-container']} style={{ marginTop: 'auto' }}>
       <div className={styles['nav-content']}>
-        <Link to="/" className={styles.logo} style={{ display: 'inline-flex', alignItems: 'center' }}>
-          <img src={logo} alt="Logo" style={{ height: '75px', marginRight: '2px', verticalAlign: 'middle' }} />
-          Glass Bird
-        </Link>
+        {/* Social Media Icons */}
+        <div style={{ display: 'flex', gap: '16px' }}>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" style={{ color: '#6b7280', transition: 'color 0.2s ease' }}>
+            <Facebook size={24} />
+          </a>
+          <a href="https://telegram.org" target="_blank" rel="noopener noreferrer" style={{ color: '#6b7280', transition: 'color 0.2s ease' }}>
+            <MessageCircle size={24} />
+          </a>
+          <a href="https://discord.com" target="_blank" rel="noopener noreferrer" style={{ color: '#6b7280', transition: 'color 0.2s ease' }}>
+            <Globe size={24} />
+          </a>
+        </div>
 
         {/* Desktop Menu */}
         <div className={styles['desktop-menu']}>
@@ -49,9 +57,9 @@ const Footer: React.FC = () => {
       </div>
       
       {/* Copyright and Legal Information */}
-      <div style={{
-        textAlign: 'center',
-        padding: '20px',
+      <div style={{ 
+        textAlign: 'center', 
+        padding: '20px', 
         borderTop: '1px solid #e5e7eb',
         fontSize: '14px',
         color: '#6b7280'
