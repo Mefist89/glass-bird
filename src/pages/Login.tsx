@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Login.module.css';
-import { Eye, EyeOff, Lock, Mail, User, Facebook, Chrome } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, Facebook, Chrome } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
