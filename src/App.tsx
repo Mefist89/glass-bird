@@ -1,5 +1,6 @@
 import './App.css';
 import Menu from './components/Menu';
+import Footer from './components/Footer';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import Tests from './pages/Tests';
@@ -20,6 +21,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<Register />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
