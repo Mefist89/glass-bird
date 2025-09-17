@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 interface MenuItem {
   id: string;
   label: string;
-  href: string;
+  href?: string;
+  submenu?: MenuItem[];
 }
 
 interface NavigationMenuProps {
@@ -18,10 +19,18 @@ const NavigationMenu: React.FC<NavigationMenuProps> = () => {
 
   const menuItems: MenuItem[] = [
     { id: 'home', label: 'Home', href: '/' },
-    { id: 'about', label: 'About Us', href: '/about' },
-    { id: 'services', label: 'Contact', href: '/contact' },
-    { id: 'portfolio', label: 'Login', href: '/login' },
-    { id: 'contact', label: 'Register', href: '/register' },
+    { 
+      id: 'course', 
+      label: 'Course', 
+      submenu: [
+        { id: 'python', label: 'Python', href: '/python' },
+        { id: 'network', label: 'Network', href: '/network' },
+        { id: 'sql', label: 'SQL', href: '/sql' }
+      ] 
+    },
+    { id: 'contact', label: 'Contact', href: '/contact' },
+    { id: 'login', label: 'Login', href: '/login' },
+    { id: 'register', label: 'Register', href: '/register' },
     { id: 'tests', label: 'Tests', href: '/tests' },
   ];
 
@@ -46,14 +55,44 @@ const NavigationMenu: React.FC<NavigationMenuProps> = () => {
           {/* Desktop Menu */}
           <div className={styles['desktop-menu']}>
             {menuItems.map((item) => (
-              <Link
-                key={item.id}
-                to={item.href}
-                className={`${styles['menu-item']} ${activeItem === item.id ? styles.active : ''}`}
-                onClick={() => handleItemClick(item.id)}
+              <div 
+                key={item.id} 
+                className={styles['menu-item-container']}
+                style={{ position: 'relative' }}
               >
-                {item.label}
-              </Link>
+                {item.href ? (
+                  <Link
+                    to={item.href}
+                    className={`${styles['menu-item']} ${activeItem === item.id ? styles.active : ''}`}
+                    onClick={() => handleItemClick(item.id)}
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <div
+                    className={`${styles['menu-item']} ${activeItem === item.id ? styles.active : ''}`}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {item.label}
+                  </div>
+                )}
+                
+                {/* Submenu */}
+                {item.submenu && (
+                  <div className={styles['submenu']}>
+                    {item.submenu.map((subItem) => (
+                      <Link
+                        key={subItem.id}
+                        to={subItem.href || '#'}
+                        className={styles['submenu-item']}
+                        onClick={() => handleItemClick(subItem.id)}
+                      >
+                        {subItem.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </div>
 
@@ -72,14 +111,40 @@ const NavigationMenu: React.FC<NavigationMenuProps> = () => {
         {/* Mobile Menu */}
         <div className={`${styles['mobile-menu']} ${isMobileMenuOpen ? styles.open : ''}`}>
           {menuItems.map((item) => (
-            <Link
-              key={item.id}
-              to={item.href}
-              className={`${styles['mobile-menu-item']} ${activeItem === item.id ? styles.active : ''}`}
-              onClick={() => handleItemClick(item.id)}
-            >
-              {item.label}
-            </Link>
+            <div key={item.id}>
+              {item.href ? (
+                <Link
+                  to={item.href}
+                  className={`${styles['mobile-menu-item']} ${activeItem === item.id ? styles.active : ''}`}
+                  onClick={() => handleItemClick(item.id)}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <div
+                  className={`${styles['mobile-menu-item']} ${activeItem === item.id ? styles.active : ''}`}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {item.label}
+                </div>
+              )}
+              
+              {/* Mobile Submenu */}
+              {item.submenu && (
+                <div style={{ paddingLeft: '20px' }}>
+                  {item.submenu.map((subItem) => (
+                    <Link
+                      key={subItem.id}
+                      to={subItem.href || '#'}
+                      className={`${styles['mobile-menu-item']} ${activeItem === subItem.id ? styles.active : ''}`}
+                      onClick={() => handleItemClick(subItem.id)}
+                    >
+                      {subItem.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </div>
       </nav>

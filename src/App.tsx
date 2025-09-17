@@ -8,6 +8,9 @@ import Contact from './pages/Contact';
 import Login from './pages/Login';
 import About from './pages/About';
 import Register from './pages/Register';
+import Python from './pages/Python';
+import Network from './pages/Network';
+import SQL from './pages/SQL';
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/python" element={<Python />} />
+        <Route path="/network" element={<Network />} />
+        <Route path="/sql" element={<SQL />} />
       </Routes>
       <Footer />
     </BrowserRouter>
