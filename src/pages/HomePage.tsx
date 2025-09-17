@@ -40,20 +40,23 @@ const HomePage = () => {
           <p>Ace your SQL exam with our focused practice questions and tutorials.</p>
           <button className={styles.cardButton}>Learn More</button>
         </div>
-      </div>
-      
-      <div className={styles.features}>
-        <div className={styles.feature}>
+        
+        <div className={styles.card}>
           <h3>Comprehensive Practice Tests</h3>
           <p>Access hundreds of practice questions tailored to your exam objectives.</p>
+          <button className={styles.cardButton}>Learn More</button>
         </div>
-        <div className={styles.feature}>
+        
+        <div className={styles.card}>
           <h3>Personalized Learning</h3>
           <p>Get customized study plans based on your progress and weak areas.</p>
+          <button className={styles.cardButton}>Learn More</button>
         </div>
-        <div className={styles.feature}>
+        
+        <div className={styles.card}>
           <h3>Expert Support</h3>
           <p>Connect with industry experts and get your questions answered.</p>
+          <button className={styles.cardButton}>Learn More</button>
         </div>
       </div>
     </div>
