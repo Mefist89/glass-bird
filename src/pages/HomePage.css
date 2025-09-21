@@ -120,7 +120,7 @@
 
 @media (max-width: 992px) {
   .cardsContainer {
-    max-width: 600px;
+    max-width: 100%;
   }
   
   .card {
@@ -139,7 +139,7 @@
   
   .cardsContainer {
     gap: 1.5rem;
-    max-width: 500px;
+    max-width: 100%;
   }
   
   .card {
@@ -167,17 +167,46 @@
     margin-bottom: 2rem;
   }
   
+  .logo {
+    height: 80px;
+  }
+  
   .header h1 {
     font-size: 1.75rem;
+  }
+  
+  .subtitle {
+    font-size: 0.9rem;
   }
   
   .cardsContainer {
     flex-direction: column;
     align-items: center;
     max-width: 100%;
+    gap: 1rem;
   }
   
   .card {
     max-width: 100%;
+    padding: 1.25rem;
+  }
+  
+  .cardIcon img {
+    height: 60px;
+    width: 60px;
+  }
+  
+  .card h3 {
+    font-size: 1.25rem;
+  }
+  
+  .card p {
+    font-size: 0.9rem;
+    margin: 0 0 1rem 0;
+  }
+  
+  .cardButton {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
   }
 }

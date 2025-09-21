@@ -1,0 +1,31 @@
+.progressSquare {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.progressSquare.completed {
+  background-color: #22c55e;
+}
+
+.progressSquare.current {
+  background-color: #15803d;
+}
+
+.progressSquare.uncompleted {
+  background-color: #9ca3af;
+}
+
+.progressContainer {
+  display: flex;
+  gap: 4px;
+  padding: 16px;
+  background-color: #1f2937;
+}

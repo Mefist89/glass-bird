@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ProgressSquares from '../components/ProgressSquare';
 
 const Python: React.FC = () => {
-  return (
+  const [progress, setProgress] = useState({
+    totalSteps: 9,
+    completedSteps: 3,
+    currentStep: 4
+  });
+
+ return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
+      <ProgressSquares
+        totalSteps={progress.totalSteps}
+        completedSteps={progress.completedSteps}
+        currentStep={progress.currentStep}
+      />
+      
       <h1>Python Course</h1>
       <p>Welcome to our comprehensive Python programming course!</p>
       <p>Python is a high-level, interpreted programming language known for its simplicity and readability. It's widely used in web development, data science, artificial intelligence, and more.</p>
