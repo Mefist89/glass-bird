@@ -1,7 +1,7 @@
 import './App.css';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import Tests from './pages/Tests';
 import Contact from './pages/Contact';
@@ -12,10 +12,13 @@ import Python from './pages/Python';
 import Network from './pages/Network';
 import SQL from './pages/SQL';
 
-function App() {
+const AppContent: React.FC = () => {
+  const location = useLocation();
+  const hideMenuFooter = location.pathname === '/python';
+
   return (
-    <BrowserRouter>
-      <Menu />
+    <>
+      {!hideMenuFooter && <Menu />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/tests" element={<Tests />} />
@@ -27,7 +30,15 @@ function App() {
         <Route path="/network" element={<Network />} />
         <Route path="/sql" element={<SQL />} />
       </Routes>
-      <Footer />
+      {!hideMenuFooter && <Footer />}
+    </>
+  );
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 }
