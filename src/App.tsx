@@ -14,7 +14,7 @@ import SQL from './pages/SQL';
 import { useState, useEffect } from 'react';
 
 const AppContent: React.FC = () => {
-  const location = useLocation();
+  // const location = useLocation();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const toggleSidebar = () => {

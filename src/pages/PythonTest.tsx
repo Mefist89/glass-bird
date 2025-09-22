@@ -15,12 +15,12 @@ interface TestData {
 }
 
 interface PythonTestProps {
-  toggleSidebar?: () => void;
-  isSidebarOpen?: boolean;
+  // toggleSidebar?: () => void;
+  // isSidebarOpen?: boolean;
   isMobile?: boolean;
 }
 
-const PythonTest: React.FC<PythonTestProps> = ({ toggleSidebar, isSidebarOpen, isMobile }) => {
+const PythonTest: React.FC<PythonTestProps> = ({ isMobile }) => {
   const [testData, setTestData] = useState<TestData | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);

@@ -35,10 +35,10 @@ interface ProgressSquaresProps {
   currentStep?: number;
 }
 
-const ProgressSquares: React.FC<ProgressSquaresProps> = ({ 
-  totalSteps = 14, 
-  completedSteps = 9, 
-  currentStep = 10 
+const ProgressSquares: React.FC<ProgressSquaresProps> = ({
+  totalSteps = 14,
+  // completedSteps = 9,
+  currentStep = 10
 }) => {
   const renderSquares = () => {
     return Array.from({ length: totalSteps }, (_, index) => {
