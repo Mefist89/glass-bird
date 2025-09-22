@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Python.module.css';
-import logo from '../assets/logo.png';
 import ProgressSquares from '../components/ProgressSquare';
 import PythonTest from './PythonTest';
 
@@ -22,10 +21,6 @@ const Python: React.FC = () => {
       {/* Header */}
       <header className={styles.header}>
         <div className={styles.headerGrid}>
-          <div className={styles.logoContainer}>
-            <img src={logo} alt="Logo" className={styles.logo} />
-            <h1>Python Course</h1>
-          </div>
           <div className={styles.progressContainer}>
             <ProgressSquares totalSteps={9} completedSteps={3} currentStep={4} />
           </div>
