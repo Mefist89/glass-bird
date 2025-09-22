@@ -34,10 +34,6 @@ const Python: React.FC = () => {
         </main>
       </div>
       
-      {/* Footer */}
-      <footer className={styles.footer}>
-        <p>Footer Content</p>
-      </footer>
     </div>
   );
 };

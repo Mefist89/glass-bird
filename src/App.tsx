@@ -1,6 +1,5 @@
 import './App.css';
 import Sidebar from './components/Sidebar';
-import Footer from './components/Footer';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import Tests from './pages/Tests';
@@ -54,7 +53,6 @@ const AppContent: React.FC = () => {
             <Route path="/sql" element={<SQL />} />
           </Routes>
         </div>
-        <Footer />
       </div>
     </div>
   );
