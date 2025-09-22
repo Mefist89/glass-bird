@@ -40,134 +40,8 @@
 }
 
 .main {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-template-rows: 1fr;
-  gap: 0;
+  display: block;
   flex: 1;
-}
-
-/* Sidebar toggle button */
-.sidebarToggle {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 60px;
-  left: 10px;
-  width: 40px;
-  height: 40px;
-  background: #1d4ed8;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  z-index: 100;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.sidebarToggle:hover {
-  background: #1e40af;
-  transform: scale(1.05);
-}
-
-.sidebarToggle.open {
-  left: 10px;
-}
-
-.hamburgerLine {
-  width: 24px;
-  height: 3px;
-  background: white;
-  margin: 3px 0;
-  transition: all 0.3s ease;
-  border-radius: 2px;
-}
-
-/* Hamburger animation when sidebar is open */
-.sidebarToggle.open .hamburgerLine:nth-child(1) {
-  transform: rotate(45deg) translate(6px, 6px);
-}
-
-.sidebarToggle.open .hamburgerLine:nth-child(2) {
-  opacity: 0;
-}
-
-.sidebarToggle.open .hamburgerLine:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
-}
-
-.sidebar {
-  background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  height: 100%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-  z-index: 10;
-}
-
-.sidebarTitle {
-  color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.module {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  margin-bottom: 10px;
-  padding: 10px;
-  transition: all 0.3s ease;
-}
-
-.module:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.moduleHeader {
-  cursor: pointer;
-  font-weight: bold;
-  padding: 5px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-}
-
-.moduleTitle {
-  flex-grow: 1;
-}
-
-.moduleArrow {
-  font-size: 1.2rem;
-  transition: transform 0.3s ease;
-}
-
-.moduleArrowOpen {
-  transform: rotate(180deg);
-}
-
-.lecturesList {
-  padding-left: 20px;
-  margin-top: 10px;
-}
-
-.lecture {
-  padding: 5px 0;
-  color: #f0f0f0;
-  transition: all 0.2s ease;
-}
-
-.lecture:hover {
-  color: white;
-  transform: translateX(5px);
 }
 
 .content {
@@ -183,53 +57,20 @@
   grid-row: 3;
 }
 
-/* Additional classes for sidebar states */
-.sidebar.closed {
-  transform: translateX(-100%);
-}
-
-.content.fullWidth {
-  grid-column: 1 / -1;
-}
-
 /* Mobile styles */
 @media (max-width: 768px) {
-  .sidebarToggle {
-    display: block;
+  .headerGrid {
+    grid-template-columns: 1fr;
+    gap: 5px;
   }
   
- .main {
-    display: block;
-    position: relative;
+  .logo {
+    height: 40px;
   }
   
-  .sidebar {
-    position: fixed;
-    top: 110px; /* Adjust for header height */
-    left: 0;
-    width: 80%;
-    max-width: 300px;
-    height: calc(100vh - 160px); /* Adjust for header and footer */
-    z-index: 100;
-    transform: translateX(-100%);
-    overflow-y: auto;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .sidebar.open {
-    transform: translateX(0);
-    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .content {
-    width: 100%;
-    padding: 10px;
-    transition: margin-left 0.3s ease;
+  .progressContainer {
+    justify-content: center;
     margin-left: 0;
-  }
-  
-  .sidebar.closed {
-    transform: translateX(-100%);
   }
 }
 
@@ -246,12 +87,5 @@
   .progressContainer {
     justify-content: center;
     margin-left: 0;
-  }
-  
-  .sidebar {
-    width: 100%;
-    max-width: none;
-    top: 70px;
-    height: calc(100vh - 140px);
   }
 }

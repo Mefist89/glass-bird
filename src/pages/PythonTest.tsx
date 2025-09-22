@@ -14,7 +14,13 @@ interface TestData {
   tests: TestQuestion[];
 }
 
-const PythonTest: React.FC = () => {
+interface PythonTestProps {
+  toggleSidebar?: () => void;
+  isSidebarOpen?: boolean;
+  isMobile?: boolean;
+}
+
+const PythonTest: React.FC<PythonTestProps> = ({ toggleSidebar, isSidebarOpen, isMobile }) => {
   const [testData, setTestData] = useState<TestData | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -135,6 +141,22 @@ const PythonTest: React.FC = () => {
  if (isTestCompleted) {
     return (
       <div className={styles['test-page']}>
+        {/* Mobile sidebar toggle button */}
+        {isMobile && (
+          <button
+            className={`${styles['sidebar-toggle']}`}
+            aria-label="Toggle sidebar"
+            onClick={() => {
+              // Отправляем событие для переключения sidebar'а
+              const event = new CustomEvent('toggle-sidebar');
+              window.dispatchEvent(event);
+            }}
+          >
+            <span className={styles['hamburger-line']}></span>
+            <span className={styles['hamburger-line']}></span>
+            <span className={styles['hamburger-line']}></span>
+          </button>
+        )}
         <header className={styles['test-header']}>
           <div className={styles['results-header']}>
             <h1 className={styles['results-title']}>Test Results</h1>
@@ -181,6 +203,23 @@ const PythonTest: React.FC = () => {
 
   return (
     <div className={styles['test-page']}>
+      {/* Mobile sidebar toggle button */}
+      {isMobile && (
+        <button
+          className={`${styles['sidebar-toggle']}`}
+          aria-label="Toggle sidebar"
+          onClick={() => {
+            // Отправляем событие для переключения sidebar'а
+            const event = new CustomEvent('toggle-sidebar');
+            window.dispatchEvent(event);
+          }}
+        >
+          <span className={styles['hamburger-line']}></span>
+          <span className={styles['hamburger-line']}></span>
+          <span className={styles['hamburger-line']}></span>
+        </button>
+      )}
+      
       <header className={styles['test-header']}>
         <div className={styles['nav-buttons']}>
           <button

@@ -444,3 +444,73 @@
     text-align: center;
   }
 }
+
+/* Sidebar toggle button styles */
+.sidebar-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  background: #1d4ed8;
+  border: none;
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
+}
+
+.sidebar-toggle:hover {
+  background: #1e40af;
+  transform: scale(1.02);
+}
+
+.hamburger-line {
+  width: 30px;
+  height: 4px;
+  background: white;
+  margin: 3px 0;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+/* Hamburger animation when sidebar is open */
+.sidebar-toggle.open .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.sidebar-toggle.open .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.sidebar-toggle.open .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(8px, -8px);
+}
+
+/* Mobile styles for sidebar toggle */
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    display: flex;
+  }
+}
+
+/* Ensure the button is visible and properly positioned on mobile */
+@media (max-width: 768px) {
+  .test-page {
+    padding-top: 10px;
+  }
+  
+  .sidebar-toggle {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+  }
+  
+  .hamburger-line {
+    width: 30px;
+    height: 4px;
+  }
+}
