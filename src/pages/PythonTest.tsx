@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Tests.css';
+import styles from './PythonTest.module.css';
 
 interface TestQuestion {
   id: number;
@@ -92,42 +92,42 @@ const PythonTest: React.FC = () => {
   };
 
   if (!testData) {
-    return <div className="loading">Loading...</div>;
+    return <div className={styles.loading}>Loading...</div>;
   }
 
   const currentQuestion = testData.tests[currentQuestionIndex];
   const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
 
   return (
-    <div className="test-page">
-      <header className="test-header">
-        <div className="nav-buttons">
-          <button 
-            className="nav-btn prev-btn" 
+    <div className={styles['test-page']}>
+      <header className={styles['test-header']}>
+        <div className={styles['nav-buttons']}>
+          <button
+            className={`${styles['nav-btn']} ${styles['prev-btn']}`}
             onClick={handlePrevious}
             disabled={currentQuestionIndex === 0}
           >
             ← Previous
           </button>
-          <button className="nav-btn reset-btn" onClick={handleReset}>
+          <button className={`${styles['nav-btn']} ${styles['reset-btn']}`} onClick={handleReset}>
             ↻ Reset
           </button>
         </div>
         
-        <div className="question-counter">
+        <div className={styles['question-counter']}>
           {currentQuestionIndex + 1}/{testData.tests.length}
         </div>
         
-        <div className="timer">
+        <div className={styles['timer']}>
           {formatTime(timeRemaining)}
         </div>
         
-        <div className="nav-buttons">
-          <button className="nav-btn skip-btn" onClick={handleSkip}>
+        <div className={styles['nav-buttons']}>
+          <button className={`${styles['nav-btn']} ${styles['skip-btn']}`} onClick={handleSkip}>
             Skip →
           </button>
-          <button 
-            className="nav-btn next-btn" 
+          <button
+            className={`${styles['nav-btn']} ${styles['next-btn']}`}
             onClick={handleNext}
             disabled={!showResult && selectedAnswer === null}
           >
@@ -137,34 +137,34 @@ const PythonTest: React.FC = () => {
       </header>
 
       {showResult && (
-        <div className={`result-banner ${isCorrect ? 'correct' : 'incorrect'}`}>
-          <span className="result-icon">
+        <div className={`${styles['result-banner']} ${isCorrect ? styles['correct'] : styles['incorrect']}`}>
+          <span className={styles['result-icon']}>
             {isCorrect ? '✓' : '✗'}
           </span>
           Your answer is {isCorrect ? 'correct!' : 'incorrect!'}
         </div>
       )}
 
-      <main className="test-content">
-        <div className="question-section">
-          <h2 className="question-text">{currentQuestion.question}</h2>
+      <main className={styles['test-content']}>
+        <div className={styles['question-section']}>
+          <h2 className={styles['question-text']}>{currentQuestion.question}</h2>
           
           {currentQuestion.code && (
-            <div className="code-block">
+            <div className={styles['code-block']}>
               <pre><code>{currentQuestion.code}</code></pre>
             </div>
           )}
           
-          <div className="options-grid">
+          <div className={styles['options-grid']}>
             {currentQuestion.options.map((option, index) => (
               <button
                 key={index}
-                className={`option-btn ${
-                  selectedAnswer === index ? 'selected' : ''
+                className={`${styles['option-btn']} ${
+                  selectedAnswer === index ? styles['selected'] : ''
                 } ${
-                  showResult && index === currentQuestion.correctAnswer ? 'correct' : ''
+                  showResult && index === currentQuestion.correctAnswer ? styles['correct'] : ''
                 } ${
-                  showResult && selectedAnswer === index && selectedAnswer !== currentQuestion.correctAnswer ? 'incorrect' : ''
+                  showResult && selectedAnswer === index && selectedAnswer !== currentQuestion.correctAnswer ? styles['incorrect'] : ''
                 }`}
                 onClick={() => handleAnswerSelect(index)}
                 disabled={showResult}
@@ -176,9 +176,9 @@ const PythonTest: React.FC = () => {
         </div>
 
         {showResult && (
-          <div className="explanation-section">
+          <div className={styles['explanation-section']}>
             <h3>Explanation:</h3>
-            <div className="explanation-content">
+            <div className={styles['explanation-content']}>
               {currentQuestion.explanation}
             </div>
           </div>
