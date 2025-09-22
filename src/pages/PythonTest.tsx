@@ -131,51 +131,44 @@ const PythonTest: React.FC = () => {
   const currentQuestion = testData.tests[currentQuestionIndex];
   const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
 
-  // If test is completed, show statistics
+ // If test is completed, show statistics
  if (isTestCompleted) {
     return (
       <div className={styles['test-page']}>
         <header className={styles['test-header']}>
-          <h1>Test Results</h1>
+          <div className={styles['results-header']}>
+            <h1 className={styles['results-title']}>Test Results</h1>
+          </div>
         </header>
         
         <main className={styles['test-content']}>
           <div className={styles['question-section']}>
             <h2>Test Completed!</h2>
-            <div className={styles['result-banner']} style={{
-              justifyContent: 'center',
-              marginBottom: '20px',
-              backgroundColor: isPassing ? '#4caf50' : '#f44336',
-              padding: '15px',
-              borderRadius: '8px'
-            }}>
+            <div className={`${styles['results-message']} ${isPassing ? styles['passing'] : styles['failing']}`}>
               <span className={styles['result-icon']}>{isPassing ? '✓' : '✗'}</span>
               <span>{isPassing ? 'Поздравляю!' : 'Попробуйте еще раз'}</span>
             </div>
             
-            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-              <p style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                Your Score: {percentage}%
-              </p>
+            <div className={styles['results-score']}>
+              Your Score: {percentage}%
             </div>
             
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', marginTop: '30px' }}>
-              <div className={styles['result-banner']} style={{ backgroundColor: '#4caf50', padding: '20px', borderRadius: '8px' }}>
-                <span className={styles['result-icon']}>✓</span>
-                <span>Correct Answers: {correctAnswers}</span>
+            <div className={styles['results-stats']}>
+              <div className={`${styles['stat-card']} ${styles['correct']}`}>
+                <div className={styles['stat-number']}>{correctAnswers}</div>
+                <div className={styles['stat-label']}>Correct Answers</div>
               </div>
               
-              <div className={styles['result-banner']} style={{ backgroundColor: '#f44336', padding: '20px', borderRadius: '8px' }}>
-                <span className={styles['result-icon']}>✗</span>
-                <span>Incorrect Answers: {incorrectAnswers}</span>
+              <div className={`${styles['stat-card']} ${styles['incorrect']}`}>
+                <div className={styles['stat-number']}>{incorrectAnswers}</div>
+                <div className={styles['stat-label']}>Incorrect Answers</div>
               </div>
             </div>
             
-            <div style={{ textAlign: 'center', marginTop: '30px' }}>
+            <div className={styles['results-actions']}>
               <button
-                className={styles['nav-btn']}
+                className={styles['retake-btn']}
                 onClick={handleRetakeTest}
-                style={{ padding: '10px 20px', fontSize: '16px' }}
               >
                 Повторить тест
               </button>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Python.module.css';
 import logo from '../assets/logo.png';
 import ProgressSquares from '../components/ProgressSquare';
@@ -17,6 +17,8 @@ interface Module {
 
 const Python: React.FC = () => {
   const [openModules, setOpenModules] = useState<Record<string, boolean>>({});
+  const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   
   const modules: Module[] = [
     {
@@ -53,6 +55,24 @@ const Python: React.FC = () => {
     }));
   };
   
+const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      // Управляем состоянием sidebar'а при изменении размера окна
+      if (!mobile) {
+        setIsSidebarOpen(true);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
  return (
     <div className={styles.container}>
       {/* Header */}
@@ -70,8 +90,21 @@ const Python: React.FC = () => {
       
       {/* Main Content Area */}
       <div className={styles.main}>
+        {/* Mobile sidebar toggle button */}
+        <button
+          className={`${styles.sidebarToggle} ${isSidebarOpen && isMobile ? styles.open : ''}`}
+          onClick={toggleSidebar}
+          aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
+          aria-expanded={isSidebarOpen}
+          style={{ display: isMobile ? 'flex' : 'none' }}
+        >
+          <span className={styles.hamburgerLine}></span>
+          <span className={styles.hamburgerLine}></span>
+          <span className={styles.hamburgerLine}></span>
+        </button>
+        
         {/* Sidebar */}
-        <aside className={styles.sidebar}>
+        <aside className={`${styles.sidebar} ${isSidebarOpen && isMobile ? styles.open : isMobile ? styles.closed : ''}`}>
           <h2 className={styles.sidebarTitle}>Course Modules</h2>
           {modules.map(module => (
             <div key={module.id} className={styles.module}>
@@ -98,7 +131,7 @@ const Python: React.FC = () => {
         </aside>
         
         {/* Content */}
-        <main className={styles.content}>
+        <main className={`${styles.content} ${isSidebarOpen && isMobile ? '' : styles.fullWidth}`}>
           <PythonTest />
         </main>
       </div>
