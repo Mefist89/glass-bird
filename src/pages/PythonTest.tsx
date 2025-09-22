@@ -5,7 +5,7 @@ interface TestQuestion {
   id: number;
   question: string;
   code?: string;
- options: string[];
+  options: string[];
   correctAnswer: number;
   explanation: string;
 }
@@ -20,12 +20,17 @@ const PythonTest: React.FC = () => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(3000); // 50 minutes in seconds
+  const [questionResults, setQuestionResults] = useState<(boolean | null)[]>([]);
 
   useEffect(() => {
     // Load test data
     fetch('/python-test-data.json')
       .then(response => response.json())
-      .then(data => setTestData(data))
+      .then(data => {
+        setTestData(data);
+        // Initialize question results array with nulls
+        setQuestionResults(Array(data.tests.length).fill(null));
+      })
       .catch(error => console.error('Error loading test data:', error));
   }, []);
 
@@ -65,8 +70,16 @@ const PythonTest: React.FC = () => {
         setShowResult(false);
       }
     } else if (selectedAnswer !== null) {
-      // Show result
+      // Show result and save answer
       setShowResult(true);
+      
+      // Save result for current question
+      const isCorrect = selectedAnswer === testData!.tests[currentQuestionIndex].correctAnswer;
+      setQuestionResults(prev => {
+        const newResults = [...prev];
+        newResults[currentQuestionIndex] = isCorrect;
+        return newResults;
+      });
     }
   };
 
@@ -83,7 +96,7 @@ const PythonTest: React.FC = () => {
     setShowResult(false);
   };
 
-  const handleSkip = () => {
+ const handleSkip = () => {
     if (testData && currentQuestionIndex < testData.tests.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
       setSelectedAnswer(null);
@@ -91,12 +104,87 @@ const PythonTest: React.FC = () => {
     }
   };
 
+  const handleRetakeTest = () => {
+    setCurrentQuestionIndex(0);
+    setSelectedAnswer(null);
+    setShowResult(false);
+    // Reset question results array with nulls
+    if (testData) {
+      setQuestionResults(Array(testData.tests.length).fill(null));
+    }
+  };
+
+ // Check if test is completed (all questions answered)
+  const isTestCompleted = testData && questionResults.every(result => result !== null);
+
+  // Calculate statistics
+  const correctAnswers = questionResults.filter(result => result === true).length;
+  const incorrectAnswers = questionResults.filter(result => result === false).length;
+  const totalQuestions = questionResults.length;
+  const percentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+  const isPassing = percentage >= 70;
+
   if (!testData) {
     return <div className={styles.loading}>Loading...</div>;
   }
 
   const currentQuestion = testData.tests[currentQuestionIndex];
   const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
+
+  // If test is completed, show statistics
+ if (isTestCompleted) {
+    return (
+      <div className={styles['test-page']}>
+        <header className={styles['test-header']}>
+          <h1>Test Results</h1>
+        </header>
+        
+        <main className={styles['test-content']}>
+          <div className={styles['question-section']}>
+            <h2>Test Completed!</h2>
+            <div className={styles['result-banner']} style={{
+              justifyContent: 'center',
+              marginBottom: '20px',
+              backgroundColor: isPassing ? '#4caf50' : '#f44336',
+              padding: '15px',
+              borderRadius: '8px'
+            }}>
+              <span className={styles['result-icon']}>{isPassing ? '✓' : '✗'}</span>
+              <span>{isPassing ? 'Поздравляю!' : 'Попробуйте еще раз'}</span>
+            </div>
+            
+            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+              <p style={{ fontSize: '18px', fontWeight: 'bold' }}>
+                Your Score: {percentage}%
+              </p>
+            </div>
+            
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', marginTop: '30px' }}>
+              <div className={styles['result-banner']} style={{ backgroundColor: '#4caf50', padding: '20px', borderRadius: '8px' }}>
+                <span className={styles['result-icon']}>✓</span>
+                <span>Correct Answers: {correctAnswers}</span>
+              </div>
+              
+              <div className={styles['result-banner']} style={{ backgroundColor: '#f44336', padding: '20px', borderRadius: '8px' }}>
+                <span className={styles['result-icon']}>✗</span>
+                <span>Incorrect Answers: {incorrectAnswers}</span>
+              </div>
+            </div>
+            
+            <div style={{ textAlign: 'center', marginTop: '30px' }}>
+              <button
+                className={styles['nav-btn']}
+                onClick={handleRetakeTest}
+                style={{ padding: '10px 20px', fontSize: '16px' }}
+              >
+                Повторить тест
+              </button>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className={styles['test-page']}>

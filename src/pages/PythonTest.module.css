@@ -14,12 +14,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 24px;
-  background: #1f2937;
+  background: white;
   border-bottom: 1px solid #e0e0e0;
   position: sticky;
   top: 0;
   z-index: 100;
-  color: white;
+  color: #333;
 }
 
 .nav-buttons {
