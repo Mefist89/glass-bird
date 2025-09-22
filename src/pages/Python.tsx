@@ -1,40 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import styles from './Python.module.css';
 import ProgressSquares from '../components/ProgressSquare';
+import PythonTest from './PythonTest';
 
 const Python: React.FC = () => {
-  const [progress, setProgress] = useState({
-    totalSteps: 9,
-    completedSteps: 3,
-    currentStep: 4
-  });
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+    };
 
- return (
-    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-      <ProgressSquares
-        totalSteps={progress.totalSteps}
-        completedSteps={progress.completedSteps}
-        currentStep={progress.currentStep}
-      />
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return (
+    <div className={styles.container}>
+      {/* Header */}
+      <header className={styles.header}>
+        <div className={styles.headerGrid}>
+          <div className={styles.progressContainer}>
+            <ProgressSquares totalSteps={9} completedSteps={3} currentStep={4} />
+          </div>
+        </div>
+      </header>
       
-      <h1>Python Course</h1>
-      <p>Welcome to our comprehensive Python programming course!</p>
-      <p>Python is a high-level, interpreted programming language known for its simplicity and readability. It's widely used in web development, data science, artificial intelligence, and more.</p>
+      {/* Main Content Area */}
+      <div className={styles.main}>
+        <main className={styles.content}>
+          <PythonTest isMobile={isMobile} />
+        </main>
+      </div>
       
-      <h2>Course Content</h2>
-      <ul>
-        <li>Introduction to Python</li>
-        <li>Variables and Data Types</li>
-        <li>Control Structures</li>
-        <li>Functions</li>
-        <li>Object-Oriented Programming</li>
-        <li>File Handling</li>
-        <li>Modules and Packages</li>
-        <li>Exception Handling</li>
-        <li>Working with Libraries</li>
-      </ul>
-      
-      <h2>Learning Resources</h2>
-      <p>Our Python course includes video tutorials, hands-on exercises, and real-world projects to help you master the language.</p>
+      {/* Footer */}
+      <footer className={styles.footer}>
+        <p>Footer Content</p>
+      </footer>
     </div>
   );
 };

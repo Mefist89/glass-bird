@@ -1,0 +1,90 @@
+.container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  gap: 4px;
+  padding: 10px;
+  background-color: #1f2937;
+  color: white;
+  grid-row: 1;
+}
+
+.headerGrid {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  width: 100%;
+  gap: 10px;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 60px;
+  margin-right: 10px;
+}
+
+.progressContainer {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: -10px;
+  padding: 10px;
+}
+
+.main {
+  display: block;
+  flex: 1;
+}
+
+.content {
+  padding: 10px;
+}
+
+.footer {
+  background-color: #1f2937;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  grid-row: 3;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .headerGrid {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  
+  .logo {
+    height: 40px;
+  }
+  
+  .progressContainer {
+    justify-content: center;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerGrid {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  
+  .logo {
+    height: 40px;
+  }
+  
+  .progressContainer {
+    justify-content: center;
+    margin-left: 0;
+  }
+}
