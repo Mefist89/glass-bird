@@ -1,0 +1,129 @@
+{
+  "tests": [
+    {
+      "id": 1,
+      "question": "What is the output of the following code?",
+      "code": "x = [1, 2, 3]\ny = x\ny.append(4)\nprint(x)",
+      "options": [
+        "[1, 2, 3]",
+        "[1, 2, 3, 4]",
+        "[4, 1, 2, 3]",
+        "Error"
+      ],
+      "correctAnswer": 1,
+      "explanation": "When we assign y = x, both variables point to the same list object in memory. Modifying y (by appending 4) also modifies x because they reference the same object. Therefore, x becomes [1, 2, 3, 4]."
+    },
+    {
+      "id": 2,
+      "question": "Which of the following is NOT a valid way to create a dictionary in Python?",
+      "options": [
+        "dict(a=1, b=2)",
+        "{'a': 1, 'b': 2}",
+        "dict([('a', 1), ('b', 2)])",
+        "dict['a': 1, 'b': 2]"
+      ],
+      "correctAnswer": 3,
+      "explanation": "Option D uses square brackets instead of curly braces for dictionary creation, which is invalid syntax. The other three options are all valid ways to create dictionaries in Python."
+    },
+    {
+      "id": 3,
+      "question": "What will be the output of this code?",
+      "code": "def func(a, b=2, c=3):\n    return a + b + c\n\nprint(func(1, c=4))",
+      "options": [
+        "6",
+        "7",
+        "8",
+        "Error"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The function func is called with a=1 and c=4. The parameter b uses its default value of 2. So the calculation is 1 + 2 + 4 = 7."
+    },
+    {
+      "id": 4,
+      "question": "Which method is used to add an element to the end of a list?",
+      "options": [
+        "insert()",
+        "push()",
+        "append()",
+        "extend()"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The append() method adds an element to the end of a list. The insert() method adds an element at a specific position, extend() adds multiple elements, and push() is not a Python list method (it's used in JavaScript)."
+    },
+    {
+      "id": 5,
+      "question": "What is the result of this expression?",
+      "code": "print(2 ** 3 ** 2)",
+      "options": [
+        "64",
+        "512",
+        "729",
+        "Error"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Exponentiation is right-associative in Python, so this is evaluated as 2 ** (3 ** 2) = 2 ** 9 = 512."
+    },
+    {
+      "id": 6,
+      "question": "Which of the following is a mutable data type in Python?",
+      "options": [
+        "String",
+        "Tuple",
+        "List",
+        "Integer"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Lists are mutable, meaning their content can be changed after creation. Strings, tuples, and integers are immutable data types."
+    },
+    {
+      "id": 7,
+      "question": "What will this code print?",
+      "code": "x = 5\ny = 10\nx, y = y, x\nprint(x, y)",
+      "options": [
+        "5 10",
+        "10 5",
+        "5 5",
+        "10 10"
+      ],
+      "correctAnswer": 1,
+      "explanation": "This is Python's tuple unpacking feature. The values of x and y are swapped, so x becomes 10 and y becomes 5."
+    },
+    {
+      "id": 8,
+      "question": "What is the correct way to handle exceptions in Python?",
+      "options": [
+        "try-except-finally",
+        "catch-throw-finally",
+        "try-catch-finally",
+        "except-finally-try"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Python uses try-except-finally blocks for exception handling. 'try' contains the code that might raise an exception, 'except' handles the exception, and 'finally' contains code that always executes."
+    },
+    {
+      "id": 9,
+      "question": "What does the 'self' parameter represent in a class method?",
+      "options": [
+        "A reference to the class itself",
+        "A reference to the current instance of the class",
+        "A special variable for recursion",
+        "A keyword for static methods"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The 'self' parameter represents the current instance of the class. It allows access to the instance's attributes and methods. It's automatically passed when calling instance methods."
+    },
+    {
+      "id": 10,
+      "question": "What is the output of the following code?",
+      "code": "my_list = [1, 2, 3, 4, 5]\nprint(my_list[1:4])",
+      "options": [
+        "[1, 2, 3]",
+        "[2, 3, 4]",
+        "[2, 3, 4, 5]",
+        "[1, 2, 3, 4]"
+      ],
+      "correctAnswer": 1,
+      "explanation": "List slicing in Python uses the syntax [start:end], where 'start' is inclusive and 'end' is exclusive. So my_list[1:4] returns elements at indices 1, 2, and 3, which are [2, 3, 4]."
+    }
+  ]
+}

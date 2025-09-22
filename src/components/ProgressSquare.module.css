@@ -12,15 +12,15 @@
 }
 
 .progressSquare.completed {
-  background-color: #22c55e;
+  background-color: #3b82f6;
 }
 
 .progressSquare.current {
-  background-color: #15803d;
+  background-color: #1d4ed8;
 }
 
 .progressSquare.uncompleted {
-  background-color: #9ca3af;
+  background-color: #93c5fd;
 }
 
 .progressContainer {

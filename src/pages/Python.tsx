@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './Python.module.css';
 import logo from '../assets/logo.png';
 import ProgressSquares from '../components/ProgressSquare';
+import PythonTest from './PythonTest';
 
 interface Lecture {
   id: string;
@@ -24,6 +25,7 @@ const Python: React.FC = () => {
       lectures: [
         { id: 'lecture1', title: 'Lecture 1: Syntax Basics' },
         { id: 'lecture2', title: 'Lecture 2: Variables and Data Types' },
+        { id: 'lecture7', title: 'Test Lecture' },
       ]
     },
     {
@@ -70,27 +72,22 @@ const Python: React.FC = () => {
       <div className={styles.main}>
         {/* Sidebar */}
         <aside className={styles.sidebar}>
-          <h2>Course Modules</h2>
+          <h2 className={styles.sidebarTitle}>Course Modules</h2>
           {modules.map(module => (
-            <div key={module.id}>
+            <div key={module.id} className={styles.module}>
               <div
+                className={styles.moduleHeader}
                 onClick={() => toggleModule(module.id)}
-                style={{
-                  cursor: 'pointer',
-                  fontWeight: 'bold',
-                  padding: '5px 0',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}
               >
-                {module.title}
-                <span>{openModules[module.id] ? '▼' : '►'}</span>
+                <span className={styles.moduleTitle}>{module.title}</span>
+                <span className={`${styles.moduleArrow} ${openModules[module.id] ? styles.moduleArrowOpen : ''}`}>
+                  ▼
+                </span>
               </div>
               {openModules[module.id] && (
-                <ul style={{ paddingLeft: '20px' }}>
+                <ul className={styles.lecturesList}>
                   {module.lectures.map(lecture => (
-                    <li key={lecture.id} style={{ padding: '3px 0' }}>
+                    <li key={lecture.id} className={styles.lecture}>
                       {lecture.title}
                     </li>
                   ))}
@@ -102,8 +99,7 @@ const Python: React.FC = () => {
         
         {/* Content */}
         <main className={styles.content}>
-          <h2>Main Content</h2>
-          <p>Main content goes here</p>
+          <PythonTest />
         </main>
       </div>
       
