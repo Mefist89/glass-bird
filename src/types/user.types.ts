@@ -1,8 +1,10 @@
 // Роли пользователей
-export enum UserRole {
-  ADMIN = 'admin',    // Учитель (только один)
-  STUDENT = 'student' // Ученики
-}
+export const UserRole = {
+  ADMIN: 'admin',    // Учитель (только один)
+  STUDENT: 'student' // Ученики
+} as const;
+
+export type UserRole = typeof UserRole[keyof typeof UserRole];
 
 // Интерфейс пользователя
 export interface User {

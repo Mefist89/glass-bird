@@ -1,16 +1,20 @@
 // Категории курсов
-export enum CourseCategory {
-  PYTHON = 'python',
-  NETWORKS = 'networks',
-  DATABASE = 'database'
-}
+export const CourseCategory = {
+  PYTHON: 'python',
+  NETWORKS: 'networks',
+  DATABASE: 'database'
+} as const;
+
+export type CourseCategory = typeof CourseCategory[keyof typeof CourseCategory];
 
 // Уровень сложности курса
-export enum CourseLevel {
-  BEGINNER = 'beginner',
-  INTERMEDIATE = 'intermediate',
-  ADVANCED = 'advanced'
-}
+export const CourseLevel = {
+  BEGINNER: 'beginner',
+  INTERMEDIATE: 'intermediate',
+  ADVANCED: 'advanced'
+} as const;
+
+export type CourseLevel = typeof CourseLevel[keyof typeof CourseLevel];
 
 // Интерфейс курса
 export interface Course {
@@ -46,12 +50,14 @@ export interface Lesson {
 }
 
 // Типы заданий
-export enum ExerciseType {
-  CODE = 'code',             // Задание на код
-  QUIZ = 'quiz',             // Тест с вариантами ответа
-  TEXT = 'text',             // Текстовый ответ
-  MULTIPLE_CHOICE = 'multiple_choice' // Множественный выбор
-}
+export const ExerciseType = {
+  CODE: 'code',             // Задание на код
+  QUIZ: 'quiz',             // Тест с вариантами ответа
+  TEXT: 'text',             // Текстовый ответ
+  MULTIPLE_CHOICE: 'multiple_choice' // Множественный выбор
+} as const;
+
+export type ExerciseType = typeof ExerciseType[keyof typeof ExerciseType];
 
 // Интерфейс задания
 export interface Exercise {
