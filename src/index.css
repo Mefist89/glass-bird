@@ -27,11 +27,52 @@ a:hover {
 }
 
 body {
- margin: 0;
-  display: flex;
-  place-items: center;
+  margin: 0;
+  padding: 0;
   min-width: 320px;
  min-height: 100vh;
+ width: 100vw;
+ overflow-x: hidden;
+}
+
+/* Улучшенные стили для адаптивности */
+.container-fluid {
+ width: 100%;
+ padding-right: 1rem;
+ padding-left: 1rem;
+ margin-right: auto;
+ margin-left: auto;
+}
+
+/* Стили для полного использования ширины экрана */
+.full-width-section {
+ width: 100vw;
+ position: relative;
+ left: 50%;
+ right: 50%;
+ margin-left: -50vw;
+ margin-right: -50vw;
+}
+
+/* Адаптивные стили для крупных экранов */
+@media (min-width: 1280px) {
+ .container-xl {
+   max-width: 1280px;
+   padding-right: 2rem;
+   padding-left: 2rem;
+ }
+}
+
+@media (min-width: 1536px) {
+ .container-xxl {
+   max-width: 1536px;
+   padding-right: 3rem;
+   padding-left: 3rem;
+ }
+}
+
+html {
+  height: 100%;
 }
 
 h1 {
