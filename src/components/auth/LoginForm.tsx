@@ -73,7 +73,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose, onLogin }) => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="input-glass pl-11"
+                  className="input-glass pl-11 w-full"
                   placeholder="admin@glassbird.com"
                   required
                 />
@@ -91,7 +91,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose, onLogin }) => {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="input-glass pl-11"
+                  className="input-glass pl-11 w-full"
                   placeholder="••••••"
                   required
                 />
