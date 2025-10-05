@@ -3,7 +3,6 @@ import { useAuth } from '../context/AuthContext';
 import Header from '../components/Header';
 import Sidebar from '../components/course/Sidebar';
 import CourseContent from '../components/course/CourseContent';
-
 import LoginForm from '../components/auth/LoginForm';
 
 // Типы для курса
@@ -124,7 +123,7 @@ const PythonCoursePage: React.FC = () => {
   }, []);
 
   // Получаем текущий модуль и урок
-  const activeModule = pythonCourseData.modules.find(m => m.id === currentModule);
+ const activeModule = pythonCourseData.modules.find(m => m.id === currentModule);
   const activeLesson = activeModule?.lessons.find(l => l.id === currentLesson);
   
   // Получаем содержимое урока или показываем заглушку
@@ -166,15 +165,22 @@ const PythonCoursePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-slate-50">
+      {/* Static Background Elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+        <div className="absolute top-40 right-20 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+        <div className="absolute bottom-20 left-1/2 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+      </div>
+
       <Header />
       
-      <main className="flex flex-col md:flex-row flex-1">
+      <main className="relative z-10 flex flex-col md:flex-row flex-1">
         {/* Мобильное переключение между панелями */}
-        <div className="md:hidden bg-white p-2 border-b border-gray-200">
+        <div className="md:hidden bg-white/10 backdrop-blur-md p-2 border-b border-white/20">
           <button 
             onClick={toggleSidebarForMobile}
-            className="w-full py-2 px-4 bg-blue-50 text-blue-700 rounded flex items-center justify-center"
+            className="w-full py-2 px-4 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 rounded flex items-center justify-center"
             aria-label={showSidebar ? 'Скрыть навигацию' : 'Показать навигацию'}
           >
             {showSidebar ? 'Скрыть содержание курса' : 'Показать содержание курса'}
@@ -183,44 +189,46 @@ const PythonCoursePage: React.FC = () => {
 
         {/* Боковая панель - 1/5 ширины на десктопе, условное отображение на мобильных */}
         <aside 
-          className={`${showSidebar ? 'block' : 'hidden'} md:block w-full md:w-1/5 overflow-y-auto bg-white border-r border-gray-200`}
+          className={`${showSidebar ? 'block' : 'hidden'} md:block w-full md:w-1/5 overflow-y-auto border-r border-white/20`}
           aria-label="Навигация по курсу"
         >
-          <Sidebar
-            title={pythonCourseData.title}
-            modules={pythonCourseData.modules}
-            currentModuleId={currentModule}
-            currentLessonId={currentLesson}
-            onSelectLesson={(moduleId, lessonId) => {
-              handleSelectLesson(moduleId, lessonId);
-              // На мобильных устройствах скрываем боковую панель после выбора урока
-              if (window.innerWidth < 768) {
-                setShowSidebar(false);
-              }
-            }}
-          />
+          <div className="backdrop-blur-lg bg-white/10 border-white/20 h-full">
+            <Sidebar
+              title={pythonCourseData.title}
+              modules={pythonCourseData.modules}
+              currentModuleId={currentModule}
+              currentLessonId={currentLesson}
+              onSelectLesson={(moduleId, lessonId) => {
+                handleSelectLesson(moduleId, lessonId);
+                // На мобильных устройствах скрываем боковую панель после выбора урока
+                if (window.innerWidth < 768) {
+                  setShowSidebar(false);
+                }
+              }}
+            />
+          </div>
         </aside>
         
         {/* Основной контент - 4/5 ширины на десктопе, условное отображение на мобильных */}
         <div 
-          className={`${!showSidebar ? 'block' : 'hidden'} md:block w-full md:w-4/5 overflow-y-auto bg-white`}
+          className={`${!showSidebar ? 'block' : 'hidden'} md:block w-full md:w-4/5 overflow-y-auto`}
           aria-label="Контент урока"
         >
-          {activeModule && activeLesson ? (
-            <CourseContent
-              moduleTitle={activeModule.title}
-              lessonTitle={activeLesson.title}
-              content={lessonContent}
-            />
-          ) : (
-            <div className="p-0">
-              <p>Выберите урок из боковой панели.</p>
-            </div>
-          )}
+          <div className="backdrop-blur-lg bg-white/10 border-white/20 h-full">
+            {activeModule && activeLesson ? (
+              <CourseContent
+                moduleTitle={activeModule.title}
+                lessonTitle={activeLesson.title}
+                content={lessonContent}
+              />
+            ) : (
+              <div className="p-6">
+                <p>Выберите урок из боковой панели.</p>
+              </div>
+            )}
+          </div>
         </div>
       </main>
-      
-     
       
       {/* Login Form Modal - рендерим только при необходимости */}
       {showLoginForm && (

@@ -23,23 +23,23 @@ const Sidebar: React.FC<SidebarProps> = ({
   onSelectLesson
 }) => {
   return (
-    <div className="bg-gray-100 p-4 h-full overflow-y-auto">
-      <h2 className="text-xl font-bold mb-6 text-gray-800">{title}</h2>
+    <div className="bg-white/10 backdrop-blur-lg p-4 h-full overflow-y-auto border-r border-white/20">
+      <h2 className="text-xl font-bold mb-6 text-white">{title}</h2>
       
       <div className="space-y-4">
         {modules.map((module) => (
-          <div key={module.id} className="border-b border-gray-200 pb-3">
-            <h3 className="font-medium text-gray-700 mb-2">
+          <div key={module.id} className="border-b border-white/20 pb-3">
+            <h3 className="font-medium text-white mb-2">
               {module.title}
             </h3>
             <ul className="space-y-1 pl-2">
               {module.lessons.map((lesson) => (
                 <li 
                   key={lesson.id}
-                  className={`py-1 px-2 rounded cursor-pointer transition-colors ${
+                  className={`py-1 px-2 rounded cursor-pointer transition-all ${
                     currentModuleId === module.id && currentLessonId === lesson.id
-                      ? 'bg-blue-100 text-blue-700 font-medium'
-                      : 'hover:bg-gray-200 text-gray-600'
+                      ? 'bg-blue-500/30 text-blue-300 font-medium border-l-2 border-blue-400'
+                      : 'hover:bg-white/10 text-slate-200'
                   }`}
                   onClick={() => onSelectLesson(module.id, lesson.id)}
                 >
