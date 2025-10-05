@@ -165,7 +165,7 @@ const PythonCoursePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-slate-50">
+    <div className="flex flex-col min-h-screen w-full bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-slate-50">
       {/* Static Background Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
@@ -175,7 +175,7 @@ const PythonCoursePage: React.FC = () => {
 
       <Header />
       
-      <main className="relative z-10 flex flex-col md:flex-row flex-1">
+      <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
         {/* Мобильное переключение между панелями */}
         <div className="md:hidden bg-white/10 backdrop-blur-md p-2 border-b border-white/20">
           <button 
@@ -189,10 +189,10 @@ const PythonCoursePage: React.FC = () => {
 
         {/* Боковая панель - 1/5 ширины на десктопе, условное отображение на мобильных */}
         <aside 
-          className={`${showSidebar ? 'block' : 'hidden'} md:block w-full md:w-1/5 overflow-y-auto border-r border-white/20`}
+          className={`${showSidebar ? 'block' : 'hidden'} md:block w-full md:w-1/5 border-r border-white/20 flex flex-col`}
           aria-label="Навигация по курсу"
         >
-          <div className="backdrop-blur-lg bg-white/10 border-white/20 h-full">
+          <div className="backdrop-blur-lg bg-white/10 border-white/20 flex-grow flex flex-col h-full">
             <Sidebar
               title={pythonCourseData.title}
               modules={pythonCourseData.modules}
@@ -211,10 +211,10 @@ const PythonCoursePage: React.FC = () => {
         
         {/* Основной контент - 4/5 ширины на десктопе, условное отображение на мобильных */}
         <div 
-          className={`${!showSidebar ? 'block' : 'hidden'} md:block w-full md:w-4/5 overflow-y-auto`}
+          className={`${!showSidebar ? 'block' : 'hidden'} md:block w-full md:w-4/5 flex flex-col`}
           aria-label="Контент урока"
         >
-          <div className="backdrop-blur-lg bg-white/10 border-white/20 h-full">
+          <div className="backdrop-blur-lg bg-white/10 border-white/20 flex-grow flex flex-col h-full">
             {activeModule && activeLesson ? (
               <CourseContent
                 moduleTitle={activeModule.title}
@@ -228,7 +228,7 @@ const PythonCoursePage: React.FC = () => {
             )}
           </div>
         </div>
-      </main>
+      </div>
       
       {/* Login Form Modal - рендерим только при необходимости */}
       {showLoginForm && (

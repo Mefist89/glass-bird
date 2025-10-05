@@ -23,10 +23,10 @@ const Sidebar: React.FC<SidebarProps> = ({
   onSelectLesson
 }) => {
   return (
-    <div className="bg-white/10 backdrop-blur-lg p-4 h-full overflow-y-auto border-r border-white/20">
+    <div className="bg-white/10 backdrop-blur-lg p-4 flex-grow overflow-y-auto border-r border-white/20 flex flex-col h-full">
       <h2 className="text-xl font-bold mb-6 text-white">{title}</h2>
       
-      <div className="space-y-4">
+      <div className="space-y-4 flex-grow overflow-y-auto">
         {modules.map((module) => (
           <div key={module.id} className="border-b border-white/20 pb-3">
             <h3 className="font-medium text-white mb-2">
