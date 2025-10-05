@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BookOpen, User, LogOut, Menu, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import LoginForm from '../components/auth/LoginForm';
+import Footer from '../components/Footer';
 
 const GlassBirdHome = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -236,28 +237,16 @@ const GlassBirdHome = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="relative z-10 backdrop-blur-md bg-slate-900/50 border-t border-white/10 mt-20">
-        <div className="w-full px-6 py-8">
-          <div className="max-w-[95%] xl:max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center">
-            <div className="flex items-center space-x-2 mb-4 lg:mb-0">
-              <div className="text-2xl">🐦</div>
-              <span className="text-xl font-bold">Glass Bird</span>
-            </div>
-            <div className="text-slate-400 text-sm">
-              © 2025 Glass Bird. Все права защищены.
-            </div>
-          </div>
-        </div>
-      </footer>
-
       {/* Login Form Modal */}
       {showLoginForm && (
-        <LoginForm 
+        <LoginForm
           onClose={() => setShowLoginForm(false)}
           onLogin={handleLogin}
         />
       )}
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
