@@ -1,14 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
 import Header from '../components/Header';
 import Sidebar from '../components/course/Sidebar';
 import CourseContent from '../components/course/CourseContent';
-import Footer from '../components/Footer';
+
 import LoginForm from '../components/auth/LoginForm';
 
+// Типы для курса
+interface Lesson {
+  id: number;
+  title: string;
+}
+
+interface Module {
+  id: number;
+  title: string;
+ lessons: Lesson[];
+}
+
+interface CourseData {
+ title: string;
+ modules: Module[];
+}
+
 // Пример данных курса
-const pythonCourseData = {
-  title: "Курс Python для начинающих",
+const pythonCourseData: CourseData = {
+ title: "Курс Python для начинающих",
   modules: [
     {
       id: 1,
@@ -93,25 +110,29 @@ const lessonContents: Record<string, React.ReactNode> = {
 };
 
 const PythonCoursePage: React.FC = () => {
-  const [currentModule, setCurrentModule] = useState(1);
-  const [currentLesson, setCurrentLesson] = useState(1);
-  const [showSidebar, setShowSidebar] = useState(true);
+  const [currentModule, setCurrentModule] = useState<number>(1);
+  const [currentLesson, setCurrentLesson] = useState<number>(1);
+  const [showSidebar, setShowSidebar] = useState<boolean>(true);
+  const [showLoginForm, setShowLoginForm] = useState<boolean>(false);
 
-  const handleSelectLesson = (moduleId: number, lessonId: number) => {
+  const { login } = useAuth();
+
+ // Обработчик выбора урока
+  const handleSelectLesson = useCallback((moduleId: number, lessonId: number) => {
     setCurrentModule(moduleId);
     setCurrentLesson(lessonId);
-  };
+  }, []);
 
   // Получаем текущий модуль и урок
- const activeModule = pythonCourseData.modules.find(m => m.id === currentModule);
+  const activeModule = pythonCourseData.modules.find(m => m.id === currentModule);
   const activeLesson = activeModule?.lessons.find(l => l.id === currentLesson);
   
   // Получаем содержимое урока или показываем заглушку
   const lessonContent = lessonContents[`${currentModule}-${currentLesson}`] || (
-    <p>Содержимое этого урока находится в разработке.</p>
+    <div className="p-0">
+      <p>Содержимое этого урока находится в разработке.</p>
+    </div>
   );
-
-  const [showLoginForm, setShowLoginForm] = useState(false);
 
   // Обработчик события открытия формы входа
   useEffect(() => {
@@ -121,33 +142,50 @@ const PythonCoursePage: React.FC = () => {
 
     window.addEventListener('openLoginForm', handleOpenLoginForm);
 
+    // Очистка слушателя при размонтировании компонента
     return () => {
       window.removeEventListener('openLoginForm', handleOpenLoginForm);
     };
   }, []);
 
-  const { login } = useAuth();
-
   const handleLogin = async (email: string, password: string) => {
-    await login({ email, password });
+    try {
+      await login({ email, password });
+      setShowLoginForm(false);
+    } catch (error) {
+      console.error('Ошибка входа:', error);
+      // Здесь можно добавить отображение сообщения об ошибке пользователю
+    }
   };
 
+  // Обработчик переключения боковой панели для мобильных устройств
+  const toggleSidebarForMobile = useCallback(() => {
+    if (window.innerWidth < 768) {
+      setShowSidebar(prev => !prev);
+    }
+  }, []);
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-slate-50">
       <Header />
-      <div className="flex flex-col md:flex-row flex-1">
+      
+      <main className="flex flex-col md:flex-row flex-1">
         {/* Мобильное переключение между панелями */}
         <div className="md:hidden bg-white p-2 border-b border-gray-200">
           <button 
-            onClick={() => setShowSidebar(!showSidebar)}
+            onClick={toggleSidebarForMobile}
             className="w-full py-2 px-4 bg-blue-50 text-blue-700 rounded flex items-center justify-center"
+            aria-label={showSidebar ? 'Скрыть навигацию' : 'Показать навигацию'}
           >
-            {showSidebar ? 'Показать содержание урока' : 'Показать содержание курса'}
+            {showSidebar ? 'Скрыть содержание курса' : 'Показать содержание курса'}
           </button>
         </div>
 
         {/* Боковая панель - 1/5 ширины на десктопе, условное отображение на мобильных */}
-        <div className={`${showSidebar ? 'block' : 'hidden'} md:block w-full md:w-1/5 border-r border-gray-200 overflow-y-auto`}>
+        <aside 
+          className={`${showSidebar ? 'block' : 'hidden'} md:block w-full md:w-1/5 overflow-y-auto bg-white border-r border-gray-200`}
+          aria-label="Навигация по курсу"
+        >
           <Sidebar
             title={pythonCourseData.title}
             modules={pythonCourseData.modules}
@@ -155,16 +193,19 @@ const PythonCoursePage: React.FC = () => {
             currentLessonId={currentLesson}
             onSelectLesson={(moduleId, lessonId) => {
               handleSelectLesson(moduleId, lessonId);
-              // На мобильных устройствах переключаемся на контент после выбора урока
+              // На мобильных устройствах скрываем боковую панель после выбора урока
               if (window.innerWidth < 768) {
                 setShowSidebar(false);
               }
             }}
           />
-        </div>
+        </aside>
         
         {/* Основной контент - 4/5 ширины на десктопе, условное отображение на мобильных */}
-        <div className={`${!showSidebar ? 'block' : 'hidden'} md:block w-full md:w-4/5 overflow-y-auto`}>
+        <div 
+          className={`${!showSidebar ? 'block' : 'hidden'} md:block w-full md:w-4/5 overflow-y-auto bg-white`}
+          aria-label="Контент урока"
+        >
           {activeModule && activeLesson ? (
             <CourseContent
               moduleTitle={activeModule.title}
@@ -172,20 +213,25 @@ const PythonCoursePage: React.FC = () => {
               content={lessonContent}
             />
           ) : (
-            <div className="p-6">
+            <div className="p-0">
               <p>Выберите урок из боковой панели.</p>
             </div>
           )}
         </div>
-      </div>
-      <Footer />
+      </main>
       
-      {/* Login Form Modal */}
+     
+      
+      {/* Login Form Modal - рендерим только при необходимости */}
       {showLoginForm && (
-        <LoginForm
-          onClose={() => setShowLoginForm(false)}
-          onLogin={handleLogin}
-        />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full mx-4">
+            <LoginForm
+              onClose={() => setShowLoginForm(false)}
+              onLogin={handleLogin}
+            />
+          </div>
+        </div>
       )}
     </div>
   );
