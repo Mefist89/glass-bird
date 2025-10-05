@@ -81,11 +81,46 @@ const PythonCoursePage: React.FC = () => {
   const [currentLesson, setCurrentLesson] = useState<number>(1);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
   const [showLoginForm, setShowLoginForm] = useState<boolean>(false);
+  const [completedLessons, setCompletedLessons] = useState<Record<string, boolean[]>>({});
 
   const { login } = useAuth();
 
- // Обработчик выбора урока
+ // Загружаем прогресс из localStorage при монтировании компонента
+  useEffect(() => {
+    const savedProgress = localStorage.getItem('pythonCourseProgress');
+    if (savedProgress) {
+      try {
+        setCompletedLessons(JSON.parse(savedProgress));
+      } catch (e) {
+        console.error('Ошибка при загрузке прогресса:', e);
+      }
+    }
+  }, []);
+
+  // Сохраняем прогресс в localStorage при его изменении
+  useEffect(() => {
+    localStorage.setItem('pythonCourseProgress', JSON.stringify(completedLessons));
+  }, [completedLessons]);
+
+  // Обработчик выбора урока
   const handleSelectLesson = useCallback((moduleId: number, lessonId: number) => {
+    // Отмечаем текущий урок как завершенный
+    setCompletedLessons(prev => {
+      const moduleKey = `module-${moduleId}`;
+      const lessonIndex = lessonId - 1;
+      
+      // Создаем новый массив завершенных уроков для модуля, если его нет
+      const updatedModuleLessons = [...(prev[moduleKey] || [])];
+      
+      // Отмечаем урок как завершенный
+      updatedModuleLessons[lessonIndex] = true;
+      
+      return {
+        ...prev,
+        [moduleKey]: updatedModuleLessons
+      };
+    });
+    
     setCurrentModule(moduleId);
     setCurrentLesson(lessonId);
   }, []);
@@ -188,6 +223,10 @@ const PythonCoursePage: React.FC = () => {
                 moduleTitle={activeModule.title}
                 lessonTitle={activeLesson.title}
                 content={lessonContent}
+                totalLessons={activeModule.lessons.length}
+                currentLessonIndex={currentLesson - 1}
+                completedLessons={completedLessons[`module-${currentModule}`] || Array(activeModule.lessons.length).fill(false)}
+                onLessonSelect={(lessonId) => handleSelectLesson(currentModule, lessonId)}
               />
             ) : (
               <div className="p-6">
