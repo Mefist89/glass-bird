@@ -1,24 +1,29 @@
 import React from 'react';
 import LessonProgressIndicator from './LessonProgressIndicator';
 
+interface SubLesson {
+  id: number;
+  title: string;
+}
+
 interface CourseContentProps {
   moduleTitle: string;
   lessonTitle: string;
   content: React.ReactNode;
-  totalLessons: number;
-  currentLessonIndex: number;
-  completedLessons: boolean[];
-  onLessonSelect: (index: number) => void;
+  subLessons: SubLesson[];
+  currentSubLessonId: number | null;
+  completedSubLessons: Record<number, boolean>;
+  onSubLessonSelect: (subLessonId: number) => void;
 }
 
 const CourseContent: React.FC<CourseContentProps> = ({
   moduleTitle,
   lessonTitle,
   content,
-  totalLessons,
-  currentLessonIndex,
-  completedLessons,
-  onLessonSelect
+  subLessons,
+  currentSubLessonId,
+  completedSubLessons,
+  onSubLessonSelect
 }) => {
   return (
     <div className="bg-white/10 backdrop-blur-lg p-6 flex-grow overflow-y-auto border-white/20 flex flex-col h-full">
@@ -28,10 +33,10 @@ const CourseContent: React.FC<CourseContentProps> = ({
       </div>
       
       <LessonProgressIndicator 
-        totalLessons={totalLessons}
-        currentLessonIndex={currentLessonIndex}
-        completedLessons={completedLessons}
-        onLessonSelect={onLessonSelect}
+        subLessons={subLessons}
+        currentSubLessonId={currentSubLessonId}
+        completedSubLessons={completedSubLessons}
+        onSubLessonSelect={onSubLessonSelect}
       />
       
       <div className="prose prose-invert max-w-none flex-grow overflow-y-auto">

@@ -6,20 +6,26 @@ import CourseContent from '../components/course/CourseContent';
 import LoginForm from '../components/auth/LoginForm';
 
 // Типы для курса
+interface SubLesson {
+  id: number;
+  title: string;
+}
+
 interface Lesson {
   id: number;
   title: string;
+  subLessons?: SubLesson[];
 }
 
 interface Module {
   id: number;
   title: string;
- lessons: Lesson[];
+  lessons: Lesson[];
 }
 
 interface CourseData {
- title: string;
- modules: Module[];
+  title: string;
+  modules: Module[];
 }
 
 // Импорт данных курса из JSON файла
@@ -79,6 +85,7 @@ const lessonContents: Record<string, React.ReactNode> = {
 const PythonCoursePage: React.FC = () => {
   const [currentModule, setCurrentModule] = useState<number>(1);
   const [currentLesson, setCurrentLesson] = useState<number>(1);
+  const [currentSubLesson, setCurrentSubLesson] = useState<number | null>(null);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
   const [showLoginForm, setShowLoginForm] = useState<boolean>(false);
   const [completedLessons, setCompletedLessons] = useState<Record<string, boolean[]>>({});
@@ -223,10 +230,10 @@ const PythonCoursePage: React.FC = () => {
                 moduleTitle={activeModule.title}
                 lessonTitle={activeLesson.title}
                 content={lessonContent}
-                totalLessons={activeModule.lessons.length}
-                currentLessonIndex={currentLesson - 1}
-                completedLessons={completedLessons[`module-${currentModule}`] || Array(activeModule.lessons.length).fill(false)}
-                onLessonSelect={(lessonId) => handleSelectLesson(currentModule, lessonId)}
+                subLessons={activeLesson.subLessons || []}
+                currentSubLessonId={currentSubLesson}
+                completedSubLessons={{}} // Пока что пустой объект, будет обновлен позже
+                onSubLessonSelect={(subLessonId) => setCurrentSubLesson(subLessonId)}
               />
             ) : (
               <div className="p-6">

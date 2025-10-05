@@ -1,15 +1,25 @@
 import React from 'react';
 
+interface SubLesson {
+  id: number;
+  title: string;
+}
+
+interface Lesson {
+  id: number;
+  title: string;
+  subLessons?: SubLesson[];
+}
+
+interface Module {
+  id: number;
+  title: string;
+  lessons: Lesson[];
+}
+
 interface SidebarProps {
   title: string;
-  modules: {
-    id: number;
-    title: string;
-    lessons: {
-      id: number;
-      title: string;
-    }[];
-  }[];
+  modules: Module[];
   currentModuleId?: number;
   currentLessonId?: number;
   onSelectLesson: (moduleId: number, lessonId: number) => void;
@@ -44,6 +54,11 @@ const Sidebar: React.FC<SidebarProps> = ({
                   onClick={() => onSelectLesson(module.id, lesson.id)}
                 >
                   {lesson.title}
+                  {lesson.subLessons && lesson.subLessons.length > 0 && (
+                    <span className="ml-2 text-xs bg-white/20 px-1.5 py-0.5 rounded-full">
+                      {lesson.subLessons.length}
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>
