@@ -1,13 +1,26 @@
-import { useState } from 'react';
-import { BookOpen, User, LogOut, Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { BookOpen, User } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import Header from '../components/Header';
 import LoginForm from '../components/auth/LoginForm';
 import Footer from '../components/Footer';
 
 const GlassBirdHome = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const { user, isAuthenticated, isAdmin, login, logout } = useAuth();
+
+  // Обработчик события открытия формы входа
+  useEffect(() => {
+    const handleOpenLoginForm = () => {
+      setShowLoginForm(true);
+    };
+
+    window.addEventListener('openLoginForm', handleOpenLoginForm);
+
+    return () => {
+      window.removeEventListener('openLoginForm', handleOpenLoginForm);
+    };
+ }, []);
 
   const courses = [
     {
@@ -52,97 +65,7 @@ const GlassBirdHome = () => {
         <div className="absolute bottom-20 left-1/2 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-2000"></div>
       </div>
 
-      {/* Header */}
-      <header className="relative z-10 backdrop-blur-md bg-slate-900/30 border-b border-white/10">
-        <nav className="w-full px-6 py-4">
-          <div className="max-w-[95%] xl:max-w-7xl mx-auto flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="text-3xl">🐦</div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                Glass Bird
-              </span>
-            </div>
-
-            {/* Desktop Menu */}
-            <div className="hidden lg:flex items-center space-x-10">
-              <a href="#courses" className="hover:text-blue-400 transition-colors">Курсы</a>
-              <a href="#about" className="hover:text-blue-400 transition-colors">О нас</a>
-              <a href="#contact" className="hover:text-blue-400 transition-colors">Контакты</a>
-              
-              {isAuthenticated ? (
-                <div className="flex items-center space-x-4">
-                  <div className="flex items-center space-x-2 px-4 py-2 glass-effect rounded-lg">
-                    <User size={18} />
-                    <span className="text-sm">{user?.name}</span>
-                    {isAdmin && (
-                      <span className="px-2 py-0.5 bg-blue-500 text-xs rounded-full">Admin</span>
-                    )}
-                  </div>
-                  <button
-                    onClick={logout}
-                    className="flex items-center space-x-2 px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition-all hover:scale-105"
-                  >
-                    <LogOut size={18} />
-                    <span>Выйти</span>
-                  </button>
-                </div>
-              ) : (
-                <button
-                  onClick={() => setShowLoginForm(true)}
-                  className="flex items-center space-x-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-all hover:scale-105"
-                >
-                  <User size={18} />
-                  <span>Войти</span>
-                </button>
-              )}
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              className="lg:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="lg:hidden mt-4 pb-4 space-y-4">
-              <a href="#courses" className="block hover:text-blue-400 transition-colors">Курсы</a>
-              <a href="#about" className="block hover:text-blue-400 transition-colors">О нас</a>
-              <a href="#contact" className="block hover:text-blue-400 transition-colors">Контакты</a>
-              
-              {isAuthenticated ? (
-                <>
-                  <div className="flex items-center space-x-2 px-4 py-2 glass-effect rounded-lg">
-                    <User size={18} />
-                    <span>{user?.name}</span>
-                    {isAdmin && (
-                      <span className="px-2 py-0.5 bg-blue-500 text-xs rounded-full">Admin</span>
-                    )}
-                  </div>
-                  <button
-                    onClick={logout}
-                    className="w-full flex items-center justify-center space-x-2 px-6 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition-all"
-                  >
-                    <LogOut size={18} />
-                    <span>Выйти</span>
-                  </button>
-                </>
-              ) : (
-                <button
-                  onClick={() => setShowLoginForm(true)}
-                  className="w-full flex items-center justify-center space-x-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-all"
-                >
-                  <User size={18} />
-                  <span>Войти</span>
-                </button>
-              )}
-            </div>
-          )}
-        </nav>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <section className="relative z-10 w-full px-6 py-20">
@@ -156,7 +79,7 @@ const GlassBirdHome = () => {
             </div>
           )}
           
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent animate-pulse">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-cyan-40 to-blue-500 bg-clip-text text-transparent animate-pulse">
             Взлетай к новым знаниям
           </h1>
           <p className="text-xl md:text-2xl lg:text-3xl text-slate-300 mb-12 max-w-[90%] xl:max-w-5xl mx-auto">
@@ -239,7 +162,7 @@ const GlassBirdHome = () => {
 
       {/* Login Form Modal */}
       {showLoginForm && (
-        <LoginForm
+        <LoginForm 
           onClose={() => setShowLoginForm(false)}
           onLogin={handleLogin}
         />
