@@ -22,40 +22,8 @@ interface CourseData {
  modules: Module[];
 }
 
-// Пример данных курса
-const pythonCourseData: CourseData = {
- title: "Курс Python для начинающих",
-  modules: [
-    {
-      id: 1,
-      title: "Модуль 1: Введение в Python",
-      lessons: [
-        { id: 1, title: "Что такое Python и его преимущества" },
-        { id: 2, title: "Установка Python и среды разработки" },
-        { id: 3, title: "Первая программа на Python" }
-      ]
-    },
-    {
-      id: 2,
-      title: "Модуль 2: Основы Python",
-      lessons: [
-        { id: 1, title: "Переменные и типы данных" },
-        { id: 2, title: "Операторы и выражения" },
-        { id: 3, title: "Условные конструкции" },
-        { id: 4, title: "Циклы и итерации" }
-      ]
-    },
-    {
-      id: 3,
-      title: "Модуль 3: Структуры данных",
-      lessons: [
-        { id: 1, title: "Списки и кортежи" },
-        { id: 2, title: "Словари и множества" },
-        { id: 3, title: "Работа со строками" }
-      ]
-    }
-  ]
-};
+// Импорт данных курса из JSON файла
+import pythonCourseData from '../data/pythonCourseData.json';
 
 // Пример содержимого урока
 const lessonContents: Record<string, React.ReactNode> = {

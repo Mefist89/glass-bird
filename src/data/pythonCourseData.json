@@ -1,0 +1,62 @@
+{
+  "title": "Полный курс Python: от новичка до эксперта",
+  "modules": [
+    {
+      "id": 1,
+      "title": "Operations using Data Types and Operators",
+      "lessons": [
+        { "id": 1, "title": "Identify Data Types" },
+        { "id": 2, "title": "Sequence of Execution" },
+        { "id": 3, "title": "Sequence of Execution" },
+        { "id": 4, "title": "Select Operators" },
+        { "id": 5, "title": "Post-Assessment" }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Flow Control with Decisions and Loops",
+      "lessons": [
+        { "id": 1, "title": "Branching Statements" },
+        { "id": 2, "title": "Iteration" },
+        { "id": 3, "title": "Post-Assessment" }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Input and Output Operations",
+      "lessons": [
+        { "id": 1, "title": "File Input and Output" },
+        { "id": 2, "title": "Console Input and Output" },
+        { "id": 3, "title": "Post-Assessment" }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Code Documentation and Structure",
+      "lessons": [
+        { "id": 1, "title": "Document Code Segments" },
+        { "id": 2, "title": "Function Definitions" },
+        { "id": 3, "title": "Post-Assessment" }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Troubleshooting and Error Handling",
+      "lessons": [
+        { "id": 1, "title": "Analyze, Detect, and Fix Errors" },
+        { "id": 2, "title": "Exception Handling" },
+        { "id": 3, "title": "Perform Unit Testing" },
+        { "id": 4, "title": "Post-Assessment" }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Operations using Modules and Tools",
+      "lessons": [
+        { "id": 1, "title": "System and Command-Line Operations" },
+        { "id": 2, "title": "Solve Complex Problems" },
+        { "id": 3, "title": "Post-Assessment" }
+      ]
+    }
+  ]
+}
