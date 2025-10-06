@@ -4,17 +4,20 @@ import Header from '../components/Header';
 import Sidebar from '../components/course/Sidebar';
 import CourseContent from '../components/course/CourseContent';
 import LoginForm from '../components/auth/LoginForm';
+import courseData from '../data/pythonCourseData.json';
 
 // Типы для курса
 interface SubLesson {
   id: number;
   title: string;
+  contentFile?: string;
 }
 
 interface Lesson {
   id: number;
   title: string;
   subLessons?: SubLesson[];
+  contentFile?: string;
 }
 
 interface Module {
@@ -28,8 +31,36 @@ interface CourseData {
   modules: Module[];
 }
 
-// Импорт данных курса из JSON файла
-import pythonCourseData from '../data/pythonCourseData.json';
+
+// Функция для загрузки содержимого урока из markdown файла
+const loadLessonContent = async (moduleId: number, lessonId: number): Promise<React.ReactNode> => {
+  try {
+    // Проверяем, есть ли у урока ссылка на файл с содержимым
+    const module = courseData.modules.find(m => m.id === moduleId);
+    const lesson = module?.lessons.find(l => l.id === lessonId);
+    
+    if (lesson && 'contentFile' in lesson) {
+      // Загружаем содержимое из файла
+      const content = await import(`../content/${lesson.contentFile}`);
+      return content.default;
+    }
+    
+    // Если у урока нет файла с содержимым, возвращаем заглушку
+    return (
+      <div className="p-0">
+        <p>Содержимое этого урока находится в разработке.</p>
+      </div>
+    );
+  } catch (error) {
+    console.error('Ошибка загрузки содержимого урока:', error);
+    // В случае ошибки возвращаем заглушку
+    return (
+      <div className="p-0">
+        <p>Содержимое этого урока временно недоступно.</p>
+      </div>
+    );
+  }
+};
 
 // Пример содержимого урока
 const lessonContents: Record<string, React.ReactNode> = {
@@ -37,9 +68,9 @@ const lessonContents: Record<string, React.ReactNode> = {
     <>
       <h2>Что такое Python и его преимущества</h2>
       <p>
-        Python — это высокоуровневый язык программирования общего назначения, 
-        который был создан Гвидо ван Россумом и выпущен в 1991 году. Python 
-        отличается простым и понятным синтаксисом, что делает его отличным 
+        Python — это высокоуровневый язык программирования общего назначения,
+        который был создан Гвидо ван Россумом и выпущен в 1991 году. Python
+        отличается простым и понятным синтаксисом, что делает его отличным
         выбором для начинающих программистов.
       </p>
       <h3>Основные преимущества Python:</h3>
@@ -51,7 +82,7 @@ const lessonContents: Record<string, React.ReactNode> = {
         <li>Применение в различных областях: веб-разработка, анализ данных, машинное обучение и др.</li>
       </ul>
       <p>
-        Python является интерпретируемым языком, что означает, что код выполняется 
+        Python является интерпретируемым языком, что означает, что код выполняется
         построчно, без необходимости компиляции всей программы перед запуском.
       </p>
     </>
@@ -60,7 +91,7 @@ const lessonContents: Record<string, React.ReactNode> = {
     <>
       <h2>Установка Python и среды разработки</h2>
       <p>
-        Для начала работы с Python вам необходимо установить интерпретатор Python 
+        Для начала работы с Python вам необходимо установить интерпретатор Python
         и, при желании, интегрированную среду разработки (IDE).
       </p>
       <h3>Установка Python:</h3>
@@ -133,7 +164,7 @@ const PythonCoursePage: React.FC = () => {
   }, []);
 
   // Получаем текущий модуль и урок
- const activeModule = pythonCourseData.modules.find(m => m.id === currentModule);
+ const activeModule = courseData.modules.find(m => m.id === currentModule);
   const activeLesson = activeModule?.lessons.find(l => l.id === currentLesson);
   
   // Получаем содержимое урока или показываем заглушку
@@ -204,8 +235,8 @@ const PythonCoursePage: React.FC = () => {
         >
           <div className="backdrop-blur-lg bg-white/10 border-white/20 flex-grow flex flex-col h-full">
             <Sidebar
-              title={pythonCourseData.title}
-              modules={pythonCourseData.modules}
+              title={courseData.title}
+              modules={courseData.modules}
               currentModuleId={currentModule}
               currentLessonId={currentLesson}
               onSelectLesson={(moduleId, lessonId) => {
@@ -234,6 +265,7 @@ const PythonCoursePage: React.FC = () => {
                 currentSubLessonId={currentSubLesson}
                 completedSubLessons={{}} // Пока что пустой объект, будет обновлен позже
                 onSubLessonSelect={(subLessonId) => setCurrentSubLesson(subLessonId)}
+                contentFile={activeLesson && (activeLesson as any).contentFile}
               />
             ) : (
               <div className="p-6">

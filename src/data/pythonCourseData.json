@@ -9,7 +9,7 @@
           "id": 1, 
           "title": "Основные типы данных в Python",
           "subLessons": [
-            { "id": 1, "title": "Целые числа (int)" },
+            { "id": 1, "title": "Целые числа (int)", "contentFile": "src/content/integerBasics.md" },
             { "id": 2, "title": "Числа с плавающей точкой (float)" },
             { "id": 3, "title": "Строки (str)" },
             { "id": 4, "title": "Логический тип (bool)" }

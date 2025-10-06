@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import LessonProgressIndicator from './LessonProgressIndicator';
 
 interface SubLesson {
   id: number;
   title: string;
+  contentFile?: string;
 }
 
 interface CourseContentProps {
@@ -14,6 +15,7 @@ interface CourseContentProps {
   currentSubLessonId: number | null;
   completedSubLessons: Record<number, boolean>;
   onSubLessonSelect: (subLessonId: number) => void;
+  contentFile?: string;
 }
 
 const CourseContent: React.FC<CourseContentProps> = ({
@@ -23,8 +25,20 @@ const CourseContent: React.FC<CourseContentProps> = ({
   subLessons,
   currentSubLessonId,
   completedSubLessons,
-  onSubLessonSelect
+  onSubLessonSelect,
+  contentFile
 }) => {
+  const [markdownContent, setMarkdownContent] = useState<React.ReactNode>(null);
+
+  useEffect(() => {
+    // Если указан файл с содержимым, загружаем его
+    if (contentFile) {
+      // В реальном приложении здесь будет логика загрузки markdown файла
+      // и преобразования его в React компонент
+      setMarkdownContent(content);
+    }
+  }, [contentFile, content]);
+
   return (
     <div className="bg-white/10 backdrop-blur-lg p-6 flex-grow overflow-y-auto border-white/20 flex flex-col h-full">
       <div className="mb-6">
@@ -40,7 +54,7 @@ const CourseContent: React.FC<CourseContentProps> = ({
       />
       
       <div className="prose prose-invert max-w-none flex-grow overflow-y-auto">
-        {content}
+        {markdownContent || content}
       </div>
     </div>
   );
