@@ -33,15 +33,26 @@ interface CourseData {
 
 
 // Функция для загрузки содержимого урока из markdown файла
-const loadLessonContent = async (moduleId: number, lessonId: number): Promise<React.ReactNode> => {
+const loadLessonContent = async (moduleId: number, lessonId: number, subLessonId?: number): Promise<React.ReactNode> => {
   try {
-    // Проверяем, есть ли у урока ссылка на файл с содержимым
+    // Проверяем, есть ли у урока или подурока ссылка на файл с содержимым
     const module = courseData.modules.find(m => m.id === moduleId);
     const lesson = module?.lessons.find(l => l.id === lessonId);
     
-    if (lesson && 'contentFile' in lesson) {
-      // Загружаем содержимое из файла
-      const content = await import(`../content/${lesson.contentFile}`);
+    // Если указан подурок, ищем его
+    if (subLessonId && lesson?.subLessons) {
+      // Используем type assertion для доступа к contentFile
+      const subLesson = lesson.subLessons.find(sl => sl.id === subLessonId);
+      if (subLesson && 'contentFile' in subLesson && subLesson.contentFile) {
+        // Загружаем содержимое из файла подурока
+        const contentFile = subLesson.contentFile as string;
+        const content = await import(/* @vite-ignore */ `../${contentFile.replace('src/', '')}`);
+        return content.default;
+      }
+    } else if (lesson && 'contentFile' in lesson && lesson.contentFile) {
+      // Загружаем содержимое из файла урока
+      const contentFile = lesson.contentFile as string;
+      const content = await import(/* @vite-ignore */ `../${contentFile.replace('src/', '')}`);
       return content.default;
     }
     
@@ -61,6 +72,7 @@ const loadLessonContent = async (moduleId: number, lessonId: number): Promise<Re
     );
   }
 };
+
 
 // Пример содержимого урока
 const lessonContents: Record<string, React.ReactNode> = {
@@ -112,7 +124,6 @@ const lessonContents: Record<string, React.ReactNode> = {
   ),
   // Другие уроки могут быть добавлены аналогично
 };
-
 const PythonCoursePage: React.FC = () => {
   const [currentModule, setCurrentModule] = useState<number>(1);
   const [currentLesson, setCurrentLesson] = useState<number>(1);
@@ -120,6 +131,8 @@ const PythonCoursePage: React.FC = () => {
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
   const [showLoginForm, setShowLoginForm] = useState<boolean>(false);
   const [completedLessons, setCompletedLessons] = useState<Record<string, boolean[]>>({});
+  const [completedSubLessons, setCompletedSubLessons] = useState<Record<number, boolean>>({});
+  const [lessonContent, setLessonContent] = useState<React.ReactNode>(null);
 
   const { login } = useAuth();
 
@@ -133,6 +146,16 @@ const PythonCoursePage: React.FC = () => {
         console.error('Ошибка при загрузке прогресса:', e);
       }
     }
+    
+    // Загружаем прогресс подуроков из localStorage
+    const savedSubLessonProgress = localStorage.getItem('pythonSubLessonProgress');
+    if (savedSubLessonProgress) {
+      try {
+        setCompletedSubLessons(JSON.parse(savedSubLessonProgress));
+      } catch (e) {
+        console.error('Ошибка при загрузке прогресса подуроков:', e);
+      }
+    }
   }, []);
 
   // Сохраняем прогресс в localStorage при его изменении
@@ -140,8 +163,13 @@ const PythonCoursePage: React.FC = () => {
     localStorage.setItem('pythonCourseProgress', JSON.stringify(completedLessons));
   }, [completedLessons]);
 
+  // Сохраняем прогресс подуроков в localStorage при его изменении
+  useEffect(() => {
+    localStorage.setItem('pythonSubLessonProgress', JSON.stringify(completedSubLessons));
+  }, [completedSubLessons]);
+
   // Обработчик выбора урока
-  const handleSelectLesson = useCallback((moduleId: number, lessonId: number) => {
+  const handleSelectLesson = useCallback(async (moduleId: number, lessonId: number) => {
     // Отмечаем текущий урок как завершенный
     setCompletedLessons(prev => {
       const moduleKey = `module-${moduleId}`;
@@ -161,18 +189,32 @@ const PythonCoursePage: React.FC = () => {
     
     setCurrentModule(moduleId);
     setCurrentLesson(lessonId);
+    setCurrentSubLesson(null); // Сбрасываем выбранный подурок при переходе к новому уроку
+    
+    // Загружаем содержимое урока
+    const content = await loadLessonContent(moduleId, lessonId);
+    setLessonContent(content);
   }, []);
 
+  // Обработчик выбора подурока
+  const handleSelectSubLesson = useCallback(async (subLessonId: number) => {
+    setCurrentSubLesson(subLessonId);
+    
+    // Загружаем содержимое подурока
+    const content = await loadLessonContent(currentModule, currentLesson, subLessonId);
+    setLessonContent(content);
+    
+    // Отмечаем подурок как завершенный
+    setCompletedSubLessons(prev => ({
+      ...prev,
+      [subLessonId]: true
+    }));
+  }, [currentModule, currentLesson]);
+
   // Получаем текущий модуль и урок
- const activeModule = courseData.modules.find(m => m.id === currentModule);
+  const activeModule = courseData.modules.find(m => m.id === currentModule);
   const activeLesson = activeModule?.lessons.find(l => l.id === currentLesson);
-  
-  // Получаем содержимое урока или показываем заглушку
-  const lessonContent = lessonContents[`${currentModule}-${currentLesson}`] || (
-    <div className="p-0">
-      <p>Содержимое этого урока находится в разработке.</p>
-    </div>
-  );
+  const subLessons = activeLesson?.subLessons || [];
 
   // Обработчик события открытия формы входа
   useEffect(() => {
@@ -261,10 +303,12 @@ const PythonCoursePage: React.FC = () => {
                 moduleTitle={activeModule.title}
                 lessonTitle={activeLesson.title}
                 content={lessonContent}
-                subLessons={activeLesson.subLessons || []}
+                subLessons={subLessons}
                 currentSubLessonId={currentSubLesson}
-                completedSubLessons={{}} // Пока что пустой объект, будет обновлен позже
-                onSubLessonSelect={(subLessonId) => setCurrentSubLesson(subLessonId)}
+                completedSubLessons={completedSubLessons}
+                onSubLessonSelect={(subLessonId) => {
+                  handleSelectSubLesson(subLessonId);
+                }}
                 contentFile={activeLesson && (activeLesson as any).contentFile}
               />
             ) : (

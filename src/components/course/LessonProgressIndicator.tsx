@@ -3,6 +3,7 @@ import React from 'react';
 interface SubLesson {
   id: number;
   title: string;
+  contentFile?: string;
 }
 
 interface LessonProgressIndicatorProps {
@@ -18,7 +19,7 @@ const LessonProgressIndicator: React.FC<LessonProgressIndicatorProps> = ({
   completedSubLessons,
   onSubLessonSelect
 }) => {
-  // Если нет подуроков, возвращаем пустой индикатор
+ // Если нет подуроков, возвращаем пустой индикатор
   if (!subLessons || subLessons.length === 0) {
     return <div className="flex items-center justify-center py-6"></div>;
   }

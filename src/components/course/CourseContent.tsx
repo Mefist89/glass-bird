@@ -46,12 +46,14 @@ const CourseContent: React.FC<CourseContentProps> = ({
         <h1 className="text-2xl font-bold text-white">{lessonTitle}</h1>
       </div>
       
-      <LessonProgressIndicator 
-        subLessons={subLessons}
-        currentSubLessonId={currentSubLessonId}
-        completedSubLessons={completedSubLessons}
-        onSubLessonSelect={onSubLessonSelect}
-      />
+      <div className="z-20 relative">
+        <LessonProgressIndicator
+          subLessons={subLessons}
+          currentSubLessonId={currentSubLessonId}
+          completedSubLessons={completedSubLessons}
+          onSubLessonSelect={onSubLessonSelect}
+        />
+      </div>
       
       <div className="prose prose-invert max-w-none flex-grow overflow-y-auto">
         {markdownContent || content}
