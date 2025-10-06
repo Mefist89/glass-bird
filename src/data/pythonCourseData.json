@@ -1,0 +1,231 @@
+{
+  "title": "Полный курс Python: от новичка до эксперта",
+  "modules": [
+    {
+      "id": 1,
+      "title": "Operations using Data Types and Operators",
+      "lessons": [
+        { 
+          "id": 1, 
+          "title": "Основные типы данных в Python",
+          "subLessons": [
+            { "id": 1, "title": "Целые числа (int)", "contentFile": "src/content/integerBasics.md" },
+            { "id": 2, "title": "Числа с плавающей точкой (float)" },
+            { "id": 3, "title": "Строки (str)" },
+            { "id": 4, "title": "Логический тип (bool)" }
+          ]
+        },
+        { 
+          "id": 2, 
+          "title": "Коллекции",
+          "subLessons": [
+            { "id": 1, "title": "Списки (list)" },
+            { "id": 2, "title": "Кортежи (tuple)" },
+            { "id": 3, "title": "Множества (set)" },
+            { "id": 4, "title": "Словари (dict)" }
+          ]
+        },
+        { 
+          "id": 3, 
+          "title": "Типизация и преобразование типов",
+          "subLessons": [
+            { "id": 1, "title": "Статическая и динамическая типизация" },
+            { "id": 2, "title": "Функции проверки типов" },
+            { "id": 3, "title": "Преобразование типов" },
+            { "id": 4, "title": "Автоматическое преобразование" }
+          ]
+        },
+        { 
+          "id": 4, 
+          "title": "Специальные типы данных",
+          "subLessons": [
+            { "id": 1, "title": "NoneType (None)" },
+            { "id": 2, "title": "Байтовые строки (bytes)" },
+            { "id": 3, "title": "Комплексные числа (complex)" },
+            { "id": 4, "title": "Типы данных datetime" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Flow Control with Decisions and Loops",
+      "lessons": [
+        { 
+          "id": 1, 
+          "title": "Branching Statements",
+          "subLessons": [
+            { "id": 1, "title": "if statement" },
+            { "id": 2, "title": "elif statement" },
+            { "id": 3, "title": "else statement" }
+          ]
+        },
+        { 
+          "id": 2, 
+          "title": "Iteration",
+          "subLessons": [
+            { "id": 1, "title": "for loop" },
+            { "id": 2, "title": "while loop" },
+            { "id": 3, "title": "nested loops" }
+          ]
+        },
+        { "id": 3, "title": "Post-Assessment" }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Input and Output Operations",
+      "lessons": [
+        { 
+          "id": 1, 
+          "title": "File Input and Output",
+          "subLessons": [
+            { "id": 1, "title": "reading files" },
+            { "id": 2, "title": "writing files" },
+            { "id": 3, "title": "file modes" }
+          ]
+        },
+        { 
+          "id": 2, 
+          "title": "Console Input and Output",
+          "subLessons": [
+            { "id": 1, "title": "input() function" },
+            { "id": 2, "title": "print() function" },
+            { "id": 3, "title": "formatted output" }
+          ]
+        },
+        { "id": 3, "title": "Post-Assessment" }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Code Documentation and Structure",
+      "lessons": [
+        { 
+          "id": 1, 
+          "title": "Document Code Segments",
+          "subLessons": [
+            { "id": 1, "title": "comments" },
+            { "id": 2, "title": "docstrings" },
+            { "id": 3, "title": "documentation tools" }
+          ]
+        },
+        { 
+          "id": 2, 
+          "title": "Function Definitions",
+          "subLessons": [
+            { "id": 1, "title": "def keyword" },
+            { "id": 2, "title": "function parameters" },
+            { "id": 3, "title": "return statement" }
+          ]
+        },
+        { "id": 3, "title": "Post-Assessment" }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Troubleshooting and Error Handling",
+      "lessons": [
+        { 
+          "id": 1, 
+          "title": "Analyze, Detect, and Fix Errors",
+          "subLessons": [
+            { "id": 1, "title": "syntax errors" },
+            { "id": 2, "title": "runtime errors" },
+            { "id": 3, "title": "logical errors" }
+          ]
+        },
+        { 
+          "id": 2, 
+          "title": "Exception Handling",
+          "subLessons": [
+            { "id": 1, "title": "try-except blocks" },
+            { "id": 2, "title": "finally block" },
+            { "id": 3, "title": "raising exceptions" }
+          ]
+        },
+        { 
+          "id": 3, 
+          "title": "Perform Unit Testing",
+          "subLessons": [
+            { "id": 1, "title": "unittest module" },
+            { "id": 2, "title": "pytest framework" },
+            { "id": 3, "title": "test cases" }
+          ]
+        },
+        { "id": 4, "title": "Post-Assessment" }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Operations using Modules and Tools",
+      "lessons": [
+        { 
+          "id": 1, 
+          "title": "System and Command-Line Operations",
+          "subLessons": [
+            { "id": 1, "title": "os module" },
+            { "id": 2, "title": "sys module" },
+            { "id": 3, "title": "subprocess module" }
+          ]
+        },
+        { 
+          "id": 2, 
+          "title": "Solve Complex Problems",
+          "subLessons": [
+            { "id": 1, "title": "problem decomposition" },
+            { "id": 2, "title": "algorithm design" },
+            { "id": 3, "title": "debugging techniques" }
+          ]
+        },
+        { "id": 3, "title": "Post-Assessment" }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Работа со строками",
+      "lessons": [
+        { 
+          "id": 1, 
+          "title": "Основы строк",
+          "subLessons": [
+            { "id": 1, "title": "Создание строк" },
+            { "id": 2, "title": "Индексация и срезы" },
+            { "id": 3, "title": "Неизменяемость строк" },
+            { "id": 4, "title": "Длина строки" }
+          ]
+        },
+        { 
+          "id": 2, 
+          "title": "Методы строк",
+          "subLessons": [
+            { "id": 1, "title": "upper(), lower(), capitalize()" },
+            { "id": 2, "title": "strip(), lstrip(), rstrip()" },
+            { "id": 3, "title": "find(), replace()" },
+            { "id": 4, "title": "split(), join()" }
+          ]
+        },
+        { 
+          "id": 3, 
+          "title": "Форматирование строк",
+          "subLessons": [
+            { "id": 1, "title": "f-строки" },
+            { "id": 2, "title": "format()" },
+            { "id": 3, "title": "Старый стиль % форматирования" },
+            { "id": 4, "title": "Форматирование чисел" }
+          ]
+        },
+        { 
+          "id": 4, 
+          "title": "Практические примеры",
+          "subLessons": [
+            { "id": 1, "title": "Парсинг текста" },
+            { "id": 2, "title": "Валидация ввода" },
+            { "id": 3, "title": "Генерация отчетов" },
+            { "id": 4, "title": "Работа с регулярными выражениями" }
+          ]
+        }
+      ]
+    }
+  ]
+}
