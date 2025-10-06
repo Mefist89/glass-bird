@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import LessonProgressIndicator from './LessonProgressIndicator';
 
 interface SubLesson {
   id: number;
   title: string;
-  contentFile?: string;
+ contentFile?: string;
 }
 
 interface CourseContentProps {
   moduleTitle: string;
-  lessonTitle: string;
+ lessonTitle: string;
   content: React.ReactNode;
   subLessons: SubLesson[];
   currentSubLessonId: number | null;
   completedSubLessons: Record<number, boolean>;
   onSubLessonSelect: (subLessonId: number) => void;
-  contentFile?: string;
+ contentFile?: string;
 }
 
 const CourseContent: React.FC<CourseContentProps> = ({
@@ -28,16 +29,19 @@ const CourseContent: React.FC<CourseContentProps> = ({
   onSubLessonSelect,
   contentFile
 }) => {
-  const [markdownContent, setMarkdownContent] = useState<React.ReactNode>(null);
+ const [isMarkdown, setIsMarkdown] = useState<boolean>(false);
+ const [markdownText, setMarkdownText] = useState<string>('');
 
   useEffect(() => {
-    // Если указан файл с содержимым, загружаем его
-    if (contentFile) {
-      // В реальном приложении здесь будет логика загрузки markdown файла
-      // и преобразования его в React компонент
-      setMarkdownContent(content);
+    // Проверяем, является ли контент строкой markdown
+    if (typeof content === 'string' && content.length > 0) {
+      setMarkdownText(content);
+      setIsMarkdown(true);
+    } else {
+      setIsMarkdown(false);
+      setMarkdownText('');
     }
-  }, [contentFile, content]);
+  }, [content]);
 
   return (
     <div className="bg-white/10 backdrop-blur-lg p-6 flex-grow overflow-y-auto border-white/20 flex flex-col h-full">
@@ -56,7 +60,13 @@ const CourseContent: React.FC<CourseContentProps> = ({
       </div>
       
       <div className="prose prose-invert max-w-none flex-grow overflow-y-auto">
-        {markdownContent || content}
+        {isMarkdown ? (
+          <div className="markdown-content">
+            <ReactMarkdown>{markdownText}</ReactMarkdown>
+          </div>
+        ) : (
+          <div>{content}</div>
+        )}
       </div>
     </div>
   );

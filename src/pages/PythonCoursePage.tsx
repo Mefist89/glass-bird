@@ -46,14 +46,36 @@ const loadLessonContent = async (moduleId: number, lessonId: number, subLessonId
       if (subLesson && 'contentFile' in subLesson && subLesson.contentFile) {
         // Загружаем содержимое из файла подурока
         const contentFile = subLesson.contentFile as string;
-        const content = await import(/* @vite-ignore */ `../${contentFile.replace('src/', '')}`);
-        return content.default;
+        if (contentFile.endsWith('.md')) {
+          // Используем fetch для получения содержимого markdown файла
+          const response = await fetch(`/${contentFile}`);
+          if (response.ok) {
+            const markdownContent = await response.text();
+            return markdownContent;
+          } else {
+            throw new Error(`Failed to load markdown file: ${contentFile}`);
+          }
+        } else {
+          const content = await import(/* @vite-ignore */ `../${contentFile.replace('src/', '')}`);
+          return content.default;
+        }
       }
     } else if (lesson && 'contentFile' in lesson && lesson.contentFile) {
       // Загружаем содержимое из файла урока
       const contentFile = lesson.contentFile as string;
-      const content = await import(/* @vite-ignore */ `../${contentFile.replace('src/', '')}`);
-      return content.default;
+      if (contentFile.endsWith('.md')) {
+        // Используем fetch для получения содержимого markdown файла
+        const response = await fetch(`/${contentFile}`);
+        if (response.ok) {
+          const markdownContent = await response.text();
+          return markdownContent;
+        } else {
+          throw new Error(`Failed to load markdown file: ${contentFile}`);
+        }
+      } else {
+        const content = await import(/* @vite-ignore */ `../${contentFile.replace('src/', '')}`);
+        return content.default;
+      }
     }
     
     // Если у урока нет файла с содержимым, возвращаем заглушку
