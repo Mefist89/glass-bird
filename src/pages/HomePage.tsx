@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BookOpen, User } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import LoginForm from '../components/auth/LoginForm';
 import Footer from '../components/Footer';
@@ -8,6 +9,7 @@ import Footer from '../components/Footer';
 const GlassBirdHome = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const { user, isAuthenticated, isAdmin, login, logout } = useAuth();
+  const navigate = useNavigate();
 
   // Обработчик события открытия формы входа
   useEffect(() => {
@@ -129,6 +131,8 @@ const GlassBirdHome = () => {
                   onClick={() => {
                     if (!isAuthenticated) {
                       setShowLoginForm(true);
+                    } else {
+                      navigate('/python-course');
                     }
                   }}
                 >

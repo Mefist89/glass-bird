@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { User, LogOut, Menu, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface NavItem {
   title: string;
@@ -10,6 +11,8 @@ interface NavItem {
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, isAuthenticated, isAdmin, login, logout } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   // Закрытие мобильного меню при изменении размера экрана на desktop
   useEffect(() => {
@@ -24,7 +27,9 @@ const Header = () => {
   }, []);
 
   const navLinks: NavItem[] = [
-    { title: 'Курсы', url: '#courses' },
+    { title: 'Главная', url: '/' },
+    { title: 'Курсы', url: '/#courses' },
+    { title: 'Python курс', url: '/python-course' },
     { title: 'О нас', url: '#about' },
     { title: 'Контакты', url: '#contact' },
   ];
@@ -39,19 +44,25 @@ const Header = () => {
               Glass Bird
             </span>
           </div>
-
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center space-x-10">
-            {navLinks.map((link, index) => (
-              <a
-                key={index}
-                href={link.url}
-                className="hover:text-blue-400 transition-colors"
-                aria-label={link.title}
-              >
-                {link.title}
-              </a>
-            ))}
+{/* Desktop Menu */}
+<div className="hidden lg:flex items-center space-x-10">
+  {navLinks.map((link, index) => (
+    <a
+      key={index}
+      href={link.url}
+      className={`hover:text-blue-400 transition-colors ${location.pathname === link.url ? 'text-blue-400 font-medium' : ''}`}
+      aria-label={link.title}
+      onClick={(e) => {
+        if (link.url.startsWith('/')) {
+          e.preventDefault();
+          navigate(link.url);
+        }
+      }}
+    >
+      {link.title}
+    </a>
+  ))}
+  
             
             {isAuthenticated ? (
               <div className="flex items-center space-x-4">
@@ -103,11 +114,17 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="lg:hidden mt-4 pb-4 space-y-4">
             {navLinks.map((link, index) => (
-              <a 
+              <a
                 key={index}
                 href={link.url}
-                className="block hover:text-blue-400 transition-colors py-2 border-b border-white/10"
-                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block hover:text-blue-400 transition-colors py-2 border-b border-white/10 ${location.pathname === link.url ? 'text-blue-400 font-medium' : ''}`}
+                onClick={(e) => {
+                  setIsMobileMenuOpen(false);
+                  if (link.url.startsWith('/')) {
+                    e.preventDefault();
+                    navigate(link.url);
+                  }
+                }}
               >
                 {link.title}
               </a>
