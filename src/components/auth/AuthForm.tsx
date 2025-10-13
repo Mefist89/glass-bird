@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Mail, Lock, User, Eye, EyeOff, LogIn } from 'lucide-react';
-import { registerUser, loginUser } from '../../services/authService';
+import { loginUser } from '../../services/authService';
 
 // Удаляем определение интерфейса, так как теперь используем напрямую функции аутентификации
 // Вместо этого добавим опциональные параметры для функций, если они переопределяются
@@ -78,7 +78,22 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
       if (onRegister) {
         await onRegister(name, registerEmail, registerPassword);
       } else {
-        await registerUser({ name, email: registerEmail, password: registerPassword });
+        // Регистрация через серверный API
+        const response = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email: registerEmail, password: registerPassword }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Ошибка регистрации');
+        }
+
+        const result = await response.json();
+        console.log('Пользователь успешно зарегистрирован:', result.user);
       }
       onClose();
     } catch (err) {

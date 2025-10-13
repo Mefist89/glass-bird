@@ -40,20 +40,18 @@ export const registerUser = async (userData: UserRegistrationData): Promise<User
 
     console.log('Пользователь успешно зарегистрирован в Supabase Auth:', authData.user?.id);
 
-    // Если аутентификация прошла успешно, обновляем или создаем запись в таблице profiles
+    // Если аутентификация прошла успешно, обновляем профиль в таблице profiles
+    // Триггер handle_new_user должен автоматически создать профиль при регистрации
     if (authData.user) {
-      console.log('Попытка создания/обновления профиля в таблице profiles...');
+      console.log('Попытка обновления профиля в таблице profiles...');
       
+      // Используем безопасную функцию для создания/обновления профиля
       const { data: profileData, error: profileError } = await supabase
-        .from('profiles')
-        .upsert([{
-          id: authData.user.id,
-          email: userData.email,
-          name: userData.name,
-          updated_at: new Date().toISOString()
-        }])
-        .select()
-        .single();
+        .rpc('create_or_update_user_profile', {
+          p_user_id: authData.user.id,
+          p_email: userData.email,
+          p_name: userData.name
+        });
 
       if (profileError) {
         console.error('Ошибка при сохранении профиля в таблице profiles:', profileError);
@@ -71,10 +69,13 @@ export const registerUser = async (userData: UserRegistrationData): Promise<User
 
       console.log('Профиль успешно сохранен/обновлен:', profileData);
       
+      // RPC возвращает массив, берем первый элемент
+      const profile = Array.isArray(profileData) && profileData.length > 0 ? profileData[0] : profileData;
+      
       return {
-        id: profileData.id,
-        email: profileData.email,
-        name: profileData.name,
+        id: profile.profile_id || profile.id,
+        email: profile.profile_email || profile.email,
+        name: profile.profile_name || profile.name,
       };
     } else {
       throw new Error('Не удалось завершить регистрацию пользователя');
@@ -147,7 +148,7 @@ export const getCurrentUser = async () => {
       return { ...user, profile };
     }
     return null;
-  } catch (error) {
+ } catch (error) {
     console.error('Ошибка получения текущего пользователя:', error);
     return null;
   }
