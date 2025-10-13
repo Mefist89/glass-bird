@@ -14,12 +14,12 @@ interface AuthFormProps {
 type AuthMode = 'login' | 'register';
 
 const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initialMode = 'login' }) => {
- const [mode, setMode] = useState<AuthMode>(initialMode);
-  
+  const [mode, setMode] = useState<AuthMode>(initialMode);
+   
   // Логин состояния
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
-  
+   
   // Регистрация состояния
   const [name, setName] = useState('');
   const [registerEmail, setRegisterEmail] = useState('');
@@ -27,10 +27,11 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
+   
   // Общее состояние
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const validatePassword = (password: string): boolean => {
     return password.length >= 8 && 
@@ -95,7 +96,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
         const result = await response.json();
         console.log('Пользователь успешно зарегистрирован:', result.user);
       }
-      onClose();
+      // Показываем сообщение об успешной регистрации
+      setShowSuccessMessage(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка регистрации');
     } finally {
@@ -137,9 +139,32 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
               {error}
             </div>
           )}
+          
+          {/* Сообщение об успешной регистрации */}
+          {showSuccessMessage && (
+            <div className="mb-6 p-6 bg-green-500/20 border border-green-500/50 rounded-lg text-green-200 text-center">
+              <h3 className="text-xl font-semibold mb-2">Регистрация успешна!</h3>
+              <p className="mb-4">Ваша учетная запись успешно создана.</p>
+              <p className="mb-4">Теперь вы можете войти на сайт, используя указанные email и пароль.</p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <button
+                  onClick={() => setShowSuccessMessage(false)}
+                  className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors"
+                >
+                  Продолжить
+                </button>
+                <button
+                  onClick={() => setMode('login')}
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+                >
+                  Войти
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Форма */}
-          {mode === 'login' ? (
+          {!showSuccessMessage && mode === 'login' && (
             <form onSubmit={handleLoginSubmit} className="space-y-5">
               {/* Email */}
               <div>
@@ -171,7 +196,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
                     value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
                     className="input-glass pl-11 w-full"
-                    placeholder="••••••"
+                    placeholder="•••••"
                     required
                   />
                 </div>
@@ -205,7 +230,9 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
                 </p>
               </div>
             </form>
-          ) : (
+          )}
+
+          {!showSuccessMessage && mode === 'register' && (
             <form onSubmit={handleRegisterSubmit} className="space-y-5">
               {/* Name */}
               <div>
@@ -255,7 +282,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
                     value={registerPassword}
                     onChange={(e) => setRegisterPassword(e.target.value)}
                     className="input-glass pl-11 w-full pr-11"
-                    placeholder="••••••"
+                    placeholder="•••••"
                     required
                   />
                   <button
@@ -283,7 +310,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     className="input-glass pl-11 w-full pr-11"
-                    placeholder="••••••"
+                    placeholder="•••••"
                     required
                   />
                   <button
@@ -318,17 +345,19 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
           )}
 
           {/* Разделитель */}
-          <div className="mt-6 text-center">
-            <p className="text-sm text-slate-400">
-              {mode === 'login' ? 'Нет аккаунта? ' : 'Уже есть аккаунт? '}
-              <button 
-                className="text-blue-400 hover:text-blue-300 font-semibold transition-colors"
-                onClick={() => setMode(mode === 'login' ? 'register' : 'login')}
-              >
-                {mode === 'login' ? 'Зарегистрироваться' : 'Войти'}
-              </button>
-            </p>
-          </div>
+          {!showSuccessMessage && (
+            <div className="mt-6 text-center">
+              <p className="text-sm text-slate-400">
+                {mode === 'login' ? 'Нет аккаунта? ' : 'Уже есть аккаунт? '}
+                <button 
+                  className="text-blue-400 hover:text-blue-300 font-semibold transition-colors"
+                  onClick={() => setMode(mode === 'login' ? 'register' : 'login')}
+                >
+                  {mode === 'login' ? 'Зарегистрироваться' : 'Войти'}
+                </button>
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
