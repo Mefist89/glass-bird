@@ -7,16 +7,9 @@ interface RegistrationFormProps {
 }
 
 const RegistrationForm: React.FC<RegistrationFormProps> = ({ onClose, onRegister }) => {
-  const handleLogin = async (email: string, password: string) => {
-    // Заглушка для входа - в реальном приложении здесь будет вызов соответствующего API
-    console.log('Попытка входа:', { email, password });
-    throw new Error('Функция входа недоступна из формы регистрации');
-  };
-
-  return (
-    <AuthForm 
-      onClose={onClose} 
-      onLogin={handleLogin} 
+ return (
+    <AuthForm
+      onClose={onClose}
       onRegister={onRegister}
       initialMode="register"
     />

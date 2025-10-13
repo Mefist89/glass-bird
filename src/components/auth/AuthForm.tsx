@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { X, Mail, Lock, User, Eye, EyeOff, LogIn } from 'lucide-react';
+import { registerUser, loginUser } from '../../services/authService';
 
+// Удаляем определение интерфейса, так как теперь используем напрямую функции аутентификации
+// Вместо этого добавим опциональные параметры для функций, если они переопределяются
 interface AuthFormProps {
   onClose: () => void;
-  onLogin: (email: string, password: string) => Promise<void>;
-  onRegister: (name: string, email: string, password: string) => Promise<void>;
   initialMode?: AuthMode;
+  onLogin?: (email: string, password: string) => Promise<void>;
+  onRegister?: (name: string, email: string, password: string) => Promise<void>;
 }
 
 type AuthMode = 'login' | 'register';
@@ -42,7 +45,11 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
     setIsLoading(true);
 
     try {
-      await onLogin(loginEmail, loginPassword);
+      if (onLogin) {
+        await onLogin(loginEmail, loginPassword);
+      } else {
+        await loginUser(loginEmail, loginPassword);
+      }
       onClose();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка входа');
@@ -68,7 +75,11 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
     setIsLoading(true);
 
     try {
-      await onRegister(name, registerEmail, registerPassword);
+      if (onRegister) {
+        await onRegister(name, registerEmail, registerPassword);
+      } else {
+        await registerUser({ name, email: registerEmail, password: registerPassword });
+      }
       onClose();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка регистрации');

@@ -14,10 +14,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose, onLogin }) => {
   };
 
   return (
-    <AuthForm 
-      onClose={onClose} 
-      onLogin={onLogin} 
-      onRegister={handleRegister}
+    <AuthForm
+      onClose={onClose}
+      onLogin={onLogin}
       initialMode="login"
     />
   );
