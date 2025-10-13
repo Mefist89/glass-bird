@@ -185,8 +185,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
               <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
                 <p className="text-xs text-slate-300 text-center">
                   <strong>Тестовый вход:</strong><br />
-                  Email: <code className="text-blue-400">admin@glassbird.com</code><br />
-                  Пароль: <code className="text-blue-400">admin123</code>
+                  Email: <code className="text-blue-400">test@example.com</code><br />
+                  Пароль: <code className="text-blue-400">TestPass123!</code>
                 </p>
               </div>
             </form>

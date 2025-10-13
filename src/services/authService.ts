@@ -25,6 +25,8 @@ interface UserRegistrationResponse {
  */
 export const registerUser = async (userData: UserRegistrationData): Promise<UserRegistrationResponse> => {
   try {
+    console.log('Начало регистрации пользователя:', userData.email);
+    
     // Регистрируем пользователя в Supabase Auth
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email: userData.email,
@@ -32,28 +34,43 @@ export const registerUser = async (userData: UserRegistrationData): Promise<User
     });
 
     if (authError) {
-      throw new Error(authError.message);
+      console.error('Ошибка при регистрации в Supabase Auth:', authError);
+      throw new Error(`Ошибка при регистрации в Supabase Auth: ${authError.message}`);
     }
 
-    // Если аутентификация прошла успешно, сохраняем дополнительные данные в таблице profiles
+    console.log('Пользователь успешно зарегистрирован в Supabase Auth:', authData.user?.id);
+
+    // Если аутентификация прошла успешно, обновляем или создаем запись в таблице profiles
     if (authData.user) {
-      // Создаем запись в таблице profiles
+      console.log('Попытка создания/обновления профиля в таблице profiles...');
+      
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
-        .insert([{
+        .upsert([{
           id: authData.user.id,
           email: userData.email,
           name: userData.name,
+          updated_at: new Date().toISOString()
         }])
         .select()
         .single();
 
       if (profileError) {
-        // Если не удалось создать профиль, удаляем пользователя из аутентификации
-        await supabase.auth.admin.deleteUser(authData.user.id);
-        throw new Error(`Ошибка создания профиля пользователя: ${profileError.message}`);
+        console.error('Ошибка при сохранении профиля в таблице profiles:', profileError);
+        
+        // Если не удалось создать/обновить профиль, удаляем пользователя из аутентификации
+        try {
+          await supabase.auth.admin.deleteUser(authData.user.id);
+          console.log('Пользователь удален из аутентификации из-за ошибки профиля');
+        } catch (deleteError) {
+          console.error('Ошибка при удалении пользователя из аутентификации:', deleteError);
+        }
+        
+        throw new Error(`Ошибка сохранения профиля пользователя: ${profileError.message}`);
       }
 
+      console.log('Профиль успешно сохранен/обновлен:', profileData);
+      
       return {
         id: profileData.id,
         email: profileData.email,
