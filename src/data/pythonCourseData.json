@@ -9,7 +9,7 @@
           "id": 1, 
           "title": "Basic Data Types in Python",
           "subLessons": [
-            { "id": 1, "title": "Integers (int)", "contentFile": "content/integerBasics.md" },
+            { "id": 1, "title": "Integers (int)", "contentFile": "content/IntegerBasics.tsx" },
             { "id": 2, "title": "Floating Point Numbers (float)" },
             { "id": 3, "title": "Strings (str)" },
             { "id": 4, "title": "Boolean Type (bool)" }
