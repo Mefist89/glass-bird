@@ -1,5 +1,5 @@
 {
-  "title": "Полный курс Python: от новичка до эксперта",
+  "title": "Complete Python Course: From Beginner to Expert",
   "modules": [
     {
       "id": 1,
@@ -7,42 +7,42 @@
       "lessons": [
         { 
           "id": 1, 
-          "title": "Основные типы данных в Python",
+          "title": "Basic Data Types in Python",
           "subLessons": [
-            { "id": 1, "title": "Целые числа (int)", "contentFile": "content/integerBasics.md" },
-            { "id": 2, "title": "Числа с плавающей точкой (float)" },
-            { "id": 3, "title": "Строки (str)" },
-            { "id": 4, "title": "Логический тип (bool)" }
+            { "id": 1, "title": "Integers (int)", "contentFile": "content/integerBasics.md" },
+            { "id": 2, "title": "Floating Point Numbers (float)" },
+            { "id": 3, "title": "Strings (str)" },
+            { "id": 4, "title": "Boolean Type (bool)" }
           ]
         },
         { 
           "id": 2, 
-          "title": "Коллекции",
+          "title": "Collections",
           "subLessons": [
-            { "id": 1, "title": "Списки (list)" },
-            { "id": 2, "title": "Кортежи (tuple)" },
-            { "id": 3, "title": "Множества (set)" },
-            { "id": 4, "title": "Словари (dict)" }
+            { "id": 1, "title": "Lists (list)" },
+            { "id": 2, "title": "Tuples (tuple)" },
+            { "id": 3, "title": "Sets (set)" },
+            { "id": 4, "title": "Dictionaries (dict)" }
           ]
         },
         { 
           "id": 3, 
-          "title": "Типизация и преобразование типов",
+          "title": "Typing and Type Conversion",
           "subLessons": [
-            { "id": 1, "title": "Статическая и динамическая типизация" },
-            { "id": 2, "title": "Функции проверки типов" },
-            { "id": 3, "title": "Преобразование типов" },
-            { "id": 4, "title": "Автоматическое преобразование" }
+            { "id": 1, "title": "Static and Dynamic Typing" },
+            { "id": 2, "title": "Type Checking Functions" },
+            { "id": 3, "title": "Type Conversion" },
+            { "id": 4, "title": "Automatic Conversion" }
           ]
         },
         { 
           "id": 4, 
-          "title": "Специальные типы данных",
+          "title": "Special Data Types",
           "subLessons": [
             { "id": 1, "title": "NoneType (None)" },
-            { "id": 2, "title": "Байтовые строки (bytes)" },
-            { "id": 3, "title": "Комплексные числа (complex)" },
-            { "id": 4, "title": "Типы данных datetime" }
+            { "id": 2, "title": "Byte Strings (bytes)" },
+            { "id": 3, "title": "Complex Numbers (complex)" },
+            { "id": 4, "title": "Datetime Data Types" }
           ]
         }
       ]
@@ -183,21 +183,21 @@
     },
     {
       "id": 7,
-      "title": "Работа со строками",
+      "title": "Working with Strings",
       "lessons": [
-        { 
-          "id": 1, 
-          "title": "Основы строк",
+        {
+          "id": 1,
+          "title": "String Basics",
           "subLessons": [
-            { "id": 1, "title": "Создание строк" },
-            { "id": 2, "title": "Индексация и срезы" },
-            { "id": 3, "title": "Неизменяемость строк" },
-            { "id": 4, "title": "Длина строки" }
+            { "id": 1, "title": "Creating Strings" },
+            { "id": 2, "title": "Indexing and Slicing" },
+            { "id": 3, "title": "String Immutability" },
+            { "id": 4, "title": "String Length" }
           ]
         },
-        { 
-          "id": 2, 
-          "title": "Методы строк",
+        {
+          "id": 2,
+          "title": "String Methods",
           "subLessons": [
             { "id": 1, "title": "upper(), lower(), capitalize()" },
             { "id": 2, "title": "strip(), lstrip(), rstrip()" },
@@ -205,24 +205,24 @@
             { "id": 4, "title": "split(), join()" }
           ]
         },
-        { 
-          "id": 3, 
-          "title": "Форматирование строк",
+        {
+          "id": 3,
+          "title": "String Formatting",
           "subLessons": [
-            { "id": 1, "title": "f-строки" },
+            { "id": 1, "title": "f-strings" },
             { "id": 2, "title": "format()" },
-            { "id": 3, "title": "Старый стиль % форматирования" },
-            { "id": 4, "title": "Форматирование чисел" }
+            { "id": 3, "title": "Old-style % formatting" },
+            { "id": 4, "title": "Number Formatting" }
           ]
         },
-        { 
-          "id": 4, 
-          "title": "Практические примеры",
+        {
+          "id": 4,
+          "title": "Practical Examples",
           "subLessons": [
-            { "id": 1, "title": "Парсинг текста" },
-            { "id": 2, "title": "Валидация ввода" },
-            { "id": 3, "title": "Генерация отчетов" },
-            { "id": 4, "title": "Работа с регулярными выражениями" }
+            { "id": 1, "title": "Text Parsing" },
+            { "id": 2, "title": "Input Validation" },
+            { "id": 3, "title": "Report Generation" },
+            { "id": 4, "title": "Working with Regular Expressions" }
           ]
         }
       ]

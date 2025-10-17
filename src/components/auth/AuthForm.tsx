@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { X, Mail, Lock, User, Eye, EyeOff, LogIn } from 'lucide-react';
 import { loginUser } from '../../services/authService';
 
-// Удаляем определение интерфейса, так как теперь используем напрямую функции аутентификации
-// Вместо этого добавим опциональные параметры для функций, если они переопределяются
+// Removing the interface definition, as we now use authentication functions directly
+// Instead, we'll add optional parameters for functions if they are overridden
 interface AuthFormProps {
   onClose: () => void;
   initialMode?: AuthMode;
@@ -16,11 +16,11 @@ type AuthMode = 'login' | 'register';
 const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initialMode = 'login' }) => {
   const [mode, setMode] = useState<AuthMode>(initialMode);
    
-  // Логин состояния
+  // Login state
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
    
-  // Регистрация состояния
+  // Registration state
   const [name, setName] = useState('');
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
@@ -28,7 +28,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
    
-  // Общее состояние
+  // General state
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -53,7 +53,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
       }
       onClose();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Ошибка входа');
+      setError(err instanceof Error ? err.message : 'Login error');
     } finally {
       setIsLoading(false);
     }
@@ -64,12 +64,12 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
     setError('');
     
     if (registerPassword !== confirmPassword) {
-      setError('Пароли не совпадают');
+      setError('Passwords do not match');
       return;
     }
     
     if (!validatePassword(registerPassword)) {
-      setError('Пароль должен содержать не менее 8 символов, включая заглавные и строчные буквы, а также цифры');
+      setError('Password must contain at least 8 characters, including uppercase and lowercase letters, and digits');
       return;
     }
 
@@ -79,7 +79,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
       if (onRegister) {
         await onRegister(name, registerEmail, registerPassword);
       } else {
-        // Регистрация через серверный API
+        // Registration via server API
         const response = await fetch('/api/auth/register', {
           method: 'POST',
           headers: {
@@ -90,16 +90,16 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.error || 'Ошибка регистрации');
+          throw new Error(errorData.error || 'Registration error');
         }
 
         const result = await response.json();
-        console.log('Пользователь успешно зарегистрирован:', result.user);
+        console.log('User successfully registered:', result.user);
       }
-      // Показываем сообщение об успешной регистрации
+      // Show success registration message
       setShowSuccessMessage(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Ошибка регистрации');
+      setError(err instanceof Error ? err.message : 'Registration error');
     } finally {
       setIsLoading(false);
     }
@@ -108,13 +108,13 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
       <div className="relative w-full max-w-md">
-        {/* Декоративные элементы */}
+        {/* Decorative elements */}
         <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
         <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse delay-1000"></div>
 
-        {/* Форма */}
+        {/* Form */}
         <div className="relative glass-effect rounded-2xl p-8 shadow-2xl">
-          {/* Кнопка закрытия */}
+          {/* Close button */}
           <button
             onClick={onClose}
             className="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-lg transition-colors"
@@ -122,48 +122,48 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
             <X size={20} />
           </button>
 
-          {/* Заголовок */}
+          {/* Title */}
           <div className="text-center mb-8">
             <div className="text-4xl mb-3">🐦</div>
             <h2 className="text-3xl font-bold text-gradient mb-2">
-              {mode === 'login' ? 'Добро пожаловать' : 'Создать аккаунт'}
+              {mode === 'login' ? 'Welcome' : 'Create Account'}
             </h2>
             <p className="text-slate-400">
-              {mode === 'login' ? 'Войдите в Glass Bird' : 'Зарегистрируйтесь в Glass Bird'}
+              {mode === 'login' ? 'Sign in to Glass Bird' : 'Register in Glass Bird'}
             </p>
           </div>
 
-          {/* Ошибка */}
+          {/* Error */}
           {error && (
             <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm">
               {error}
             </div>
           )}
           
-          {/* Сообщение об успешной регистрации */}
+          {/* Registration success message */}
           {showSuccessMessage && (
             <div className="mb-6 p-6 bg-green-500/20 border border-green-500/50 rounded-lg text-green-200 text-center">
-              <h3 className="text-xl font-semibold mb-2">Регистрация успешна!</h3>
-              <p className="mb-4">Ваша учетная запись успешно создана.</p>
-              <p className="mb-4">Теперь вы можете войти на сайт, используя указанные email и пароль.</p>
+              <h3 className="text-xl font-semibold mb-2">Registration Successful!</h3>
+              <p className="mb-4">Your account has been successfully created.</p>
+              <p className="mb-4">You can now log in to the site using the provided email and password.</p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <button
                   onClick={() => setShowSuccessMessage(false)}
                   className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors"
                 >
-                  Продолжить
+                  Continue
                 </button>
                 <button
                   onClick={() => setMode('login')}
                   className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
                 >
-                  Войти
+                  Sign In
                 </button>
               </div>
             </div>
           )}
 
-          {/* Форма */}
+          {/* Form */}
           {!showSuccessMessage && mode === 'login' && (
             <form onSubmit={handleLoginSubmit} className="space-y-5">
               {/* Email */}
@@ -187,7 +187,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
               {/* Password */}
               <div>
                 <label className="block text-sm font-medium mb-2 text-slate-300">
-                  Пароль
+                  Password
                 </label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
@@ -202,7 +202,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
                 </div>
               </div>
 
-              {/* Кнопка входа */}
+              {/* Login button */}
               <button
                 type="submit"
                 disabled={isLoading}
@@ -211,22 +211,22 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
                 {isLoading ? (
                   <>
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    <span>Вход...</span>
+                    <span>Sign In...</span>
                   </>
                 ) : (
                   <>
                     <LogIn size={20} />
-                    <span>Войти</span>
+                    <span>Sign In</span>
                   </>
                 )}
               </button>
               
-              {/* Подсказка для тестирования */}
+              {/* Test hint */}
               <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
                 <p className="text-xs text-slate-300 text-center">
-                  <strong>Тестовый вход:</strong><br />
+                  <strong>Test Login:</strong><br />
                   Email: <code className="text-blue-400">test@example.com</code><br />
-                  Пароль: <code className="text-blue-400">TestPass123!</code>
+                  Password: <code className="text-blue-400">TestPass123!</code>
                 </p>
               </div>
             </form>
@@ -237,7 +237,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
               {/* Name */}
               <div>
                 <label className="block text-sm font-medium mb-2 text-slate-300">
-                  Имя
+                  Name
                 </label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
@@ -246,7 +246,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="input-glass pl-11 w-full"
-                    placeholder="Ваше имя"
+                    placeholder="Your name"
                     required
                   />
                 </div>
@@ -273,7 +273,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
               {/* Password */}
               <div>
                 <label className="block text-sm font-medium mb-2 text-slate-300">
-                  Пароль
+                  Password
                 </label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
@@ -293,15 +293,15 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
-                <p className="text-xs text-slate-500 mt-1">
-                  Минимум 8 символов, с заглавной буквой и цифрой
+                <p className="text-xs text-slate-50 mt-1">
+                  Minimum 8 characters, with uppercase letter and digit
                 </p>
               </div>
 
               {/* Confirm Password */}
               <div>
                 <label className="block text-sm font-medium mb-2 text-slate-300">
-                  Подтверждение пароля
+                  Password Confirmation
                 </label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
@@ -323,7 +323,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
                 </div>
               </div>
 
-              {/* Кнопка регистрации */}
+              {/* Registration button */}
               <button
                 type="submit"
                 disabled={isLoading}
@@ -332,28 +332,28 @@ const AuthForm: React.FC<AuthFormProps> = ({ onClose, onLogin, onRegister, initi
                 {isLoading ? (
                   <>
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    <span>Регистрация...</span>
+                    <span>Register...</span>
                   </>
                 ) : (
                   <>
                     <User size={20} />
-                    <span>Зарегистрироваться</span>
+                    <span>Register</span>
                   </>
                 )}
               </button>
             </form>
           )}
 
-          {/* Разделитель */}
+          {/* Separator */}
           {!showSuccessMessage && (
             <div className="mt-6 text-center">
               <p className="text-sm text-slate-400">
-                {mode === 'login' ? 'Нет аккаунта? ' : 'Уже есть аккаунт? '}
-                <button 
-                  className="text-blue-400 hover:text-blue-300 font-semibold transition-colors"
+                {mode === 'login' ? 'No account? ' : 'Already have an account? '}
+                <button
+                  className="text-blue-400 hover:text-blue-30 font-semibold transition-colors"
                   onClick={() => setMode(mode === 'login' ? 'register' : 'login')}
                 >
-                  {mode === 'login' ? 'Зарегистрироваться' : 'Войти'}
+                  {mode === 'login' ? 'Register' : 'Sign In'}
                 </button>
               </p>
             </div>

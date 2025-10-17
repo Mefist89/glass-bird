@@ -6,48 +6,25 @@ import CourseContent from '../components/course/CourseContent';
 import LoginForm from '../components/auth/LoginForm';
 import courseData from '../data/pythonCourseData.json';
 
-// Типы для курса
-interface SubLesson {
-  id: number;
-  title: string;
-  contentFile?: string;
-}
-
-interface Lesson {
-  id: number;
-  title: string;
-  subLessons?: SubLesson[];
-  contentFile?: string;
-}
-
-interface Module {
-  id: number;
-  title: string;
-  lessons: Lesson[];
-}
-
-interface CourseData {
-  title: string;
-  modules: Module[];
-}
+// Types for the course
 
 
-// Функция для загрузки содержимого урока из markdown файла
+// Function to load lesson content from markdown file
 const loadLessonContent = async (moduleId: number, lessonId: number, subLessonId?: number): Promise<React.ReactNode> => {
   try {
-    // Проверяем, есть ли у урока или подурока ссылка на файл с содержимым
+    // Check if the lesson or sublesson has a link to a content file
     const module = courseData.modules.find(m => m.id === moduleId);
     const lesson = module?.lessons.find(l => l.id === lessonId);
     
-    // Если указан подурок, ищем его
+    // If a sublesson is specified, find it
     if (subLessonId && lesson?.subLessons) {
       // Используем type assertion для доступа к contentFile
       const subLesson = lesson.subLessons.find(sl => sl.id === subLessonId);
       if (subLesson && 'contentFile' in subLesson && subLesson.contentFile) {
-        // Загружаем содержимое из файла подурока
+        // Load content from sublesson file
         const contentFile = subLesson.contentFile as string;
         if (contentFile.endsWith('.md')) {
-          // Используем fetch для получения содержимого markdown файла
+          // Use fetch to get markdown file content
           const response = await fetch(`/${contentFile}`);
           if (response.ok) {
             const markdownContent = await response.text();
@@ -61,10 +38,10 @@ const loadLessonContent = async (moduleId: number, lessonId: number, subLessonId
         }
       }
     } else if (lesson && 'contentFile' in lesson && lesson.contentFile) {
-      // Загружаем содержимое из файла урока
+      // Load content from lesson file
       const contentFile = lesson.contentFile as string;
       if (contentFile.endsWith('.md')) {
-        // Используем fetch для получения содержимого markdown файла
+        // Use fetch to get markdown file content
         const response = await fetch(`/${contentFile}`);
         if (response.ok) {
           const markdownContent = await response.text();
@@ -78,74 +55,24 @@ const loadLessonContent = async (moduleId: number, lessonId: number, subLessonId
       }
     }
     
-    // Если у урока нет файла с содержимым, возвращаем заглушку
+    // If the lesson has no content file, return a placeholder
     return (
       <div className="p-0">
-        <p>Содержимое этого урока находится в разработке.</p>
+        <p>This lesson content is under development.</p>
       </div>
     );
   } catch (error) {
-    console.error('Ошибка загрузки содержимого урока:', error);
-    // В случае ошибки возвращаем заглушку
+    console.error('Error loading lesson content:', error);
+    // In case of error, return a placeholder
     return (
       <div className="p-0">
-        <p>Содержимое этого урока временно недоступно.</p>
+        <p>This lesson content is temporarily unavailable.</p>
       </div>
     );
   }
 };
 
 
-// Пример содержимого урока
-const lessonContents: Record<string, React.ReactNode> = {
- "1-1": (
-    <>
-      <h2>Что такое Python и его преимущества</h2>
-      <p>
-        Python — это высокоуровневый язык программирования общего назначения,
-        который был создан Гвидо ван Россумом и выпущен в 1991 году. Python
-        отличается простым и понятным синтаксисом, что делает его отличным
-        выбором для начинающих программистов.
-      </p>
-      <h3>Основные преимущества Python:</h3>
-      <ul>
-        <li>Простой и читаемый синтаксис</li>
-        <li>Большое сообщество и обширная документация</li>
-        <li>Множество библиотек для различных задач</li>
-        <li>Кроссплатформенность</li>
-        <li>Применение в различных областях: веб-разработка, анализ данных, машинное обучение и др.</li>
-      </ul>
-      <p>
-        Python является интерпретируемым языком, что означает, что код выполняется
-        построчно, без необходимости компиляции всей программы перед запуском.
-      </p>
-    </>
-  ),
-  "1-2": (
-    <>
-      <h2>Установка Python и среды разработки</h2>
-      <p>
-        Для начала работы с Python вам необходимо установить интерпретатор Python
-        и, при желании, интегрированную среду разработки (IDE).
-      </p>
-      <h3>Установка Python:</h3>
-      <ol>
-        <li>Перейдите на официальный сайт Python (python.org)</li>
-        <li>Скачайте последнюю версию Python для вашей операционной системы</li>
-        <li>Запустите установщик и следуйте инструкциям</li>
-        <li>Убедитесь, что опция "Add Python to PATH" отмечена</li>
-      </ol>
-      <h3>Популярные IDE для Python:</h3>
-      <ul>
-        <li>PyCharm - полнофункциональная IDE с множеством возможностей</li>
-        <li>Visual Studio Code с расширением Python</li>
-        <li>Jupyter Notebook - отлично подходит для анализа данных и обучения</li>
-        <li>IDLE - простая IDE, которая поставляется вместе с Python</li>
-      </ul>
-    </>
-  ),
-  // Другие уроки могут быть добавлены аналогично
-};
 const PythonCoursePage: React.FC = () => {
   const [currentModule, setCurrentModule] = useState<number>(1);
   const [currentLesson, setCurrentLesson] = useState<number>(1);
@@ -158,49 +85,49 @@ const PythonCoursePage: React.FC = () => {
 
   const { login } = useAuth();
 
- // Загружаем прогресс из localStorage при монтировании компонента
+ // Load progress from localStorage when component mounts
   useEffect(() => {
     const savedProgress = localStorage.getItem('pythonCourseProgress');
     if (savedProgress) {
       try {
         setCompletedLessons(JSON.parse(savedProgress));
       } catch (e) {
-        console.error('Ошибка при загрузке прогресса:', e);
+        console.error('Error loading progress:', e);
       }
     }
     
-    // Загружаем прогресс подуроков из localStorage
+    // Load sub-lesson progress from localStorage
     const savedSubLessonProgress = localStorage.getItem('pythonSubLessonProgress');
     if (savedSubLessonProgress) {
       try {
         setCompletedSubLessons(JSON.parse(savedSubLessonProgress));
       } catch (e) {
-        console.error('Ошибка при загрузке прогресса подуроков:', e);
+        console.error('Error loading sub-lesson progress:', e);
       }
     }
   }, []);
 
-  // Сохраняем прогресс в localStorage при его изменении
+  // Save progress to localStorage when it changes
   useEffect(() => {
     localStorage.setItem('pythonCourseProgress', JSON.stringify(completedLessons));
   }, [completedLessons]);
 
-  // Сохраняем прогресс подуроков в localStorage при его изменении
+  // Save sub-lesson progress to localStorage when it changes
   useEffect(() => {
     localStorage.setItem('pythonSubLessonProgress', JSON.stringify(completedSubLessons));
   }, [completedSubLessons]);
 
-  // Обработчик выбора урока
+  // Lesson selection handler
   const handleSelectLesson = useCallback(async (moduleId: number, lessonId: number) => {
-    // Отмечаем текущий урок как завершенный
+    // Mark the current lesson as completed
     setCompletedLessons(prev => {
       const moduleKey = `module-${moduleId}`;
       const lessonIndex = lessonId - 1;
       
-      // Создаем новый массив завершенных уроков для модуля, если его нет
+      // Create a new array of completed lessons for the module if it doesn't exist
       const updatedModuleLessons = [...(prev[moduleKey] || [])];
       
-      // Отмечаем урок как завершенный
+      // Mark the lesson as completed
       updatedModuleLessons[lessonIndex] = true;
       
       return {
@@ -211,22 +138,22 @@ const PythonCoursePage: React.FC = () => {
     
     setCurrentModule(moduleId);
     setCurrentLesson(lessonId);
-    setCurrentSubLesson(null); // Сбрасываем выбранный подурок при переходе к новому уроку
+    setCurrentSubLesson(null); // Reset selected sublesson when switching to a new lesson
     
-    // Загружаем содержимое урока
+    // Load lesson content
     const content = await loadLessonContent(moduleId, lessonId);
     setLessonContent(content);
   }, []);
 
-  // Обработчик выбора подурока
+  // Sublesson selection handler
   const handleSelectSubLesson = useCallback(async (subLessonId: number) => {
     setCurrentSubLesson(subLessonId);
     
-    // Загружаем содержимое подурока
+    // Load sublesson content
     const content = await loadLessonContent(currentModule, currentLesson, subLessonId);
     setLessonContent(content);
     
-    // Отмечаем подурок как завершенный
+    // Mark the sublesson as completed
     setCompletedSubLessons(prev => ({
       ...prev,
       [subLessonId]: true
@@ -238,7 +165,7 @@ const PythonCoursePage: React.FC = () => {
   const activeLesson = activeModule?.lessons.find(l => l.id === currentLesson);
   const subLessons = activeLesson?.subLessons || [];
 
-  // Обработчик события открытия формы входа
+  // Handler for login form opening event
   useEffect(() => {
     const handleOpenLoginForm = () => {
       setShowLoginForm(true);
@@ -246,7 +173,7 @@ const PythonCoursePage: React.FC = () => {
 
     window.addEventListener('openLoginForm', handleOpenLoginForm);
 
-    // Очистка слушателя при размонтировании компонента
+    // Clean up listener when component unmounts
     return () => {
       window.removeEventListener('openLoginForm', handleOpenLoginForm);
     };
@@ -257,12 +184,12 @@ const PythonCoursePage: React.FC = () => {
       await login({ email, password });
       setShowLoginForm(false);
     } catch (error) {
-      console.error('Ошибка входа:', error);
-      // Здесь можно добавить отображение сообщения об ошибке пользователю
+      console.error('Login error:', error);
+      // Here we can add error message display for the user
     }
   };
 
-  // Обработчик переключения боковой панели для мобильных устройств
+  // Handler for toggling sidebar on mobile devices
   const toggleSidebarForMobile = useCallback(() => {
     if (window.innerWidth < 768) {
       setShowSidebar(prev => !prev);
@@ -281,21 +208,21 @@ const PythonCoursePage: React.FC = () => {
       <Header />
       
       <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
-        {/* Мобильное переключение между панелями */}
+        {/* Mobile toggle between panels */}
         <div className="md:hidden bg-white/10 backdrop-blur-md p-2 border-b border-white/20">
           <button 
             onClick={toggleSidebarForMobile}
             className="w-full py-2 px-4 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 rounded flex items-center justify-center"
-            aria-label={showSidebar ? 'Скрыть навигацию' : 'Показать навигацию'}
+            aria-label={showSidebar ? 'Hide navigation' : 'Show navigation'}
           >
-            {showSidebar ? 'Скрыть содержание курса' : 'Показать содержание курса'}
+            {showSidebar ? 'Hide course content' : 'Show course content'}
           </button>
         </div>
 
-        {/* Боковая панель - 1/5 ширины на десктопе, условное отображение на мобильных */}
+        {/* Sidebar - 1/5 width on desktop, conditional display on mobile */}
         <aside 
           className={`${showSidebar ? 'block' : 'hidden'} md:block w-full md:w-1/5 border-r border-white/20 flex flex-col`}
-          aria-label="Навигация по курсу"
+          aria-label="Course navigation"
         >
           <div className="backdrop-blur-lg bg-white/10 border-white/20 flex-grow flex flex-col h-full">
             <Sidebar
@@ -305,7 +232,7 @@ const PythonCoursePage: React.FC = () => {
               currentLessonId={currentLesson}
               onSelectLesson={(moduleId, lessonId) => {
                 handleSelectLesson(moduleId, lessonId);
-                // На мобильных устройствах скрываем боковую панель после выбора урока
+                // On mobile devices, hide the sidebar after selecting a lesson
                 if (window.innerWidth < 768) {
                   setShowSidebar(false);
                 }
@@ -314,10 +241,10 @@ const PythonCoursePage: React.FC = () => {
           </div>
         </aside>
         
-        {/* Основной контент - 4/5 ширины на десктопе, условное отображение на мобильных */}
+        {/* Main content - 4/5 width on desktop, conditional display on mobile */}
         <div 
           className={`${!showSidebar ? 'block' : 'hidden'} md:block w-full md:w-4/5 flex flex-col`}
-          aria-label="Контент урока"
+          aria-label="Lesson content"
         >
           <div className="backdrop-blur-lg bg-white/10 border-white/20 flex-grow flex flex-col h-full">
             {activeModule && activeLesson ? (
@@ -331,18 +258,17 @@ const PythonCoursePage: React.FC = () => {
                 onSubLessonSelect={(subLessonId) => {
                   handleSelectSubLesson(subLessonId);
                 }}
-                contentFile={activeLesson && (activeLesson as any).contentFile}
               />
             ) : (
               <div className="p-6">
-                <p>Выберите урок из боковой панели.</p>
+                <p>Select a lesson from the sidebar.</p>
               </div>
             )}
           </div>
         </div>
       </div>
       
-      {/* Login Form Modal - рендерим только при необходимости */}
+      {/* Login Form Modal - only render when needed */}
       {showLoginForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full mx-4">

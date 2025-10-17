@@ -10,11 +10,11 @@ interface NavItem {
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { user, isAuthenticated, isAdmin, login, logout } = useAuth();
+  const { user, isAuthenticated, isAdmin, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Закрытие мобильного меню при изменении размера экрана на desktop
+  // Close mobile menu when screen size changes to desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) { // lg breakpoint
@@ -27,11 +27,11 @@ const Header = () => {
   }, []);
 
   const navLinks: NavItem[] = [
-    { title: 'Главная', url: '/' },
-    { title: 'Курсы', url: '/#courses' },
-    { title: 'Python курс', url: '/python-course' },
-    { title: 'О нас', url: '#about' },
-    { title: 'Контакты', url: '#contact' },
+    { title: 'Home', url: '/' },
+    { title: 'Courses', url: '/#courses' },
+    { title: 'Python Course', url: '/python-course' },
+    { title: 'About Us', url: '#about' },
+    { title: 'Contact', url: '#contact' },
   ];
 
   return (
@@ -70,7 +70,7 @@ const Header = () => {
                   <User size={18} />
                   <span className="text-sm">{user?.name}</span>
                   {isAdmin && (
-                    <span className="px-2 py-0.5 bg-blue-500 text-xs rounded-full" aria-label="Администратор">
+                    <span className="px-2 py-0.5 bg-blue-500 text-xs rounded-full" aria-label="Administrator">
                       Admin
                     </span>
                   )}
@@ -78,23 +78,23 @@ const Header = () => {
                 <button
                   onClick={logout}
                   className="flex items-center space-x-2 px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition-all hover:scale-105"
-                  aria-label="Выйти из аккаунта"
+                  aria-label="Logout from account"
                 >
                   <LogOut size={18} />
-                  <span>Выйти</span>
+                  <span>Logout</span>
                 </button>
               </div>
             ) : (
               <button
                 onClick={() => {
-                  // Создаем пользовательское событие для открытия формы входа
+                  // Create a custom event to open the login form
                   window.dispatchEvent(new CustomEvent('openLoginForm', { detail: {} }));
                 }}
                 className="flex items-center space-x-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-all hover:scale-105"
-                aria-label="Войти в аккаунт"
+                aria-label="Login to account"
               >
                 <User size={18} />
-                <span>Войти</span>
+                <span>Login</span>
               </button>
             )}
           </div>
@@ -103,7 +103,7 @@ const Header = () => {
           <button
             className="lg:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={isMobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -146,23 +146,23 @@ const Header = () => {
                     logout();
                     setIsMobileMenuOpen(false);
                   }}
-                  className="w-full flex items-center justify-center space-x-2 px-6 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition-all"
+                  className="w-full flex items-center justify-center space-x-2 px-6 py-2 bg-red-60 hover:bg-red-700 rounded-lg transition-all"
                 >
                   <LogOut size={18} />
-                  <span>Выйти</span>
+                  <span>Logout</span>
                 </button>
               </>
             ) : (
               <button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
-                  // Создаем пользовательское событие для открытия формы входа
+                  // Create a custom event to open the login form
                   window.dispatchEvent(new CustomEvent('openLoginForm', { detail: {} }));
                 }}
                 className="w-full flex items-center justify-center space-x-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-all"
               >
                 <User size={18} />
-                <span>Войти</span>
+                <span>Login</span>
               </button>
             )}
           </div>

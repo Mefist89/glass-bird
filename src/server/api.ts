@@ -130,13 +130,13 @@ app.post('/api/auth/register', async (req: any, res: any) => {
   } catch (error) {
     console.error('Ошибка при регистрации пользователя:', error);
     res.status(500).json({ 
-      error: error.message || 'Ошибка при регистрации пользователя' 
+      error: (error as Error).message || 'Error registering user'
     });
   }
 });
 
 // Простой health check endpoint
-app.get('/api/health', (req: any, res: any) => {
+app.get('/api/health', (_req: any, res: any) => {
   res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
