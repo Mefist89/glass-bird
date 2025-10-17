@@ -16,7 +16,6 @@ interface CourseContentProps {
   currentSubLessonId: number | null;
   completedSubLessons: Record<number, boolean>;
   onSubLessonSelect: (subLessonId: number) => void;
- contentFile?: string;
 }
 
 const CourseContent: React.FC<CourseContentProps> = ({
@@ -26,22 +25,21 @@ const CourseContent: React.FC<CourseContentProps> = ({
   subLessons,
   currentSubLessonId,
   completedSubLessons,
-  onSubLessonSelect,
-  contentFile
+  onSubLessonSelect
 }) => {
  const [isMarkdown, setIsMarkdown] = useState<boolean>(false);
  const [markdownText, setMarkdownText] = useState<string>('');
 
   useEffect(() => {
-    // Проверяем, является ли контент строкой markdown
-    if (typeof content === 'string' && content.length > 0) {
-      setMarkdownText(content);
-      setIsMarkdown(true);
-    } else {
-      setIsMarkdown(false);
-      setMarkdownText('');
-    }
-  }, [content]);
+   // Check if content is a markdown string
+   if (typeof content === 'string' && content.length > 0) {
+     setMarkdownText(content);
+     setIsMarkdown(true);
+   } else {
+     setIsMarkdown(false);
+     setMarkdownText('');
+   }
+ }, [content]);
 
   return (
     <div className="bg-white/10 backdrop-blur-lg p-6 flex-grow overflow-y-auto border-white/20 flex flex-col h-full">

@@ -1,54 +1,54 @@
-# Целые числа (int) в Python
+# Integers (int) in Python
 
-## Введение
+## Introduction
 
-Целые числа (integers) - это один из фундаментальных типов данных в Python, представляющий собой числа без десятичной точки. В этом уроке мы подробно рассмотрим работу с целыми числами в Python, включая их создание, операции и практическое применение.
+Integers are one of the fundamental data types in Python, representing numbers without a decimal point. In this lesson, we will thoroughly examine working with integers in Python, including their creation, operations, and practical applications.
 
-## Базовые понятия
+## Basic Concepts
 
-### Что такое целые числа?
+### What are integers?
 
-Целые числа в Python - это числа, которые не содержат дробной части. Они могут быть положительными, отрицательными или нулем.
+Integers in Python are numbers that do not contain a fractional part. They can be positive, negative, or zero.
 
-Примеры целых чисел:
-- 42 (положительное число)
-- -17 (отрицательное число)
-- 0 (ноль)
-- 1000000 (большое число)
+Examples of integers:
+- 42 (positive number)
+- -17 (negative number)
+- 0 (zero)
+- 1000 (large number)
 
-### Создание целых чисел
+### Creating integers
 
-В Python целые числа создаются несколькими способами:
+In Python, integers are created in several ways:
 
-1. **Прямое присваивание:**
+1. **Direct assignment:**
 ```python
 age = 25
 temperature = -10
 zero = 0
 ```
 
-2. **Через арифметические операции:**
+2. **Through arithmetic operations:**
 ```python
 result = 10 + 5  # result будет равно 15
 difference = 20 - 7  # difference будет равно 13
 ```
 
-3. **Преобразование из других типов:**
+3. **Converting from other types:**
 ```python
-# Преобразование строки в целое число
+# Converting a string to an integer
 number_str = "42"
-number_int = int(number_str)  # number_int будет равно 42
+number_int = int(number_str)  # number_int will equal 42
 
-# Преобразование вещественного числа в целое
+# Converting a floating-point number to an integer
 float_number = 3.14
-int_number = int(float_number)  # int_number будет равно 3 (дробная часть отбрасывается)
+int_number = int(float_number)  # int_number will equal 3 (fractional part is discarded)
 ```
 
-## Операции с целыми числами
+## Operations with integers
 
-### Арифметические операции
+### Arithmetic operations
 
-Python поддерживает все основные арифметические операции с целыми числами:
+Python supports all basic arithmetic operations with integers:
 
 ```python
 a = 10
@@ -76,147 +76,147 @@ mod_result = a % b  # 1
 power_result = a ** b  # 1000
 ```
 
-### Операции сравнения
+### Comparison operations
 
-Целые числа можно сравнивать между собой:
+Integers can be compared with each other:
 
 ```python
 x = 5
 y = 10
 
-print(x == y)  # False (равно)
-print(x != y)  # True (не равно)
-print(x < y)   # True (меньше)
-print(x > y)   # False (больше)
-print(x <= y)  # True (меньше или равно)
-print(x >= y)  # False (больше или равно)
+print(x == y)  # False (equal)
+print(x != y)  # True (not equal)
+print(x < y)   # True (less than)
+print(x > y)   # False (greater than)
+print(x <= y)  # True (less than or equal)
+print(x >= y)  # False (greater than or equal)
 ```
 
-### Побитовые операции
+### Bitwise operations
 
-Python также поддерживает побитовые операции с целыми числами:
+Python also supports bitwise operations with integers:
 
 ```python
-a = 5  # В двоичном виде: 101
-b = 3  # В двоичном виде: 011
+a = 5 # In binary: 101
+b = 3 # In binary: 01
 
-# Побитовое И
-bitwise_and = a & b  # 1 (в двоичном: 001)
+# Bitwise AND
+bitwise_and = a & b  # 1 (in binary: 001)
 
-# Побитовое ИЛИ
-bitwise_or = a | b   # 7 (в двоичном: 111)
+# Bitwise OR
+bitwise_or = a | b   # 7 (in binary: 111)
 
-# Побитовое исключающее ИЛИ
-bitwise_xor = a ^ b  # 6 (в двоичном: 110)
+# Bitwise exclusive OR
+bitwise_xor = a ^ b  # 6 (in binary: 110)
 
-# Побитовое НЕ
+# Bitwise NOT
 bitwise_not = ~a     # -6
 
-# Побитовый сдвиг влево
-left_shift = a << 1  # 10 (в двоичном: 1010)
+# Left bitwise shift
+left_shift = a << 1  # 10 (in binary: 1010)
 
-# Побитовый сдвиг вправо
-right_shift = a >> 1 # 2 (в двоичном: 10)
+# Right bitwise shift
+right_shift = a >> 1 # 2 (in binary: 10)
 ```
 
-## Преобразование типов
+## Type conversion
 
-### Преобразование в целое число
+### Converting to integer
 
-Функция `int()` используется для преобразования других типов данных в целое число:
+The `int()` function is used to convert other data types to an integer:
 
 ```python
-# Из строки
+# From string
 num_str = "123"
 num_int = int(num_str)  # 123
 
-# Из вещественного числа
+# From floating-point number
 num_float = 3.14
-num_int = int(num_float)  # 3 (дробная часть отбрасывается)
+num_int = int(num_float)  # 3 (fractional part is discarded)
 
-# Из булева значения
+# From boolean value
 bool_true = True
 bool_false = False
 int_true = int(bool_true)   # 1
 int_false = int(bool_false) # 0
 
-# С указанием системы счисления
-binary_str = "1010"
+# With number base specified
+binary_str = "10"
 decimal_num = int(binary_str, 2)  # 10 (двоичное 1010 в десятичной системе)
 ```
 
-### Преобразование из целого числа
+### Converting from integer
 
-Целые числа можно преобразовать в другие типы данных:
+Integers can be converted to other data types:
 
 ```python
 num = 42
 
-# В строку
+# To string
 num_str = str(num)  # "42"
 
-# В вещественное число
+# To floating-point number
 num_float = float(num)  # 42.0
 
-# В булево значение
-num_bool = bool(num)  # True (любое ненулевое число дает True)
-zero_bool = bool(0)   # False (ноль дает False)
+# To boolean value
+num_bool = bool(num)  # True (any non-zero number gives True)
+zero_bool = bool(0)   # False (zero gives False)
 ```
 
-## Практические примеры
+## Practical examples
 
-### Пример 1: Калькулятор простых операций
+### Example 1: Simple operations calculator
 
 ```python
 def simple_calculator():
-    print("Простой калькулятор")
-    print("Введите два целых числа:")
+    print("Simple calculator")
+    print("Enter two integers:")
     
-    # Получаем числа от пользователя
-    num1 = int(input("Первое число: "))
-    num2 = int(input("Второе число: "))
+    # Get numbers from user
+    num1 = int(input("First number: "))
+    num2 = int(input("Second number: "))
     
-    # Выполняем операции
-    print(f"\nРезультаты операций с {num1} и {num2}:")
-    print(f"Сложение: {num1} + {num2} = {num1 + num2}")
-    print(f"Вычитание: {num1} - {num2} = {num1 - num2}")
-    print(f"Умножение: {num1} * {num2} = {num1 * num2}")
-    print(f"Деление: {num1} / {num2} = {num1 / num2}")
-    print(f"Целочисленное деление: {num1} // {num2} = {num1 // num2}")
-    print(f"Остаток от деления: {num1} % {num2} = {num1 % num2}")
-    print(f"Возведение в степень: {num1} ** {num2} = {num1 ** num2}")
+    # Perform operations
+    print(f"\nResults of operations with {num1} and {num2}:")
+    print(f"Addition: {num1} + {num2} = {num1 + num2}")
+    print(f"Subtraction: {num1} - {num2} = {num1 - num2}")
+    print(f"Multiplication: {num1} * {num2} = {num1 * num2}")
+    print(f"Division: {num1} / {num2} = {num1 / num2}")
+    print(f"Integer division: {num1} // {num2} = {num1 // num2}")
+    print(f"Remainder: {num1} % {num2} = {num1 % num2}")
+    print(f"Exponentiation: {num1} ** {num2} = {num1 ** num2}")
 
-# Вызов функции
+# Call function
 simple_calculator()
 ```
 
-### Пример 2: Проверка четности числа
+### Example 2: Number parity check
 
 ```python
 def check_even_odd():
-    number = int(input("Введите целое число: "))
+    number = int(input("Enter an integer: "))
     
     if number % 2 == 0:
-        print(f"{number} - четное число")
+        print(f"{number} - even number")
     else:
-        print(f"{number} - нечетное число")
+        print(f"{number} - odd number")
 
-# Вызов функции
+# Call function
 check_even_odd()
 ```
 
-### Пример 3: Работа с диапазонами чисел
+### Example 3: Working with number ranges
 
 ```python
 def number_range_analysis():
-    start = int(input("Введите начальное число диапазона: "))
-    end = int(input("Введите конечное число диапазона: "))
+    start = int(input("Enter the start of the range: "))
+    end = int(input("Enter the end of the range: "))
     
-    # Подсчет суммы чисел в диапазоне
+    # Counting sum of numbers in range
     total_sum = sum(range(start, end + 1))
-    print(f"Сумма чисел от {start} до {end}: {total_sum}")
+    print(f"Sum of numbers from {start} to {end}: {total_sum}")
     
-    # Подсчет четных и нечетных чисел
+    # Counting even and odd numbers
     even_count = 0
     odd_count = 0
     
@@ -226,87 +226,87 @@ def number_range_analysis():
         else:
             odd_count += 1
     
-    print(f"Количество четных чисел: {even_count}")
-    print(f"Количество нечетных чисел: {odd_count}")
+    print(f"Number of even numbers: {even_count}")
+    print(f"Number of odd numbers: {odd_count}")
 
-# Вызов функции
+# Call function
 number_range_analysis()
 ```
 
-## Практические задания
+## Practical assignments
 
-### Задание 1: Калькулятор факториала
-Напишите программу, которая вычисляет факториал заданного числа. Факториал числа n (обозначается как n!) - это произведение всех положительных целых чисел от 1 до n.
+### Assignment 1: Factorial calculator
+Write a program that calculates the factorial of a given number. The factorial of number n (denoted as n!) is the product of all positive integers from 1 to n.
 
-Пример:
+Example:
 - 5! = 5 × 4 × 3 × 2 × 1 = 120
 
 ```python
 def factorial(n):
-    # Ваш код здесь
+    # Your code here
     pass
 
-# Тестирование
-print(factorial(5))  # Должно вывести 120
-print(factorial(0))  # Должно вывести 1 (по определению 0! = 1)
+# Testing
+print(factorial(5))  # Should output 120
+print(factorial(0))  # Should output 1 (by definition 0! = 1)
 ```
 
-### Задание 2: Определение простого числа
-Напишите функцию, которая проверяет, является ли заданное число простым. Простое число - это натуральное число больше 1, которое имеет ровно два делителя: 1 и само себя.
+### Assignment 2: Prime number determination
+Write a function that checks if a given number is prime. A prime number is a natural number greater than 1 that has exactly two divisors: 1 and itself.
 
 ```python
 def is_prime(n):
-    # Ваш код здесь
+    # Your code here
     pass
 
-# Тестирование
-print(is_prime(17))  # Должно вывести True
-print(is_prime(15))  # Должно вывести False
+# Testing
+print(is_prime(17))  # Should output True
+print(is_prime(15))  # Should output False
 ```
 
-### Задание 3: Перевод чисел между системами счисления
-Напишите программу, которая переводит десятичное число в двоичное и обратно.
+### Assignment 3: Converting numbers between number systems
+Write a program that converts a decimal number to binary and vice versa.
 
 ```python
 def decimal_to_binary(decimal):
-    # Ваш код здесь
+    # Your code here
     pass
 
 def binary_to_decimal(binary):
-    # Ваш код здесь
+    # Your code here
     pass
 
-# Тестирование
-print(decimal_to_binary(10))  # Должно вывести "1010"
-print(binary_to_decimal("1010"))  # Должно вывести 10
+# Testing
+print(decimal_to_binary(10))  # Should output "1010"
+print(binary_to_decimal("1010"))  # Should output 10
 ```
 
-### Задание 4: Числа Фибоначчи
-Напишите функцию, которая возвращает n-е число Фибоначчи. Последовательность Фибоначчи начинается с 0 и 1, а каждое следующее число равно сумме двух предыдущих.
+### Assignment 4: Fibonacci numbers
+Write a function that returns the nth Fibonacci number. The Fibonacci sequence starts with 0 and 1, and each subsequent number equals the sum of the two preceding numbers.
 
-Последовательность: 0, 1, 1, 2, 3, 5, 8, 13, 21, ...
+Sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21, ...
 
 ```python
 def fibonacci(n):
-    # Ваш код здесь
+    # Your code here
     pass
 
-# Тестирование
-print(fibonacci(0))  # Должно вывести 0
-print(fibonacci(1))  # Должно вывести 1
-print(fibonacci(6))  # Должно вывести 8
+# Testing
+print(fibonacci(0))  # Should output 0
+print(fibonacci(1))  # Should output 1
+print(fibonacci(6))  # Should output 8
 ```
 
-## Резюме
+## Summary
 
-В этом уроке мы рассмотрели:
+In this lesson, we covered:
 
-1. **Базовые понятия** - что такое целые числа и как их создавать
-2. **Арифметические операции** - сложение, вычитание, умножение, деление и другие операции
-3. **Операции сравнения** - как сравнивать целые числа между собой
-4. **Побитовые операции** - работа с битами целых чисел
-5. **Преобразование типов** - как преобразовывать целые числа в другие типы и обратно
-6. **Практические примеры** - реальные случаи использования целых чисел
-7. **Практические задания** - упражнения для закрепления материала
+1. **Basic concepts** - what integers are and how to create them
+2. **Arithmetic operations** - addition, subtraction, multiplication, division and other operations
+3. **Comparison operations** - how to compare integers with each other
+4. **Bitwise operations** - working with integer bits
+5. **Type conversion** - how to convert integers to other types and vice versa
+6. **Practical examples** - real cases of using integers
+7. **Practical assignments** - exercises to reinforce the material
 
-Целые числа являются фундаментальным типом данных в Python, и понимание их работы необходимо для любого программиста. В следующих уроках мы рассмотрим другие типы данных и более сложные структуры.
+Integers are a fundamental data type in Python, and understanding how they work is necessary for any programmer. In the following lessons, we will examine other data types and more complex structures.

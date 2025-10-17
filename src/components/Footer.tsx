@@ -5,16 +5,16 @@ const Footer = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const quickLinks = [
-    { title: 'Главная', url: '/' },
-    { title: 'Курсы', url: '/courses' },
-    { title: 'О нас', url: '/about' },
-    { title: 'Контакты', url: '/contact' },
+    { title: 'Home', url: '/' },
+    { title: 'Courses', url: '/courses' },
+    { title: 'About Us', url: '/about' },
+    { title: 'Contact', url: '/contact' },
   ];
 
   const courses = [
-    { title: 'Python для начинающих', url: '/courses/python' },
-    { title: 'Компьютерные сети', url: '/courses/networks' },
-    { title: 'Базы данных SQL', url: '/courses/sql' },
+    { title: 'Python for Beginners', url: '/courses/python' },
+    { title: 'Computer Networks', url: '/courses/networks' },
+    { title: 'SQL Databases', url: '/courses/sql' },
  ];
 
   const socialLinks = [
@@ -39,7 +39,7 @@ const Footer = () => {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-lg bg-white/10 hover:bg-white/20"
-              aria-label={isMobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -54,7 +54,7 @@ const Footer = () => {
                 <span className="text-xl font-bold">Glass Bird</span>
               </div>
               <p className="text-slate-400 mb-4">
-                Образовательная платформа для изучения современных технологий и программирования.
+                Educational platform for learning modern technologies and programming.
               </p>
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (
@@ -72,7 +72,7 @@ const Footer = () => {
 
             {/* Quick Links */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Быстрые ссылки</h3>
+              <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
               <ul className="space-y-2">
                 {quickLinks.map((link, index) => (
                   <li key={index}>
@@ -89,7 +89,7 @@ const Footer = () => {
 
             {/* Courses */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Наши курсы</h3>
+              <h3 className="text-lg font-semibold mb-4">Our Courses</h3>
               <ul className="space-y-2">
                 {courses.map((course, index) => (
                   <li key={index}>
@@ -106,7 +106,7 @@ const Footer = () => {
 
             {/* Contact Info */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Контакты</h3>
+              <h3 className="text-lg font-semibold mb-4">Contact</h3>
               <ul className="space-y-3">
                 {contactInfo.map((contact, index) => (
                   <li key={index} className="flex items-start space-x-3">
@@ -127,7 +127,7 @@ const Footer = () => {
           <div className={`lg:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} mt-6 pt-6 border-t border-white/10`}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h3 className="text-lg font-semibold mb-4">Быстрые ссылки</h3>
+                <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
                 <ul className="space-y-2">
                   {quickLinks.map((link, index) => (
                     <li key={index}>
@@ -144,7 +144,7 @@ const Footer = () => {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold mb-4">Наши курсы</h3>
+                <h3 className="text-lg font-semibold mb-4">Our Courses</h3>
                 <ul className="space-y-2">
                   {courses.map((course, index) => (
                     <li key={index}>
@@ -161,7 +161,7 @@ const Footer = () => {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold mb-4">Контакты</h3>
+                <h3 className="text-lg font-semibold mb-4">Contact</h3>
                 <ul className="space-y-3">
                   {contactInfo.map((contact, index) => (
                     <li key={index} className="flex items-start space-x-3">
@@ -185,10 +185,10 @@ const Footer = () => {
       <div className="border-t border-white/10 py-6">
         <div className="max-w-[95%] xl:max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
           <div className="text-slate-400 text-sm mb-4 md:mb-0">
-            © 2025 Glass Bird. Все права защищены.
+            © 2025 Glass Bird. All rights reserved.
           </div>
           <div className="text-slate-400 text-sm">
-            Разработано с ❤️ для студентов
+            Developed with ❤️ for students
           </div>
         </div>
       </div>
