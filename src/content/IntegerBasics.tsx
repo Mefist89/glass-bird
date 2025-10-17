@@ -3,23 +3,23 @@ import React from 'react';
 const IntegerBasics: React.FC = () => {
   return (
     <div className="integer-basics-content">
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-8 rounded-xl shadow-2xl mb-8">
+      <div className="bg-gradient-to-r from-purple-700 to-indigo-800 text-white p-8 rounded-xl shadow-2xl mb-8">
         <h1 className="text-4xl md:text-5xl font-bold mb-3 text-center">🐍 Integers (int) in Python</h1>
         <p className="text-xl text-center opacity-90">Полное руководство по работе с целыми числами</p>
       </div>
 
       <div className="prose prose-lg max-w-none">
-        <h2 className="text-3xl font-bold mb-6 text-blue-700">📚 Введение</h2>
+        <h2 className="text-3xl font-bold mb-6 text-blue-300">📚 Введение</h2>
         
-        <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg my-6">
+        <div className="bg-blue-100 border-l-4 border-blue-600 p-6 rounded-r-lg my-6 text-gray-800">
           Integers are one of the fundamental data types in Python, representing numbers without a decimal point. In this lesson, we will thoroughly examine working with integers in Python, including their creation, operations, and practical applications.
         </div>
 
-        <h2 className="text-3xl font-bold mb-6 text-green-700">🎯 Основные концепции</h2>
+        <h2 className="text-3xl font-bold mb-6 text-green-300">🎯 Основные концепции</h2>
 
-        <h3 className="text-2xl font-semibold mb-4 text-purple-600">Что такое целые числа?</h3>
+        <h3 className="text-2xl font-semibold mb-4 text-purple-300">Что такое целые числа?</h3>
         
-        <p className="mb-4">Integers in Python are numbers that do not contain a fractional part. They can be positive, negative, or zero.</p>
+        <p className="mb-4 text-gray-800">Integers in Python are numbers that do not contain a fractional part. They can be positive, negative, or zero.</p>
 
         <h4 className="text-xl font-medium mb-3">Примеры целых чисел:</h4>
 
@@ -34,12 +34,12 @@ const IntegerBasics: React.FC = () => {
           <span className="text-sm self-center">большое число</span>
         </div>
 
-        <h3 className="text-2xl font-semibold mb-4 text-purple-600 mt-8">Создание целых чисел</h3>
+        <h3 className="text-2xl font-semibold mb-4 text-purple-300 mt-8">Создание целых чисел</h3>
 
-        <p className="mb-4">В Python целые числа создаются несколькими способами:</p>
+        <p className="mb-4 text-gray-800">В Python целые числа создаются несколькими способами:</p>
 
-        <div className="bg-cyan-50 border-l-4 border-cyan-500 p-6 rounded-r-lg my-6">
-          <h4 className="text-cyan-70 font-bold text-lg mb-3">1. Прямое присваивание:</h4>
+        <div className="bg-cyan-100 border-l-4 border-cyan-600 p-6 rounded-r-lg my-6 text-gray-800">
+          <h4 className="text-cyan-800 font-bold text-lg mb-3">1. Прямое присваивание:</h4>
           <pre className="bg-gray-800 text-white p-4 rounded mt-2 overflow-x-auto">
             <code>{`age = 25
 temperature = -10
@@ -47,16 +47,16 @@ zero = 0`}</code>
           </pre>
         </div>
 
-        <div className="bg-cyan-50 border-l-4 border-cyan-500 p-6 rounded-r-lg my-6">
-          <h4 className="text-cyan-700 font-bold text-lg mb-3">2. Через арифметические операции:</h4>
+        <div className="bg-cyan-100 border-l-4 border-cyan-600 p-6 rounded-r-lg my-6 text-gray-80">
+          <h4 className="text-cyan-800 font-bold text-lg mb-3">2. Через арифметические операции:</h4>
           <pre className="bg-gray-800 text-white p-4 rounded mt-2 overflow-x-auto">
             <code>{`result = 10 + 5  # result будет равно 15
 difference = 20 - 7  # difference будет равно 13`}</code>
           </pre>
         </div>
 
-        <div className="bg-cyan-50 border-l-4 border-cyan-50 p-6 rounded-r-lg my-6">
-          <h4 className="text-cyan-700 font-bold text-lg mb-3">3. Преобразование из других типов:</h4>
+        <div className="bg-cyan-100 border-l-4 border-cyan-600 p-6 rounded-r-lg my-6 text-gray-800">
+          <h4 className="text-cyan-800 font-bold text-lg mb-3">3. Преобразование из других типов:</h4>
           <pre className="bg-gray-800 text-white p-4 rounded mt-2 overflow-x-auto">
             <code>{`# Преобразование строки в целое число
 number_str = "42"
@@ -68,11 +68,11 @@ int_number = int(float_number)  # int_number будет равно 3`}</code>
           </pre>
         </div>
 
-        <h2 className="text-3xl font-bold mb-6 text-yellow-600 mt-12">⚙️ Операции с целыми числами</h2>
+        <h2 className="text-3xl font-bold mb-6 text-yellow-300 mt-12">⚙️ Операции с целыми числами</h2>
 
-        <h3 className="text-2xl font-semibold mb-4 text-yellow-600">Арифметические операции</h3>
+        <h3 className="text-2xl font-semibold mb-4 text-yellow-300">Арифметические операции</h3>
 
-        <div className="bg-gray-50 p-6 rounded-lg my-6">
+        <div className="bg-gray-100 p-6 rounded-lg my-6 text-gray-80">
           Python поддерживает все базовые арифметические операции:
         </div>
 
@@ -102,7 +102,7 @@ mod_result = a % b  # 1
 power_result = a ** b  # 1000`}</code>
         </pre>
 
-        <h3 className="text-2xl font-semibold mb-4 text-yellow-600 mt-8">Операции сравнения</h3>
+        <h3 className="text-2xl font-semibold mb-4 text-yellow-300 mt-8">Операции сравнения</h3>
 
         <pre className="bg-gray-800 text-white p-4 rounded mt-2 overflow-x-auto">
           <code>{`x = 5
@@ -116,9 +116,9 @@ print(x <= y)  # True (меньше или равно)
 print(x >= y)  # False (больше или равно)`}</code>
         </pre>
 
-        <h3 className="text-2xl font-semibold mb-4 text-yellow-600 mt-8">Побитовые операции</h3>
+        <h3 className="text-2xl font-semibold mb-4 text-yellow-300 mt-8">Побитовые операции</h3>
 
-        <div className="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg my-6">
+        <div className="bg-indigo-100 border-l-4 border-indigo-600 p-6 rounded-r-lg my-6 text-gray-800">
           Python также поддерживает побитовые операции с целыми числами:
         </div>
 
@@ -145,11 +145,11 @@ left_shift = a << 1  # 10 (в двоичной: 1010)
 right_shift = a >> 1 # 2 (в двоичной: 10)`}</code>
         </pre>
 
-        <h2 className="text-3xl font-bold mb-6 text-pink-600 mt-12">🔄 Преобразование типов</h2>
+        <h2 className="text-3xl font-bold mb-6 text-pink-300 mt-12">🔄 Преобразование типов</h2>
 
-        <h3 className="text-2xl font-semibold mb-4 text-pink-60">Преобразование в целое число</h3>
+        <h3 className="text-2xl font-semibold mb-4 text-pink-300">Преобразование в целое число</h3>
 
-        <div className="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg my-6">
+        <div className="bg-purple-100 border-l-4 border-purple-600 p-6 rounded-r-lg my-6 text-gray-800">
           Функция <code className="bg-purple-200 px-2 py-1 rounded text-purple-800 font-mono">int()</code> используется для преобразования других типов данных в целое число:
         </div>
 
@@ -173,7 +173,7 @@ binary_str = "1010"
 decimal_num = int(binary_str, 2)  # 10`}</code>
         </pre>
 
-        <h3 className="text-2xl font-semibold mb-4 text-pink-600 mt-8">Преобразование из целого числа</h3>
+        <h3 className="text-2xl font-semibold mb-4 text-pink-300 mt-8">Преобразование из целого числа</h3>
 
         <pre className="bg-gray-800 text-white p-4 rounded mt-2 overflow-x-auto">
           <code>{`num = 42
@@ -189,9 +189,9 @@ num_bool = bool(num)  # True
 zero_bool = bool(0)   # False`}</code>
         </pre>
 
-        <h2 className="text-3xl font-bold mb-6 text-teal-600 mt-12">💡 Практические примеры</h2>
+        <h2 className="text-3xl font-bold mb-6 text-teal-300 mt-12">💡 Практические примеры</h2>
 
-        <div className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white p-6 rounded-xl shadow-lg my-6">
+        <div className="bg-gradient-to-r from-cyan-600 to-blue-700 text-white p-6 rounded-xl shadow-lg my-6">
           <h3 className="text-2xl font-bold mb-4">Пример 1: Калькулятор простых операций</h3>
           <pre className="bg-gray-900 text-white p-4 rounded mt-2 overflow-x-auto">
             <code>{`def simple_calculator():
@@ -210,7 +210,7 @@ simple_calculator()`}</code>
           </pre>
         </div>
 
-        <div className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white p-6 rounded-xl shadow-lg my-6">
+        <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-6 rounded-xl shadow-lg my-6">
           <h3 className="text-2xl font-bold mb-4">Пример 2: Проверка чётности числа</h3>
           <pre className="bg-gray-900 text-white p-4 rounded mt-2 overflow-x-auto">
             <code>{`def check_even_odd():
@@ -225,7 +225,7 @@ check_even_odd()`}</code>
           </pre>
         </div>
 
-        <div className="bg-gradient-to-r from-violet-500 to-purple-500 text-white p-6 rounded-xl shadow-lg my-6">
+        <div className="bg-gradient-to-r from-violet-600 to-purple-600 text-white p-6 rounded-xl shadow-lg my-6">
           <h3 className="text-2xl font-bold mb-4">Пример 3: Работа с диапазонами чисел</h3>
           <pre className="bg-gray-900 text-white p-4 rounded mt-2 overflow-x-auto">
             <code>{`def number_range_analysis():
@@ -253,9 +253,9 @@ number_range_analysis()`}</code>
           </pre>
         </div>
 
-        <h2 className="text-3xl font-bold mb-6 text-orange-600 mt-12">📝 Практические задания</h2>
+        <h2 className="text-3xl font-bold mb-6 text-orange-300 mt-12">📝 Практические задания</h2>
 
-        <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg my-6">
+        <div className="bg-yellow-100 border-l-4 border-yellow-600 p-6 rounded-r-lg my-6 text-gray-800">
           <h3 className="text-yellow-800 font-bold text-xl mb-3">⚡ Задание 1: Калькулятор факториала</h3>
           <p className="text-gray-70 mb-4">Напишите программу, которая вычисляет факториал заданного числа. Факториал числа n (обозначается как n!) - это произведение всех положительных целых чисел от 1 до n.</p>
           <p className="text-sm text-gray-600 mb-3"><strong>Пример:</strong> 5! = 5 × 4 × 3 × 2 × 1 = 120</p>
@@ -272,8 +272,8 @@ print(factorial(0))  # Должно вывести 1
           </pre>
         </div>
 
-        <div className="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg my-6">
-          <h3 className="text-orange-800 font-bold text-xl mb-3">⚡ Задание 2: Определение простого числа</h3>
+        <div className="bg-orange-100 border-l-4 border-orange-600 p-6 rounded-r-lg my-6 text-gray-800">
+          <h3 className="text-orange-900 font-bold text-xl mb-3">⚡ Задание 2: Определение простого числа</h3>
           <p className="text-gray-70 mb-4">Напишите функцию, которая проверяет, является ли заданное число простым. Простое число - это натуральное число больше 1, которое имеет ровно два делителя: 1 и само себя.</p>
 
           <pre className="bg-gray-800 text-white p-4 rounded mt-2 overflow-x-auto">
@@ -288,8 +288,8 @@ print(is_prime(15))  # Должно вывести False
           </pre>
         </div>
 
-        <div className="bg-pink-50 border-l-4 border-pink-500 p-6 rounded-r-lg my-6">
-          <h3 className="text-pink-800 font-bold text-xl mb-3">⚡ Задание 3: Преобразование систем счисления</h3>
+        <div className="bg-pink-100 border-l-4 border-pink-600 p-6 rounded-r-lg my-6 text-gray-800">
+          <h3 className="text-pink-900 font-bold text-xl mb-3">⚡ Задание 3: Преобразование систем счисления</h3>
           <p className="text-gray-700 mb-4">Напишите программу, которая преобразует десятичное число в двоичное и наоборот.</p>
 
           <pre className="bg-gray-800 text-white p-4 rounded mt-2 overflow-x-auto">
@@ -308,8 +308,8 @@ print(binary_to_decimal("1010"))  # Должно вывести 10
           </pre>
         </div>
 
-        <div className="bg-teal-50 border-l-4 border-teal-500 p-6 rounded-r-lg my-6">
-          <h3 className="text-teal-800 font-bold text-xl mb-3">⚡ Задание 4: Числа Фибоначчи</h3>
+        <div className="bg-teal-100 border-l-4 border-teal-600 p-6 rounded-r-lg my-6 text-gray-800">
+          <h3 className="text-teal-900 font-bold text-xl mb-3">⚡ Задание 4: Числа Фибоначчи</h3>
           <p className="text-gray-70 mb-4">Напишите функцию, которая возвращает n-ное число Фибоначчи. Последовательность Фибоначчи начинается с 0 и 1, и каждое последующее число равно сумме двух предыдущих.</p>
           <p className="text-sm text-gray-600 mb-3"><strong>Последовательность:</strong> 0, 1, 1, 2, 3, 5, 8, 13, 21, ...</p>
 
@@ -326,9 +326,9 @@ print(fibonacci(6))  # Должно вывести 8
           </pre>
         </div>
 
-        <h2 className="text-3xl font-bold mb-6 text-green-600 mt-12">📌 Резюме</h2>
+        <h2 className="text-3xl font-bold mb-6 text-green-300 mt-12">📌 Резюме</h2>
 
-        <div className="bg-gradient-to-r from-green-400 to-emerald-50 text-white p-8 rounded-xl shadow-2xl my-8">
+        <div className="bg-gradient-to-r from-green-700 to-emerald-700 text-white p-8 rounded-xl shadow-2xl my-8">
           <h3 className="text-3xl font-bold mb-6 text-center">🎓 Что мы изучили</h3>
           
           <div className="grid md:grid-cols-2 gap-4">
@@ -364,7 +364,7 @@ print(fibonacci(6))  # Должно вывести 8
           </div>
         </div>
 
-        <div className="bg-gray-100 p-6 rounded-lg text-center my-8">
+        <div className="bg-gray-200 p-6 rounded-lg text-center my-8 text-gray-800">
           <p className="text-gray-600 text-lg">🐍 Python Programming Tutorial | Integers (int) Data Type</p>
           <p className="text-gray-50 mt-2">Целые числа — фундаментальный тип данных в Python</p>
         </div>
