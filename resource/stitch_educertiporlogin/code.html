@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>glassbird - Sign In</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#06f9f9", 
+                        "primary-dark": "#04cfcf",
+                        "background-dark": "#050a15", 
+                        "surface-dark": "#0d1526",
+                        "border-dark": "#1e293b",
+                        "glass-border": "rgba(255, 255, 255, 0.1)",
+                    },
+                    fontFamily: {
+                        display: ["Space Grotesk", "sans-serif"],
+                        body: ["Noto Sans", "sans-serif"],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px -5px rgba(6, 249, 249, 0.3)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        .glass-card {
+            background: rgba(13, 21, 38, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .grid-pattern {
+            background-image: linear-gradient(rgba(6, 249, 249, 0.03) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(6, 249, 249, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-slate-100 font-body antialiased selection:bg-primary selection:text-background-dark overflow-hidden">
+<div class="relative flex min-h-screen w-full flex-col items-center justify-center px-4 overflow-hidden">
+<div class="absolute inset-0 grid-pattern pointer-events-none"></div>
+<div class="absolute top-1/4 -right-24 h-96 w-96 rounded-full bg-primary/5 blur-[120px] pointer-events-none"></div>
+<div class="absolute bottom-1/4 -left-24 h-96 w-96 rounded-full bg-blue-600/5 blur-[120px] pointer-events-none"></div>
+<div class="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+<svg class="w-full h-full max-w-4xl" fill="none" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+<circle cx="400" cy="300" fill="#06f9f9" r="2"></circle>
+<circle cx="200" cy="150" fill="#06f9f9" r="1.5"></circle>
+<circle cx="600" cy="450" fill="#06f9f9" r="1.5"></circle>
+<circle cx="150" cy="400" fill="#06f9f9" r="1"></circle>
+<circle cx="650" cy="150" fill="#06f9f9" r="1"></circle>
+<line stroke="#06f9f9" stroke-width="0.5" x1="400" x2="200" y1="300" y2="150"></line>
+<line stroke="#06f9f9" stroke-width="0.5" x1="400" x2="600" y1="300" y2="450"></line>
+<line stroke="#06f9f9" stroke-dasharray="4 4" stroke-width="0.5" x1="200" x2="650" y1="150" y2="150"></line>
+<line stroke="#06f9f9" stroke-width="0.5" x1="150" x2="400" y1="400" y2="300"></line>
+</svg>
+</div>
+<main class="relative z-10 w-full max-w-[450px]">
+<div class="glass-card rounded-3xl p-8 md:p-12 shadow-glass border border-white/10">
+<div class="flex flex-col items-center text-center mb-10">
+<div class="flex items-center gap-2 mb-6">
+<div class="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20">
+<span class="material-symbols-outlined text-3xl">code_blocks</span>
+</div>
+<h1 class="font-display text-2xl font-bold tracking-tight text-white">glassbird</h1>
+</div>
+<h2 class="font-display text-3xl font-bold text-white mb-2">Welcome Back</h2>
+<p class="text-slate-400 text-sm">Sign in to continue your learning journey</p>
+</div>
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-slate-500 ml-1" for="email">Email Address</label>
+<div class="relative">
+<input class="w-full rounded-xl bg-surface-dark/50 border-white/5 py-3 px-4 text-white placeholder:text-slate-600 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all outline-none" id="email" placeholder="name@company.com" type="email"/>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center px-1">
+<label class="text-xs font-semibold uppercase tracking-wider text-slate-500" for="password">Password</label>
+</div>
+<div class="relative">
+<input class="w-full rounded-xl bg-surface-dark/50 border-white/5 py-3 px-4 text-white placeholder:text-slate-600 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all outline-none" id="password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<div class="flex items-center justify-end">
+<a class="text-xs font-medium text-slate-400 hover:text-primary transition-colors" href="#">Forgot Password?</a>
+</div>
+<button class="w-full bg-primary hover:bg-primary-dark text-background-dark font-bold py-3.5 rounded-xl shadow-glow transition-all transform hover:scale-[1.01] active:scale-[0.98]" type="submit">
+                        Sign In
+                    </button>
+</form>
+<div class="mt-8 pt-8 border-t border-white/5 text-center">
+<p class="text-sm text-slate-400">
+                        Don't have an account? 
+                        <a class="text-primary font-bold hover:underline ml-1" href="#">Sign Up</a>
+</p>
+</div>
+</div>
+<div class="mt-8 flex justify-center gap-6">
+<a class="text-xs text-slate-500 hover:text-slate-300 transition-colors" href="#">Help Center</a>
+<a class="text-xs text-slate-500 hover:text-slate-300 transition-colors" href="#">Privacy Policy</a>
+<a class="text-xs text-slate-500 hover:text-slate-300 transition-colors" href="#">Terms of Service</a>
+</div>
+</main>
+</div>
+
+</body></html>

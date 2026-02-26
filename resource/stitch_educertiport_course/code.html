@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>glassbird - Courses Catalog</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#06f9f9", 
+                        "primary-dark": "#04cfcf",
+                        "background-light": "#f0fdfd", 
+                        "background-dark": "#0b1212", 
+                        "surface-dark": "#162222",
+                        "surface-light": "#ffffff",
+                        "border-dark": "#2a3f3f",
+                        "glass-border": "rgba(255, 255, 255, 0.1)",
+                        "glass-bg": "rgba(22, 34, 34, 0.6)",
+                    },
+                    fontFamily: {
+                        display: ["Space Grotesk", "sans-serif"],
+                        body: ["Noto Sans", "sans-serif"],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px -5px rgba(6, 249, 249, 0.3)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                    },
+                    backdropBlur: {
+                        'xs': '2px',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b1212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a3f3f;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06f9f9;
+        }
+        .glass-card {
+            background: rgba(22, 34, 34, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-gradient {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+        }.custom-checkbox:checked {
+            background-color: #06f9f9;
+            border-color: #06f9f9;
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='black' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-body antialiased selection:bg-primary selection:text-background-dark">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-border-dark bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+<div class="flex items-center gap-2 text-slate-900 dark:text-white">
+<div class="flex size-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-2xl">code_blocks</span>
+</div>
+<h2 class="font-display text-xl font-bold tracking-tight">glassbird</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-bold text-primary transition-colors" href="#">Courses</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-slate-600 dark:text-slate-300" href="#">Mentors</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-slate-600 dark:text-slate-300" href="#">Community</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-slate-600 dark:text-slate-300" href="#">Pricing</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden sm:flex text-sm font-semibold hover:text-primary transition-colors text-slate-600 dark:text-slate-300">
+                        Log In
+                    </button>
+<button class="flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-background-dark hover:bg-primary-dark transition-colors shadow-glow">
+                        Sign Up
+                    </button>
+</div>
+</div>
+</header>
+<main class="flex-1 relative">
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-background-dark to-background-dark pointer-events-none"></div>
+<div class="absolute top-20 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<section class="relative pt-12 pb-20">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col gap-8">
+<div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+<div class="max-w-2xl">
+<h1 class="font-display text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
+                                Explore Our Courses
+                            </h1>
+<p class="mt-4 text-lg text-slate-600 dark:text-slate-400">
+                                Discover premium, mentor-led courses to accelerate your tech career.
+                            </p>
+</div>
+<div class="w-full lg:w-auto flex-1 max-w-md">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+</div>
+<input class="block w-full rounded-xl border border-border-dark bg-surface-dark/50 py-3 pl-10 pr-4 text-slate-100 placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary sm:text-sm shadow-glass backdrop-blur-sm" placeholder="Search for Python, AWS, Security..." type="text"/>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3 pb-4 border-b border-border-dark/50">
+<span class="text-sm font-semibold text-slate-400 mr-2">Popular Topics:</span>
+<button class="rounded-full bg-primary/10 border border-primary/20 px-4 py-1.5 text-sm font-medium text-primary hover:bg-primary hover:text-background-dark transition-all">All Courses</button>
+<button class="rounded-full bg-surface-dark border border-border-dark px-4 py-1.5 text-sm font-medium text-slate-400 hover:border-primary/50 hover:text-white transition-all">Programming</button>
+<button class="rounded-full bg-surface-dark border border-border-dark px-4 py-1.5 text-sm font-medium text-slate-400 hover:border-primary/50 hover:text-white transition-all">Networking</button>
+<button class="rounded-full bg-surface-dark border border-border-dark px-4 py-1.5 text-sm font-medium text-slate-400 hover:border-primary/50 hover:text-white transition-all">Cloud Computing</button>
+<button class="rounded-full bg-surface-dark border border-border-dark px-4 py-1.5 text-sm font-medium text-slate-400 hover:border-primary/50 hover:text-white transition-all">Cybersecurity</button>
+<button class="rounded-full bg-surface-dark border border-border-dark px-4 py-1.5 text-sm font-medium text-slate-400 hover:border-primary/50 hover:text-white transition-all">DevOps</button>
+</div>
+<div class="flex flex-col lg:flex-row gap-8 mt-2">
+<aside class="w-full lg:w-64 flex-shrink-0 space-y-8">
+<div class="glass-card rounded-xl p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-display text-lg font-bold text-white">Filters</h3>
+<button class="text-xs text-primary hover:underline">Reset All</button>
+</div>
+<div class="space-y-6">
+<div>
+<h4 class="text-sm font-semibold text-slate-300 mb-3">Level</h4>
+<div class="space-y-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="custom-checkbox h-4 w-4 rounded border-border-dark bg-surface-dark text-primary focus:ring-primary focus:ring-offset-background-dark" type="checkbox"/>
+<span class="text-sm text-slate-400 group-hover:text-white transition-colors">Beginner</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="custom-checkbox h-4 w-4 rounded border-border-dark bg-surface-dark text-primary focus:ring-primary focus:ring-offset-background-dark" type="checkbox"/>
+<span class="text-sm text-slate-400 group-hover:text-white transition-colors">Intermediate</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="custom-checkbox h-4 w-4 rounded border-border-dark bg-surface-dark text-primary focus:ring-primary focus:ring-offset-background-dark" type="checkbox"/>
+<span class="text-sm text-slate-400 group-hover:text-white transition-colors">Advanced</span>
+</label>
+</div>
+</div>
+<div class="h-px bg-border-dark/50"></div>
+<div>
+<h4 class="text-sm font-semibold text-slate-300 mb-3">Price Range</h4>
+<div class="space-y-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="custom-checkbox h-4 w-4 rounded border-border-dark bg-surface-dark text-primary focus:ring-primary focus:ring-offset-background-dark" type="checkbox"/>
+<span class="text-sm text-slate-400 group-hover:text-white transition-colors">Free</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="custom-checkbox h-4 w-4 rounded border-border-dark bg-surface-dark text-primary focus:ring-primary focus:ring-offset-background-dark" type="checkbox"/>
+<span class="text-sm text-slate-400 group-hover:text-white transition-colors">Paid</span>
+</label>
+</div>
+</div>
+<div class="h-px bg-border-dark/50"></div>
+<div>
+<h4 class="text-sm font-semibold text-slate-300 mb-3">Duration</h4>
+<div class="space-y-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="custom-checkbox h-4 w-4 rounded border-border-dark bg-surface-dark text-primary focus:ring-primary focus:ring-offset-background-dark" type="checkbox"/>
+<span class="text-sm text-slate-400 group-hover:text-white transition-colors">0-4 Weeks</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="custom-checkbox h-4 w-4 rounded border-border-dark bg-surface-dark text-primary focus:ring-primary focus:ring-offset-background-dark" type="checkbox"/>
+<span class="text-sm text-slate-400 group-hover:text-white transition-colors">4-12 Weeks</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="custom-checkbox h-4 w-4 rounded border-border-dark bg-surface-dark text-primary focus:ring-primary focus:ring-offset-background-dark" type="checkbox"/>
+<span class="text-sm text-slate-400 group-hover:text-white transition-colors">12+ Weeks</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-xl p-6 bg-gradient-to-br from-primary/10 to-surface-dark border-primary/20">
+<h3 class="font-display text-lg font-bold text-white mb-2">Need Help?</h3>
+<p class="text-sm text-slate-400 mb-4">Talk to a career counselor to find the right path for you.</p>
+<button class="w-full rounded-lg bg-surface-dark/50 hover:bg-surface-dark border border-white/10 px-4 py-2 text-sm font-semibold text-white transition-all">Chat with Us</button>
+</div>
+</aside>
+<div class="flex-1">
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<div class="glass-card rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-300 flex flex-col group border hover:border-primary/50 hover:shadow-glow">
+<div class="h-48 bg-gradient-to-br from-blue-900/40 to-slate-900 flex items-center justify-center relative group-hover:from-blue-900/60 transition-colors">
+<div class="absolute top-4 left-4 bg-surface-dark/80 backdrop-blur px-2 py-1 rounded-md text-[10px] font-bold text-slate-300 border border-white/10 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-yellow-400">star</span> 4.8
+                                            </div>
+<div class="absolute top-4 right-4 bg-surface-dark/80 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold text-green-400 border border-white/10">Beginner</div>
+<span class="material-symbols-outlined text-7xl text-blue-400 opacity-80 group-hover:scale-110 transition-transform duration-300">terminal</span>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="mb-3 flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-slate-700 bg-cover bg-center ring-1 ring-white/20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBn8CauQtAGPKNOcHQqmFTPLE7ZeSoGyuEKsgLeRFpg_UOCb8zbuAf23JK4Hw-NmJ6zO3bZb5Jyh3yhMK-bQQBJSLFMsBmr0tl6qAJYYIjJRMSwGtAOJjuF2ugGdYnF946WWnjVorIGXpRnR0Qr4-19QfG6_1WwSXoMYKRASKFjPmdH9YnHxyYougqSQUFvZFcCtL4Y6C9OLT03UPHYG7CwwWuHhTiEDDEsT6cMd7SdApdLeQI1yNZCRs_0tdiN00LVBSmVz3juFsAf')"></div>
+<span class="text-xs text-slate-400">Prof. Sarah Jenkins</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-2 font-display group-hover:text-primary transition-colors">Python Programming Masterclass</h3>
+<p class="text-slate-400 text-sm mb-6 flex-1 line-clamp-2">Master the fundamentals of Python, from syntax to data structures, and build your first automation scripts.</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+<div class="flex flex-col">
+<span class="text-xs text-slate-500">Duration</span>
+<span class="text-sm font-medium text-slate-300">8 Weeks</span>
+</div>
+<button class="text-background-dark bg-primary hover:bg-primary-dark px-4 py-2 rounded-lg text-sm font-bold transition-colors shadow-[0_0_10px_rgba(6,249,249,0.3)]">Enroll Now</button>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-300 flex flex-col group border hover:border-primary/50 hover:shadow-glow">
+<div class="h-48 bg-gradient-to-br from-indigo-900/40 to-slate-900 flex items-center justify-center relative group-hover:from-indigo-900/60 transition-colors">
+<div class="absolute top-4 left-4 bg-surface-dark/80 backdrop-blur px-2 py-1 rounded-md text-[10px] font-bold text-slate-300 border border-white/10 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-yellow-400">star</span> 4.9
+                                            </div>
+<div class="absolute top-4 right-4 bg-surface-dark/80 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold text-yellow-400 border border-white/10">Intermediate</div>
+<span class="material-symbols-outlined text-7xl text-indigo-400 opacity-80 group-hover:scale-110 transition-transform duration-300">hub</span>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="mb-3 flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-slate-700 bg-cover bg-center ring-1 ring-white/20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDkJEMQk83AgBei-Di_-rlH33K31qk2E9x0DfvdpogUxSy1Gf7JmpZvhO1Lwf6x7RqdvfKKeRRYKNaKEQjIZuqmeQxtQEkNQ0kUCGbY31qGfFDyDWmaYiQBcFg4zwocd4J3rufPCIP_9_kGms8HhntwZDYt7sgnkOFA1VZ6jM8jB4LsvUO5tUTspEkZviEDsJh14G721BUbHDIuwXCg7wZtPUe8rM0vhBZeII3RlxD6kZiZCcEhsl-3F97y9Q3GmMi49YUhB4I3GzYU')"></div>
+<span class="text-xs text-slate-400">Dr. Alan Chen</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-2 font-display group-hover:text-primary transition-colors">Computer Networks &amp; Security</h3>
+<p class="text-slate-400 text-sm mb-6 flex-1 line-clamp-2">Deep dive into TCP/IP, routing protocols, and essential network security practices for modern infrastructure.</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+<div class="flex flex-col">
+<span class="text-xs text-slate-500">Duration</span>
+<span class="text-sm font-medium text-slate-300">10 Weeks</span>
+</div>
+<button class="text-background-dark bg-primary hover:bg-primary-dark px-4 py-2 rounded-lg text-sm font-bold transition-colors shadow-[0_0_10px_rgba(6,249,249,0.3)]">Enroll Now</button>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-300 flex flex-col group border hover:border-primary/50 hover:shadow-glow">
+<div class="h-48 bg-gradient-to-br from-emerald-900/40 to-slate-900 flex items-center justify-center relative group-hover:from-emerald-900/60 transition-colors">
+<div class="absolute top-4 left-4 bg-surface-dark/80 backdrop-blur px-2 py-1 rounded-md text-[10px] font-bold text-slate-300 border border-white/10 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-yellow-400">star</span> 4.7
+                                            </div>
+<div class="absolute top-4 right-4 bg-surface-dark/80 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold text-red-400 border border-white/10">Advanced</div>
+<span class="material-symbols-outlined text-7xl text-emerald-400 opacity-80 group-hover:scale-110 transition-transform duration-300">database</span>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="mb-3 flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-slate-700 bg-cover bg-center ring-1 ring-white/20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCe_fPdCZAxRFqg3JlgbgfHBP3safy0eiX_LoLgyGmYll_lIqeVn1bsNt7LLD3MFi8v12sZiyhbRKx-JL5_f3dJn_rq91NMWeTUf5vD6RXiHL7e7DTc9eP-UAJbWL_GYqKdGo2_7HCTD1zJuRs67-hvsG-aOfK6tbGYfF3zU6Nvo30fq4PpP8DAVSMvZXjMpKbNa2mCYJLp5r9zTMXWS22tdm1vWuCobYWXZT1YBpWTK4dW3hno1l2IUJCDGg5tnurWx_I9X9QWUD-m')"></div>
+<span class="text-xs text-slate-400">Maria Rodriguez</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-2 font-display group-hover:text-primary transition-colors">Advanced SQL &amp; Database Design</h3>
+<p class="text-slate-400 text-sm mb-6 flex-1 line-clamp-2">Architect scalable databases. Master complex queries, optimization techniques, and NoSQL alternatives.</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+<div class="flex flex-col">
+<span class="text-xs text-slate-500">Duration</span>
+<span class="text-sm font-medium text-slate-300">12 Weeks</span>
+</div>
+<button class="text-background-dark bg-primary hover:bg-primary-dark px-4 py-2 rounded-lg text-sm font-bold transition-colors shadow-[0_0_10px_rgba(6,249,249,0.3)]">Enroll Now</button>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-300 flex flex-col group border hover:border-primary/50 hover:shadow-glow">
+<div class="h-48 bg-gradient-to-br from-purple-900/40 to-slate-900 flex items-center justify-center relative group-hover:from-purple-900/60 transition-colors">
+<div class="absolute top-4 left-4 bg-surface-dark/80 backdrop-blur px-2 py-1 rounded-md text-[10px] font-bold text-slate-300 border border-white/10 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-yellow-400">star</span> 4.9
+                                            </div>
+<div class="absolute top-4 right-4 bg-surface-dark/80 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold text-red-400 border border-white/10">Advanced</div>
+<span class="material-symbols-outlined text-7xl text-purple-400 opacity-80 group-hover:scale-110 transition-transform duration-300">cloud_upload</span>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="mb-3 flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-slate-700 bg-cover bg-center ring-1 ring-white/20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBn8CauQtAGPKNOcHQqmFTPLE7ZeSoGyuEKsgLeRFpg_UOCb8zbuAf23JK4Hw-NmJ6zO3bZb5Jyh3yhMK-bQQBJSLFMsBmr0tl6qAJYYIjJRMSwGtAOJjuF2ugGdYnF946WWnjVorIGXpRnR0Qr4-19QfG6_1WwSXoMYKRASKFjPmdH9YnHxyYougqSQUFvZFcCtL4Y6C9OLT03UPHYG7CwwWuHhTiEDDEsT6cMd7SdApdLeQI1yNZCRs_0tdiN00LVBSmVz3juFsAf')"></div>
+<span class="text-xs text-slate-400">James Wilson</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-2 font-display group-hover:text-primary transition-colors">AWS Solutions Architect</h3>
+<p class="text-slate-400 text-sm mb-6 flex-1 line-clamp-2">Comprehensive preparation for the SAA-C03 exam with hands-on labs and real-world scenarios.</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+<div class="flex flex-col">
+<span class="text-xs text-slate-500">Duration</span>
+<span class="text-sm font-medium text-slate-300">14 Weeks</span>
+</div>
+<button class="text-background-dark bg-primary hover:bg-primary-dark px-4 py-2 rounded-lg text-sm font-bold transition-colors shadow-[0_0_10px_rgba(6,249,249,0.3)]">Enroll Now</button>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-300 flex flex-col group border hover:border-primary/50 hover:shadow-glow">
+<div class="h-48 bg-gradient-to-br from-cyan-900/40 to-slate-900 flex items-center justify-center relative group-hover:from-cyan-900/60 transition-colors">
+<div class="absolute top-4 left-4 bg-surface-dark/80 backdrop-blur px-2 py-1 rounded-md text-[10px] font-bold text-slate-300 border border-white/10 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-yellow-400">star</span> 4.6
+                                            </div>
+<div class="absolute top-4 right-4 bg-surface-dark/80 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold text-yellow-400 border border-white/10">Intermediate</div>
+<span class="material-symbols-outlined text-7xl text-cyan-400 opacity-80 group-hover:scale-110 transition-transform duration-300">security</span>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="mb-3 flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-slate-700 bg-cover bg-center ring-1 ring-white/20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDkJEMQk83AgBei-Di_-rlH33K31qk2E9x0DfvdpogUxSy1Gf7JmpZvhO1Lwf6x7RqdvfKKeRRYKNaKEQjIZuqmeQxtQEkNQ0kUCGbY31qGfFDyDWmaYiQBcFg4zwocd4J3rufPCIP_9_kGms8HhntwZDYt7sgnkOFA1VZ6jM8jB4LsvUO5tUTspEkZviEDsJh14G721BUbHDIuwXCg7wZtPUe8rM0vhBZeII3RlxD6kZiZCcEhsl-3F97y9Q3GmMi49YUhB4I3GzYU')"></div>
+<span class="text-xs text-slate-400">Elena Kovic</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-2 font-display group-hover:text-primary transition-colors">Ethical Hacking Basics</h3>
+<p class="text-slate-400 text-sm mb-6 flex-1 line-clamp-2">Learn penetration testing methodologies, vulnerability assessment, and how to secure networks.</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+<div class="flex flex-col">
+<span class="text-xs text-slate-500">Duration</span>
+<span class="text-sm font-medium text-slate-300">10 Weeks</span>
+</div>
+<button class="text-background-dark bg-primary hover:bg-primary-dark px-4 py-2 rounded-lg text-sm font-bold transition-colors shadow-[0_0_10px_rgba(6,249,249,0.3)]">Enroll Now</button>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-300 flex flex-col group border hover:border-primary/50 hover:shadow-glow">
+<div class="h-48 bg-gradient-to-br from-orange-900/40 to-slate-900 flex items-center justify-center relative group-hover:from-orange-900/60 transition-colors">
+<div class="absolute top-4 left-4 bg-surface-dark/80 backdrop-blur px-2 py-1 rounded-md text-[10px] font-bold text-slate-300 border border-white/10 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-yellow-400">star</span> 4.8
+                                            </div>
+<div class="absolute top-4 right-4 bg-surface-dark/80 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold text-green-400 border border-white/10">Beginner</div>
+<span class="material-symbols-outlined text-7xl text-orange-400 opacity-80 group-hover:scale-110 transition-transform duration-300">deployed_code</span>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="mb-3 flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-slate-700 bg-cover bg-center ring-1 ring-white/20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCe_fPdCZAxRFqg3JlgbgfHBP3safy0eiX_LoLgyGmYll_lIqeVn1bsNt7LLD3MFi8v12sZiyhbRKx-JL5_f3dJn_rq91NMWeTUf5vD6RXiHL7e7DTc9eP-UAJbWL_GYqKdGo2_7HCTD1zJuRs67-hvsG-aOfK6tbGYfF3zU6Nvo30fq4PpP8DAVSMvZXjMpKbNa2mCYJLp5r9zTMXWS22tdm1vWuCobYWXZT1YBpWTK4dW3hno1l2IUJCDGg5tnurWx_I9X9QWUD-m')"></div>
+<span class="text-xs text-slate-400">David Miller</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-2 font-display group-hover:text-primary transition-colors">DevOps Essentials</h3>
+<p class="text-slate-400 text-sm mb-6 flex-1 line-clamp-2">Introduction to CI/CD pipelines, Docker containers, and Kubernetes orchestration.</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+<div class="flex flex-col">
+<span class="text-xs text-slate-500">Duration</span>
+<span class="text-sm font-medium text-slate-300">6 Weeks</span>
+</div>
+<button class="text-background-dark bg-primary hover:bg-primary-dark px-4 py-2 rounded-lg text-sm font-bold transition-colors shadow-[0_0_10px_rgba(6,249,249,0.3)]">Enroll Now</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12 flex justify-center">
+<button class="flex items-center gap-2 rounded-lg border border-border-dark bg-surface-dark px-6 py-3 text-sm font-semibold text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+                                Load More Courses
+                                <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-slate-200 dark:border-border-dark bg-white dark:bg-background-dark py-12">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2 text-slate-900 dark:text-white">
+<div class="flex size-6 items-center justify-center text-slate-400 dark:text-slate-500">
+<span class="material-symbols-outlined text-xl">code_blocks</span>
+</div>
+<span class="font-display text-lg font-bold tracking-tight text-slate-400 dark:text-slate-500">glassbird</span>
+</div>
+<div class="text-slate-500 text-sm">
+                    © 2024 glassbird Inc. All rights reserved.
+                </div>
+<div class="flex gap-6">
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="sr-only">Twitter</span>
+<svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
+</a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="sr-only">GitHub</span>
+<svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path></svg>
+</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

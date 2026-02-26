@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>glassbird - Lesson: Advanced Python Concurrency</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#06f9f9", 
+                        "primary-dark": "#04cfcf",
+                        "background-light": "#f0fdfd", 
+                        "background-dark": "#0b1212", 
+                        "surface-dark": "#162222",
+                        "surface-light": "#ffffff",
+                        "border-dark": "#2a3f3f",
+                        "glass-border": "rgba(255, 255, 255, 0.1)",
+                        "glass-bg": "rgba(22, 34, 34, 0.6)",
+                    },
+                    fontFamily: {
+                        display: ["Space Grotesk", "sans-serif"],
+                        body: ["Noto Sans", "sans-serif"],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px -5px rgba(6, 249, 249, 0.3)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                    },
+                    backdropBlur: {
+                        'xs': '2px',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b1212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a3f3f;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06f9f9;
+        }
+        .glass-card {
+            background: rgba(22, 34, 34, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-btn:hover {
+            background: rgba(6, 249, 249, 0.1);
+            border-color: rgba(6, 249, 249, 0.3);
+            box-shadow: 0 0 15px -3px rgba(6, 249, 249, 0.15);
+        }
+        .glass-gradient {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+        }
+        .video-progress::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            background: #06f9f9;
+            cursor: pointer;
+            box-shadow: 0 0 10px #06f9f9;
+            margin-top: -4px;
+        }
+        .video-progress::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-body antialiased selection:bg-primary selection:text-background-dark">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-border-dark bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+<div class="flex items-center gap-2 text-slate-900 dark:text-white">
+<div class="flex size-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-2xl">code_blocks</span>
+</div>
+<h2 class="font-display text-xl font-bold tracking-tight">glassbird</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium text-primary hover:text-primary transition-colors" href="#">My Learning</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-slate-600 dark:text-slate-300" href="#">Courses</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-slate-600 dark:text-slate-300" href="#">Community</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-slate-600 dark:text-slate-300" href="#">Resources</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="h-8 w-8 rounded-full bg-gradient-to-tr from-primary to-purple-500 p-[2px]">
+<div class="h-full w-full rounded-full bg-background-dark bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBn8CauQtAGPKNOcHQqmFTPLE7ZeSoGyuEKsgLeRFpg_UOCb8zbuAf23JK4Hw-NmJ6zO3bZb5Jyh3yhMK-bQQBJSLFMsBmr0tl6qAJYYIjJRMSwGtAOJjuF2ugGdYnF946WWnjVorIGXpRnR0Qr4-19QfG6_1WwSXoMYKRASKFjPmdH9YnHxyYougqSQUFvZFcCtL4Y6C9OLT03UPHYG7CwwWuHhTiEDDEsT6cMd7SdApdLeQI1yNZCRs_0tdiN00LVBSmVz3juFsAf')"></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 relative">
+<div class="fixed inset-0 pointer-events-none z-0">
+<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px]"></div>
+<div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-[80px]"></div>
+</div>
+<div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+<div class="flex flex-col lg:flex-row gap-8">
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 text-sm text-slate-500 mb-6">
+<a class="hover:text-primary transition-colors" href="#">Python Programming</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-slate-300">Module 4: Advanced Concurrency</span>
+</div>
+<div class="w-full rounded-2xl overflow-hidden glass-card shadow-glass border border-white/5 relative group mb-8">
+<div class="aspect-video bg-black relative">
+<div class="absolute inset-0 flex items-center justify-center bg-surface-dark">
+<span class="material-symbols-outlined text-6xl text-slate-600">play_circle</span>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+<div class="w-full mb-4">
+<input class="video-progress w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer" max="100" min="0" type="range" value="35"/>
+</div>
+<div class="flex items-center justify-between text-white">
+<div class="flex items-center gap-4">
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined">play_arrow</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined">replay_10</span></button>
+<span class="text-sm font-mono">12:45 / 45:30</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined">closed_caption</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined">settings</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined">fullscreen</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+<button class="glass-card glass-btn px-6 py-4 rounded-xl flex items-center justify-center gap-3 text-slate-300 hover:text-white transition-all group">
+<div class="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-background-dark transition-colors">
+<span class="material-symbols-outlined">description</span>
+</div>
+<span class="font-medium">Brief Summary (PDF)</span>
+</button>
+<button class="glass-card glass-btn px-6 py-4 rounded-xl flex items-center justify-center gap-3 text-slate-300 hover:text-white transition-all group">
+<div class="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-background-dark transition-colors">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<span class="font-medium">Lesson Code</span>
+</button>
+<button class="glass-card glass-btn px-6 py-4 rounded-xl flex items-center justify-center gap-3 text-slate-300 hover:text-white transition-all group">
+<div class="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-background-dark transition-colors">
+<span class="material-symbols-outlined">segment</span>
+</div>
+<span class="font-medium">Full Transcript</span>
+</button>
+</div>
+<div class="glass-card rounded-2xl p-8 border border-white/5">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h1 class="text-3xl font-display font-bold text-white mb-2">Understanding AsyncIO Event Loops</h1>
+<p class="text-slate-400">Published on Oct 14, 2023 • Last updated 2 days ago</p>
+</div>
+<button class="flex items-center gap-2 text-sm font-bold text-primary border border-primary/30 px-4 py-2 rounded-lg hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+                                Mark Complete
+                            </button>
+</div>
+<div class="prose prose-invert prose-slate max-w-none">
+<p class="text-slate-300 leading-relaxed mb-4">
+                                In this lesson, we dive deep into the core of Python's asynchronous programming model: the Event Loop. We will explore how `asyncio` manages tasks, handles I/O operations without blocking the main thread, and ensures your applications remain responsive under load.
+                            </p>
+<h3 class="text-xl font-bold text-white mt-8 mb-4">Key Takeaways</h3>
+<ul class="space-y-3 mb-6">
+<li class="flex items-start gap-3 text-slate-300">
+<span class="material-symbols-outlined text-green-400 mt-1">check</span>
+<span>The role of the event loop as the central execution device.</span>
+</li>
+<li class="flex items-start gap-3 text-slate-300">
+<span class="material-symbols-outlined text-green-400 mt-1">check</span>
+<span>Differences between multi-threading and asynchronous I/O.</span>
+</li>
+<li class="flex items-start gap-3 text-slate-300">
+<span class="material-symbols-outlined text-green-400 mt-1">check</span>
+<span>Implementation of custom event loop policies for specific OS requirements.</span>
+</li>
+</ul>
+<div class="bg-surface-dark/50 rounded-xl p-6 border-l-4 border-primary mt-8">
+<h4 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">tips_and_updates</span>
+                                    Pro Tip
+                                </h4>
+<p class="text-slate-400 text-sm">
+                                    Always remember to use `asyncio.run()` as the main entry point for your async programs in Python 3.7+, rather than manually managing loop instantiation unless absolutely necessary.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:w-96 flex-shrink-0">
+<div class="sticky top-24 space-y-6">
+<div class="glass-card rounded-2xl p-6 border border-white/5">
+<h3 class="text-lg font-bold text-white mb-4">Your Progress</h3>
+<div class="flex items-center justify-between text-sm text-slate-400 mb-2">
+<span>Module 4 of 12</span>
+<span>65% Complete</span>
+</div>
+<div class="w-full h-2 bg-surface-dark rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[65%] rounded-full shadow-[0_0_10px_rgba(6,249,249,0.5)]"></div>
+</div>
+</div>
+<div class="glass-card rounded-2xl border border-white/5 overflow-hidden">
+<div class="p-4 border-b border-white/5 bg-surface-dark/50">
+<h3 class="font-bold text-white">Module Content</h3>
+</div>
+<div class="max-h-[calc(100vh-400px)] overflow-y-auto custom-scrollbar">
+<div class="divide-y divide-white/5">
+<a class="flex items-start gap-3 p-4 hover:bg-white/5 transition-colors group cursor-pointer" href="#">
+<div class="mt-1">
+<span class="material-symbols-outlined text-green-400 text-lg">check_circle</span>
+</div>
+<div>
+<h4 class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Introduction to Concurrency</h4>
+<p class="text-xs text-slate-500 mt-1">10 min • Video</p>
+</div>
+</a>
+<a class="flex items-start gap-3 p-4 hover:bg-white/5 transition-colors group cursor-pointer" href="#">
+<div class="mt-1">
+<span class="material-symbols-outlined text-green-400 text-lg">check_circle</span>
+</div>
+<div>
+<h4 class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Threads vs Processes</h4>
+<p class="text-xs text-slate-500 mt-1">25 min • Video</p>
+</div>
+</a>
+<div class="flex items-start gap-3 p-4 bg-primary/10 border-l-2 border-primary">
+<div class="mt-1">
+<span class="material-symbols-outlined text-primary text-lg">play_circle</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-white">Understanding AsyncIO Event Loops</h4>
+<p class="text-xs text-primary/70 mt-1">45 min • Video • Current</p>
+</div>
+</div>
+<a class="flex items-start gap-3 p-4 hover:bg-white/5 transition-colors group cursor-pointer" href="#">
+<div class="mt-1">
+<span class="material-symbols-outlined text-slate-600 text-lg">lock</span>
+</div>
+<div>
+<h4 class="text-sm font-medium text-slate-400 group-hover:text-white transition-colors">Coroutines and Tasks</h4>
+<p class="text-xs text-slate-500 mt-1">30 min • Video</p>
+</div>
+</a>
+<a class="flex items-start gap-3 p-4 hover:bg-white/5 transition-colors group cursor-pointer" href="#">
+<div class="mt-1">
+<span class="material-symbols-outlined text-slate-600 text-lg">lock</span>
+</div>
+<div>
+<h4 class="text-sm font-medium text-slate-400 group-hover:text-white transition-colors">Lab: Building a Chat Server</h4>
+<p class="text-xs text-slate-500 mt-1">60 min • Interactive Lab</p>
+</div>
+</a>
+<a class="flex items-start gap-3 p-4 hover:bg-white/5 transition-colors group cursor-pointer" href="#">
+<div class="mt-1">
+<span class="material-symbols-outlined text-slate-600 text-lg">lock</span>
+</div>
+<div>
+<h4 class="text-sm font-medium text-slate-400 group-hover:text-white transition-colors">Error Handling in Async</h4>
+<p class="text-xs text-slate-500 mt-1">20 min • Video</p>
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-6 border border-white/5 flex items-center gap-4">
+<div class="h-12 w-12 rounded-full bg-slate-700 bg-cover bg-center ring-2 ring-primary/20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCe_fPdCZAxRFqg3JlgbgfHBP3safy0eiX_LoLgyGmYll_lIqeVn1bsNt7LLD3MFi8v12sZiyhbRKx-JL5_f3dJn_rq91NMWeTUf5vD6RXiHL7e7DTc9eP-UAJbWL_GYqKdGo2_7HCTD1zJuRs67-hvsG-aOfK6tbGYfF3zU6Nvo30fq4PpP8DAVSMvZXjMpKbNa2mCYJLp5r9zTMXWS22tdm1vWuCobYWXZT1YBpWTK4dW3hno1l2IUJCDGg5tnurWx_I9X9QWUD-m')"></div>
+<div>
+<p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Instructor</p>
+<h4 class="text-white font-bold text-sm">Sarah Jenkins</h4>
+<p class="text-xs text-slate-500">Sr. Python Engineer @ Google</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="border-t border-slate-200 dark:border-border-dark bg-white dark:bg-background-dark py-12 mt-12">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2 text-slate-900 dark:text-white">
+<div class="flex size-6 items-center justify-center text-slate-400 dark:text-slate-500">
+<span class="material-symbols-outlined text-xl">code_blocks</span>
+</div>
+<span class="font-display text-lg font-bold tracking-tight text-slate-400 dark:text-slate-500">glassbird</span>
+</div>
+<div class="text-slate-500 text-sm">
+                    © 2024 glassbird Inc. All rights reserved.
+                </div>
+<div class="flex gap-6">
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="sr-only">Twitter</span>
+<svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
+</a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="sr-only">GitHub</span>
+<svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path></svg>
+</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

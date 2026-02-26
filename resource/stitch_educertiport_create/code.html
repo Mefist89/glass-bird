@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>glassbird - Sign Up</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#06f9f9", 
+                        "primary-dark": "#04cfcf",
+                        "background-dark": "#050a15", 
+                        "surface-dark": "#0d1526",
+                        "border-dark": "#1e293b",
+                        "glass-border": "rgba(255, 255, 255, 0.1)",
+                    },
+                    fontFamily: {
+                        display: ["Space Grotesk", "sans-serif"],
+                        body: ["Noto Sans", "sans-serif"],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px -5px rgba(6, 249, 249, 0.3)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        .glass-card {
+            background: rgba(13, 21, 38, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .grid-pattern {
+            background-image: linear-gradient(rgba(6, 249, 249, 0.03) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(6, 249, 249, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(6, 249, 249, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-slate-100 font-body antialiased selection:bg-primary selection:text-background-dark overflow-hidden">
+<div class="relative flex min-h-screen w-full flex-col items-center justify-center px-4 overflow-hidden">
+<div class="absolute inset-0 grid-pattern pointer-events-none"></div>
+<div class="absolute top-1/4 -right-24 h-96 w-96 rounded-full bg-primary/5 blur-[120px] pointer-events-none"></div>
+<div class="absolute bottom-1/4 -left-24 h-96 w-96 rounded-full bg-blue-600/5 blur-[120px] pointer-events-none"></div>
+<div class="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+<svg class="w-full h-full max-w-4xl" fill="none" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+<circle cx="400" cy="300" fill="#06f9f9" r="2"></circle>
+<circle cx="200" cy="150" fill="#06f9f9" r="1.5"></circle>
+<circle cx="600" cy="450" fill="#06f9f9" r="1.5"></circle>
+<circle cx="150" cy="400" fill="#06f9f9" r="1"></circle>
+<circle cx="650" cy="150" fill="#06f9f9" r="1"></circle>
+<line stroke="#06f9f9" stroke-width="0.5" x1="400" x2="200" y1="300" y2="150"></line>
+<line stroke="#06f9f9" stroke-width="0.5" x1="400" x2="600" y1="300" y2="450"></line>
+<line stroke="#06f9f9" stroke-dasharray="4 4" stroke-width="0.5" x1="200" x2="650" y1="150" y2="150"></line>
+<line stroke="#06f9f9" stroke-width="0.5" x1="150" x2="400" y1="400" y2="300"></line>
+</svg>
+</div>
+<main class="relative z-10 w-full max-w-[480px]">
+<div class="glass-card rounded-3xl p-8 md:p-10 shadow-glass border border-white/10">
+<div class="flex flex-col items-center text-center mb-8">
+<div class="flex items-center gap-2 mb-6">
+<div class="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20">
+<span class="material-symbols-outlined text-3xl">code_blocks</span>
+</div>
+<h1 class="font-display text-2xl font-bold tracking-tight text-white">glassbird</h1>
+</div>
+<h2 class="font-display text-3xl font-bold text-white mb-2">Create Account</h2>
+<p class="text-slate-400 text-sm">Start your IT mastery today</p>
+</div>
+<form class="space-y-5">
+<div class="space-y-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-slate-500 ml-1" for="fullname">Full Name</label>
+<div class="relative">
+<input class="w-full rounded-xl bg-surface-dark/50 border-white/5 py-3 px-4 text-white placeholder:text-slate-600 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all outline-none" id="fullname" placeholder="John Doe" type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-slate-500 ml-1" for="email">Email Address</label>
+<div class="relative">
+<input class="w-full rounded-xl bg-surface-dark/50 border-white/5 py-3 px-4 text-white placeholder:text-slate-600 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all outline-none" id="email" placeholder="name@company.com" type="email"/>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center px-1">
+<label class="text-xs font-semibold uppercase tracking-wider text-slate-500" for="password">Password</label>
+</div>
+<div class="relative">
+<input class="w-full rounded-xl bg-surface-dark/50 border-white/5 py-3 px-4 text-white placeholder:text-slate-600 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all outline-none" id="password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<button class="w-full mt-2 bg-primary hover:bg-primary-dark text-background-dark font-bold py-3.5 rounded-xl shadow-glow transition-all transform hover:scale-[1.01] active:scale-[0.98]" type="submit">
+                        Create Account
+                    </button>
+</form>
+<div class="relative my-8">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-white/10"></div>
+</div>
+<div class="relative flex justify-center text-xs uppercase">
+<span class="bg-[#0d1526]/80 px-2 text-slate-500 backdrop-blur-xl">or sign up with</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4 mb-8">
+<button class="glass-btn flex items-center justify-center rounded-xl py-3 group">
+<svg class="h-5 w-5 fill-slate-400 group-hover:fill-white transition-colors" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"></path>
+</svg>
+</button>
+<button class="glass-btn flex items-center justify-center rounded-xl py-3 group">
+<svg class="h-5 w-5 fill-slate-400 group-hover:fill-white transition-colors" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.419-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
+</svg>
+</button>
+<button class="glass-btn flex items-center justify-center rounded-xl py-3 group">
+<svg class="h-5 w-5 fill-slate-400 group-hover:fill-white transition-colors" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+</svg>
+</button>
+</div>
+<div class="pt-4 border-t border-white/5 text-center">
+<p class="text-sm text-slate-400">
+                        Already have an account? 
+                        <a class="text-primary font-bold hover:underline ml-1" href="#">Sign In</a>
+</p>
+</div>
+</div>
+<div class="mt-8 flex justify-center gap-6">
+<a class="text-xs text-slate-500 hover:text-slate-300 transition-colors" href="#">Help Center</a>
+<a class="text-xs text-slate-500 hover:text-slate-300 transition-colors" href="#">Privacy Policy</a>
+<a class="text-xs text-slate-500 hover:text-slate-300 transition-colors" href="#">Terms of Service</a>
+</div>
+</main>
+</div>
+</body></html>
